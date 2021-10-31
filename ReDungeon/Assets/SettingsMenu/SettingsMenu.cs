@@ -7,15 +7,20 @@ using UnityEngine.UI;
 public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
-    public Slider masterSlider, musicSlider, soundsSlider;
     public Dropdown graphicsQualityDropdown, resolutionDropdown;
+    public Slider masterSlider, musicSlider, soundsSlider;
+    
+    public Scrollbar scrollbar;
 
     Resolution[] resolutions;
 
 
     private void Start()
     {
+        scrollbar.value = 1;
         graphicsQualityDropdown.value = QualitySettings.GetQualityLevel();
+
+        SetMasterVolume(masterSlider.value);
 
         resolutions = Screen.resolutions;
 
