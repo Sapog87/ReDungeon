@@ -1,12 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
 {
-    public AudioMixer audioMixer;
+    public SettingsManager settingsManager;
     public Dropdown graphicsQualityDropdown, resolutionDropdown;
     public Slider masterSlider, musicSlider, soundsSlider;
     
@@ -14,13 +12,14 @@ public class SettingsMenu : MonoBehaviour
 
     Resolution[] resolutions;
 
-
     private void Start()
     {
         scrollbar.value = 1;
-        graphicsQualityDropdown.value = QualitySettings.GetQualityLevel();
 
-        SetMasterVolume(masterSlider.value);
+        masterSlider.minValue = settingsManager.minVolume;
+        masterSlider.maxValue = settingsManager.maxVolume;
+
+        graphicsQualityDropdown.value = QualitySettings.GetQualityLevel();
 
         resolutions = Screen.resolutions;
 
@@ -47,23 +46,17 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetMasterVolume(float volume)
     {
-        audioMixer.SetFloat("masterVolume", volume);
-        audioMixer.SetFloat("musicVolume", masterSlider.minValue + (volume + masterSlider.maxValue - masterSlider.minValue) * musicSlider.value);
-        audioMixer.SetFloat("soundsVolume", masterSlider.minValue + (volume + masterSlider.maxValue - masterSlider.minValue) * soundsSlider.value);
+        settingsManager.SetMasterVolume(volume, musicSlider.value, soundsSlider.value);
     }
 
     public void SetMusicVolume(float percentage)
     {
-        float volume;
-        audioMixer.GetFloat("masterVolume", out volume);
-        audioMixer.SetFloat("musicVolume", masterSlider.minValue + (volume + masterSlider.maxValue - masterSlider.minValue) * percentage);
+        settingsManager.SetMusicVolume(percentage);
     }
 
     public void SetSoundsVolume(float percentage)
     {
-        float volume;
-        audioMixer.GetFloat("masterVolume", out volume);
-        audioMixer.SetFloat("soundsVolume", masterSlider.minValue + (volume + masterSlider.maxValue - masterSlider.minValue) * percentage);
+        settingsManager.SetSoundsVolume(percentage);
     }
 
     public void SetQuality (int qualityIndex)
