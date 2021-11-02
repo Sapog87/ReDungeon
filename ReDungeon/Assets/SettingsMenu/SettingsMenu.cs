@@ -16,9 +16,6 @@ public class SettingsMenu : MonoBehaviour
     {
         scrollbar.value = 1;
 
-        masterSlider.minValue = settingsManager.minVolume;
-        masterSlider.maxValue = settingsManager.maxVolume;
-
         graphicsQualityDropdown.value = QualitySettings.GetQualityLevel();
 
         resolutions = Screen.resolutions;

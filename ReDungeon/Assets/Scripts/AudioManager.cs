@@ -68,6 +68,23 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlayMaster(params string[] names)
+    {
+        AudioMixerGroup audioMixerGroup = audioMixer.FindMatchingGroups("Master")[0];
+        if (audioMixerGroup == null)
+            return;
+
+        foreach (string name in names)
+        {
+            Audio next = Array.Find(audios, audio => audio.Name == name);
+            if (next != null)
+            {
+                next.source.outputAudioMixerGroup = audioMixerGroup;
+                next.source.Play();
+            }
+        }
+    }
+
     public void StopPlaying(string name)
     {
         Audio next = Array.Find(audios, audio => audio.Name == name);
