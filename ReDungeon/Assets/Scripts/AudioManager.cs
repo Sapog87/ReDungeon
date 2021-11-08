@@ -101,4 +101,15 @@ public class AudioManager : MonoBehaviour
                 audio.source.Stop();
     }
 
+    public bool IsPlaying(string name)
+    {
+        Audio next = Array.Find(audios, audio => audio.Name == name);
+        return next.source.isPlaying;
+    }
+
+    public void SetPlayTiming(string name, float seconds)
+    {
+        Audio next = Array.Find(audios, audio => audio.Name == name);
+        next.source.time = seconds;
+    }
 }
