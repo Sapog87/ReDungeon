@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eightDoorsRooms:
-  - {fileID: 8587105694463087457, guid: 80f2fe766ed27fe48ae1161ae2749d1c, type: 3}
+  - {fileID: 3924408682529004996, guid: 80f2fe766ed27fe48ae1161ae2749d1c, type: 3}
   startingRoom: {fileID: 3892135010725742947, guid: b880474e349a0c54da367a1e982948cb, type: 3}
   artifactRoom: {fileID: 3892135010725742947, guid: b880474e349a0c54da367a1e982948cb, type: 3}
   horizontalTunnel: {fileID: 4985165297030304890, guid: f16fcc84062917b4aa3dd54de92664cf, type: 3}
