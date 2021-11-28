@@ -15,6 +15,8 @@ public class MainPlayerMovement : MonoBehaviour
         playerTag = "Player";
         mainPlayer = GameObject.FindGameObjectWithTag(playerTag);
         speed = 10f;
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void FixedUpdate()
@@ -27,6 +29,4 @@ public class MainPlayerMovement : MonoBehaviour
         mainPlayer.transform.Translate(Vector2.up * speed * yPos * Time.fixedDeltaTime);
         mainPlayer.transform.Translate(Vector2.right * speed * xPos * Time.fixedDeltaTime);
     }
-
-
 }

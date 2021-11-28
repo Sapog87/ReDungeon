@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: LargeTorchBlue
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: -5661470098979752903, guid: 50fb05f7a1e4143488f5d0f1c6f652e8, type: 3}
+  - {fileID: -8723782267139252090, guid: 50fb05f7a1e4143488f5d0f1c6f652e8, type: 3}
+  - {fileID: -5012439550993698117, guid: 50fb05f7a1e4143488f5d0f1c6f652e8, type: 3}
+  - {fileID: 4578133758099177986, guid: 50fb05f7a1e4143488f5d0f1c6f652e8, type: 3}
+  - {fileID: 281180385194792398, guid: 50fb05f7a1e4143488f5d0f1c6f652e8, type: 3}
+  - {fileID: -426007143105791238, guid: 50fb05f7a1e4143488f5d0f1c6f652e8, type: 3}
+  - {fileID: -7084696492064115014, guid: 50fb05f7a1e4143488f5d0f1c6f652e8, type: 3}
+  - {fileID: -5075711596891258376, guid: 50fb05f7a1e4143488f5d0f1c6f652e8, type: 3}
+  m_MinSpeed: 2
+  m_MaxSpeed: 4
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 1
