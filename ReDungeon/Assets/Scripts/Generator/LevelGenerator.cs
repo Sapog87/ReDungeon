@@ -8,6 +8,7 @@ public class LevelGenerator : MonoBehaviour
     public EightDoorsRoom[] eightDoorsRooms; //Массив комнат с 8 дверьми
     public FourDoorsRoom startingRoom; //Стартовая комната (4 двери)
     public FourDoorsRoom artifactRoom;
+    public EightDoorsRoom bossRoom;
     public GameObject horizontalTunnel; //Ячейка горизонтального тунеля
     public GameObject verticalTunnel; //Ячейка вертикального тунеля
     private Room[,] spawnedRooms; //Сетка размещенных комнат
@@ -17,7 +18,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void Start()
     {
-        countEightDoorsRooms = 10;
+        countEightDoorsRooms = eightDoorsRooms.Length;
         n = 9;
         k = n / 2;
 
@@ -31,10 +32,11 @@ public class LevelGenerator : MonoBehaviour
         while (countEightDoorsRooms-- > 0)
         {
             //yield return new WaitForSecondsRealtime(2f);
-            if (!PlaceRoom(GetRandomRoom()))
+            if (!PlaceRoom(GetRandomRoom(countEightDoorsRooms)))
                 break;
         }
         PlaceRoom(artifactRoom);
+        PlaceRoom(bossRoom);
         CloseDoors(); //Закрывает все двери которые остались открыты и не соединены 
         MakeTunnels(); //Строит тунели между соединенными комнатами
     }
@@ -134,8 +136,10 @@ public class LevelGenerator : MonoBehaviour
 
         return true;
     }
-    private Room GetRandomRoom()
-        => eightDoorsRooms[Random.Range(0, eightDoorsRooms.Count())];
+    private Room GetRandomRoom(int i)
+    { 
+        return eightDoorsRooms[i];
+    }
     private bool HasOpenDoor(Room room, Room.Sides side)
     {
         if (room is EightDoorsRoom)
