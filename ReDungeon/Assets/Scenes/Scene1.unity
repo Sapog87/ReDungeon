@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eightDoorsRooms:
+  - {fileID: 6423159920926940059, guid: c060073f8405ea9428a3fe72b149bc6f, type: 3}
   - {fileID: 526955101823429986, guid: 30d200bcf4f358c42bf4216f9d493644, type: 3}
   - {fileID: 6103757574496058254, guid: 80f2fe766ed27fe48ae1161ae2749d1c, type: 3}
   - {fileID: 8089404571989132949, guid: 42b3fe4e2952a5d409b0a2db0c50d776, type: 3}
@@ -249,9 +250,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingLayerID: 230878153
+  m_SortingLayer: 3
+  m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0.990566, g: 0, b: 0, a: 1}
   m_FlipX: 0
