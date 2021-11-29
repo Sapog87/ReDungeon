@@ -1838,7 +1838,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36793b2c4ee171543a274ea8cb90a45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 8669061485179607866}
+  floor: {fileID: 2543339504953117824}
+  decorativeTilemap: {fileID: 8669061485179607866}
   tiles:
   - {fileID: 11400000, guid: e3701f3972d11b74eac4c931d60c1518, type: 2}
   - {fileID: 11400000, guid: e1cc948e0b18ea542a6958f1062f3431, type: 2}

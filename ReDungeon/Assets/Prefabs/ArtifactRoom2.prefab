@@ -6166,7 +6166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36793b2c4ee171543a274ea8cb90a45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 8832207235258190839}
   tiles:
   - {fileID: 11400000, guid: 1a6389316a9b8b347ab26970bfa7a641, type: 2}
   - {fileID: 11400000, guid: 033fe246f66d6a248a100de59ef32d41, type: 2}
@@ -6177,6 +6176,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d26570ccebcb2f44f82b4ee9ac584744, type: 2}
   - {fileID: 11400000, guid: 4121b2171d8d8d341b1984c74ee1e8c7, type: 2}
   - {fileID: 11400000, guid: bae9693aca3f3cf41a3d35294f39fc5a, type: 2}
+  - {fileID: 11400000, guid: e1cc948e0b18ea542a6958f1062f3431, type: 2}
+  - {fileID: 11400000, guid: e3701f3972d11b74eac4c931d60c1518, type: 2}
 --- !u!1 &4439833134714177415
 GameObject:
   m_ObjectHideFlags: 0

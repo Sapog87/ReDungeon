@@ -3,21 +3,31 @@ using UnityEngine.Tilemaps;
 
 public class RandomTilemapFill : MonoBehaviour
 {
-    [SerializeField] private Tilemap tilemap;
+    private Tilemap floor, decorativeTilemap;
     [SerializeField] private TileBase[] tiles;
-    
 
     private void Start()
     {
-        foreach (var position in tilemap.cellBounds.allPositionsWithin)
+        floor = transform.Find("FloorBase").GetComponent<Tilemap>();
+        decorativeTilemap = transform.Find("FloorLayer2").GetComponent<Tilemap>();
+
+        foreach (var position in floor.cellBounds.allPositionsWithin)
         {
-            if (tilemap.HasTile(position))
+            if (CantPlaceTile(position))
                 continue;
 
             if (Fill())
-                tilemap.SetTile(position, GetRandomTile(tiles));
+                decorativeTilemap.SetTile(position, GetRandomTile(tiles));
         }
     }
+
+    /// <summary>
+    /// Checks if the tile exists on the floor and is not busy by other tile on the same tilemap
+    /// </summary>
+    /// <param name="position">Position of the tile</param>
+    /// <returns>true if can, false if not</returns>
+    private bool CantPlaceTile(Vector3Int position) =>
+        !floor.HasTile(position) || decorativeTilemap.HasTile(position);
 
     /// <summary>
     /// Determines if the empty tile should be filled
