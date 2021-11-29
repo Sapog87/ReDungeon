@@ -3,13 +3,15 @@ using UnityEngine.Tilemaps;
 
 public class RandomTilemapFill : MonoBehaviour
 {
-    private Tilemap floor, decorativeTilemap;
+    private Tilemap floor, decorativeTilemap, wallDecorTop, wallDecorLR;
     [SerializeField] private TileBase[] tiles;
 
     private void Start()
     {
         floor = transform.Find("FloorBase").GetComponent<Tilemap>();
         decorativeTilemap = transform.Find("FloorLayer2").GetComponent<Tilemap>();
+        wallDecorTop = transform.Find("WallDecorTop").GetComponent<Tilemap>();
+        wallDecorLR = transform.Find("WallDecorLR").GetComponent<Tilemap>();
 
         foreach (var position in floor.cellBounds.allPositionsWithin)
         {
@@ -27,7 +29,8 @@ public class RandomTilemapFill : MonoBehaviour
     /// <param name="position">Position of the tile</param>
     /// <returns>true if can, false if not</returns>
     private bool CantPlaceTile(Vector3Int position) =>
-        !floor.HasTile(position) || decorativeTilemap.HasTile(position);
+        !floor.HasTile(position) || decorativeTilemap.HasTile(position) ||
+        wallDecorTop.HasTile(position) || wallDecorLR.HasTile(position);
 
     /// <summary>
     /// Determines if the empty tile should be filled
