@@ -1,24 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Bite : Action
 {
-    public string name => "Bite";
-    public TargetType targetType => TargetType.unit;
-    public CDType CDType => CDType.none;
-    public int MaxUses { get; } = -1;
-    public int MaxCooldown { get; } = -1;
-    public int usesLeft { get; set; }
-    public int cooldown { get; set; }
-    public override Unit[] GetValidTargets(Unit User)
+    public Bite() 
     {
-        return User.enemies;
+        Name = "Bite";
+        TargetType = TargetType.ONE;
+        CDType = CDType.none;
+        MaxUses = -1;
+        MaxCooldown = -1;
+        ResetCooldown();
+    }
+    public override List<Unit> GetValidTargets(Unit User)
+    {
+        return User.enemies.Where(x => !x.isDead).ToList();
     }
 
-    public override void invoke(Unit User, Unit[] targets)
+    public override void Invoke(Unit User, Unit target)
     {
-        Unit.Attack(targets[0], User, this, 15, false, 5);
+        User.Attack(target, User, this, 20, false, 5);
         // TODO replace with proper recoil
         User.recoil += 10;
     }

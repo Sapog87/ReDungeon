@@ -1,24 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class HealSelf : Action
 {
-    public string name => "Mediocre Healing";
-    public TargetType targetType => TargetType.unit;
-    public CDType CDType => CDType.fight;
-    public int MaxUses { get; } = 3;
-    public int MaxCooldown { get; } = 1;
-    public int usesLeft { get; set; }
-    public int cooldown { get; set; }
-    public override Unit[] GetValidTargets(Unit User)
+    public HealSelf() 
     {
-        return new Unit[]{User};
+        Name = "Mediocre Healing";
+        TargetType = TargetType.ONE;
+        CDType = CDType.fight;
+        MaxUses = 3;
+        MaxCooldown = 1;
+        ResetCooldown();
     }
-    public override void invoke(Unit User, Unit[] targets)
+    public override List<Unit> GetValidTargets(Unit User)
     {
-        Unit.Heal(User, targets[0], 40);
+        return new List<Unit>{User}.Where(x=>x.currentHP/x.maxHP<0.75).ToList();
+    }
+    public override void Invoke(Unit User, Unit target)
+    {
+        User.Heal(User, target, 40);
         // TODO replace with proper recoil
         User.recoil += 10;
+        UsesLeft--;
+        User.recoil += 20;
+        if (UsesLeft == 0)
+        {
+            Cooldown = MaxCooldown;
+        }
     }
 }

@@ -6,7 +6,7 @@ public class Fighter : Unit
 {
     void Awake()
     {
-        UnitHUD.UpdateHP(this);
+        init(this);
         actions.Add(new Strike());
         actions.Add(new StrongStrike());
         actions.Add(new HealSelf());

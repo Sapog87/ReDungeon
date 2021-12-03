@@ -6,8 +6,8 @@ public class Rat : Unit
 {
     private void Awake()
     {
-        UnitHUD.UpdateHP(this);
-        //actions.Add(new Lick());
+        init(this);
+        actions.Add(new Bite());
     }
     public override void SetDefaults()
     {

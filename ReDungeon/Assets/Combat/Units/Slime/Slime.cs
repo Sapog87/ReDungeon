@@ -6,8 +6,8 @@ public class Slime : Unit
 {
     private void Awake()
     {
-        UnitHUD.UpdateHP(this);
-        //actions.Add(new Bite());
+        init(this);
+        actions.Add(new Lick());
     }
     public override void SetDefaults()
     {

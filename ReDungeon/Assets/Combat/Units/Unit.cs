@@ -24,17 +24,21 @@ public abstract class Unit : MonoBehaviour
     public bool playerControl;
     public List<UnitType> unitTypes;
     public List<Action> actions = new List<Action>();
-    public Unit[] allies;
-    public Unit[] enemies;
-    public List<Passive>[] passives = new List<Passive>[5];
-    public List<Status>[] statuses = new List<Status>[5];
-    public UnitHUDScript UnitHUD;
+    public List<Unit> allies;
+    public List<Unit> enemies;
+    public List<Passive>[] passives = new List<Passive>[5] { new List<Passive>(), new List<Passive>(), new List<Passive>(), new List<Passive>(), new List<Passive>()};
+    public List<Status>[] statuses = new List<Status>[5] { new List<Status>(), new List<Status>(), new List<Status>(), new List<Status>(), new List<Status>() };
 
     // Ignore everything below, this part is still in progress //
 
     void Awake()
     {
         SetDefaults();
+    }
+    public void init(Unit unit)
+    {
+        Debug.Log(unit.unitName);
+        unit.transform.parent.GetComponentInChildren<UnitHUDScript>().UpdateHP(unit);
     }
 
     /// <summary>
@@ -43,14 +47,20 @@ public abstract class Unit : MonoBehaviour
     /// </summary>
     /// <param name="attacker">insert the attacking untit</param>
     /// <param name="attack">insert the attack action</param>
-    public static bool Attack (Unit Victim, Unit attacker, Action attack, int damage, bool crit, int piercingDamage)
+    public bool Attack (Unit Victim, Unit attacker, Action attack, int damage, bool crit, int piercingDamage)
     {
+        Debug.Log(Victim.statuses);
+        Debug.Log(attacker.unitName);
+        Debug.Log(attack);
         for (int i = 0; i < 5; i++)
         {
+            if(Victim.statuses[i].Count>0)
             foreach (Status status in Victim.statuses[i])
             {
                 status.ModifyIncomingDamage(ref Victim, ref attacker, ref attack, ref damage, ref crit, ref piercingDamage);
             }
+
+            if(Victim.passives[i].Count > 0)
             foreach (Passive passive in Victim.passives[i])
             {
                 passive.ModifyIncomingDamage(ref Victim, ref attacker, ref attack, ref damage, ref crit, ref piercingDamage);
@@ -102,7 +112,7 @@ public abstract class Unit : MonoBehaviour
                 }
             }
             Victim.OnHit(Victim, attacker, attack, damage, crit);
-            Hurt(Victim,attacker, damage);
+            Victim.Hurt(Victim,attacker, damage);
 
             for (int i = 0; i < 5; i++)
             {
@@ -168,17 +178,15 @@ public abstract class Unit : MonoBehaviour
     /// </summary>
     /// <param name="damageSource"></param>
     /// <param name="damage"></param>
-    public static void Hurt (Unit Victim, MonoBehaviour damageSource, int damage)
+    public void Hurt (Unit Victim, MonoBehaviour damageSource, int damage)
     {
         Victim.OnHurt(damageSource,damage);
         ///TODO OnHurt for each passive and skill
 
-        TakeDamage(Victim,damageSource,damage);
+        Victim.TakeDamage(Victim,damageSource,damage);
 
         Victim.PostHurt(damageSource,damage);
         ///TODO PostHurt for each passive and skill
-
-        Victim.UnitHUD.UpdateHP(Victim);
     }
     /// <summary>
     /// Override to modify what you want to happen right before the Unit takes damage
@@ -190,13 +198,14 @@ public abstract class Unit : MonoBehaviour
     /// Takes Damage without processing
     /// </summary>
     /// <param name="damage"></param>
-    public static void TakeDamage(Unit Victim, MonoBehaviour damageSource, int damage) 
+    public void TakeDamage(Unit Victim, MonoBehaviour damageSource, int damage) 
     {
         Victim.currentHP -= damage;
         if (Victim.currentHP <= 0)
         {
-            Death(Victim,damageSource);
+            Victim.Death(Victim,damageSource);
         }
+        Victim.transform.parent.GetComponentInChildren<UnitHUDScript>().UpdateHP(Victim);
     } 
     /// <summary>
     /// Override to modify what you want to happen right after the Unit takes damage
@@ -208,7 +217,7 @@ public abstract class Unit : MonoBehaviour
     /// <summary>
     /// Call this if you want to try to kill the unit
     /// </summary>
-    public static void Death(Unit Victim,MonoBehaviour killer)
+    private void Death(Unit Victim,MonoBehaviour killer)
     {
         if (Victim.currentHP <= 0) {
             Victim.PreDeath(killer);
@@ -241,7 +250,7 @@ public abstract class Unit : MonoBehaviour
     public virtual bool CanDie(MonoBehaviour killer) { return true; }
     public virtual void OnDeath(MonoBehaviour killer) { }
     public virtual void OnKill(MonoBehaviour Victim) { }
-    public static void Die(Unit Victim, MonoBehaviour killer) 
+    public void Die(Unit Victim, MonoBehaviour killer) 
     {
         Victim.isDead = true;
         Victim.currentHP = 0;
@@ -251,7 +260,7 @@ public abstract class Unit : MonoBehaviour
 
     // uses old healing algorythm, not completely finished.
 
-    public static void Heal(Unit Patient, MonoBehaviour healingSource,int healAmount) 
+    public void Heal(Unit Patient, MonoBehaviour healingSource,int healAmount) 
     {
         Patient.OnHeal(healAmount);
 
@@ -259,7 +268,6 @@ public abstract class Unit : MonoBehaviour
 
         Patient.PostHeal(healAmount);
 
-        Patient.UnitHUD.UpdateHP(Patient);
     }
     /// <summary>
     /// Changes healing before multiplications.
@@ -291,13 +299,14 @@ public abstract class Unit : MonoBehaviour
     /// Takes Healing without processing
     /// </summary>
     /// <param name="damage"></param>
-    public static void TakeHealing(Unit Patient,int healAmount)
+    public void TakeHealing(Unit Patient,int healAmount)
     {
         Patient.currentHP += healAmount;
         if (Patient.currentHP > Patient.maxHP)
         {
             Patient.currentHP = Patient.maxHP;
         }
+        Patient.transform.parent.GetComponentInChildren<UnitHUDScript>().UpdateHP(Patient);
     }
     /// <summary>
     /// Override to modify what you want to happen right after the Unit takes damage
@@ -318,11 +327,11 @@ public abstract class Unit : MonoBehaviour
 
     public virtual Action AI()
     {
-        for(int i = actions.Count; i <= 0; i--)
+        for (int i = actions.Count-1; i >= 0; i--)
         {
-            if (actions[i].usesLeft != 0)
+            if (actions[i].UsesLeft != 0 && (actions[i].GetValidTargets(this).Count>0))
                 return actions[i];
         }
-        return actions[0];
+        return new Skip();
     }
 }

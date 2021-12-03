@@ -1,27 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StrongStrike : Action
 {
-    public string name => "Strong Strike";
-    public TargetType targetType => TargetType.team;
-    public CDType CDType => CDType.turn;
-    public int MaxUses { get; } = 1;
-    public int MaxCooldown { get; } = 2;
-    public int usesLeft { get; set; }
-    public int cooldown { get; set; }
-
-    public override Unit[] GetValidTargets(Unit User)
+    public StrongStrike()
     {
-        return User.enemies;
+        Name = "Strong Strike";
+        TargetType = TargetType.MANY;
+        CDType = CDType.turn;
+        MaxUses = 1;
+        MaxCooldown = 2;
+        ResetCooldown();
     }
 
-    public override void invoke(Unit User, Unit[] targets)
+    public override List<Unit> GetValidTargets(Unit User)
     {
-        foreach(Unit target in targets)
-            Unit.Attack(target, User, this, 20, false, 10);
+        return User.enemies.Where(x => !x.isDead).ToList();
+    }
+
+    public override void Invoke(Unit User, List<Unit> targets)
+    {
+        foreach (Unit target in targets)
+        {
+            Debug.Log(User.unitName);
+            Debug.Log(target.unitName);
+            Debug.Log(Name);
+            User.Attack(target, User, this, 20, false, 10);
+        }
         // TODO replace with proper recoil
+        UsesLeft--;
         User.recoil += 20;
+        if(UsesLeft == 0)
+        {
+            Cooldown = MaxCooldown;
+        }
     }
 }

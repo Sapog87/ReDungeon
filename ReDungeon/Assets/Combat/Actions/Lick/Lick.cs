@@ -1,26 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Lick : Action
 {
-    public string name => "Lick";
-    public TargetType targetType => TargetType.unit;
-    public CDType CDType => CDType.none;
-    public int MaxUses { get; } = -1;
-    public int MaxCooldown { get; } = -1;
-    public int usesLeft { get; set; }
-    public int cooldown { get; set; }
-    public override Unit[] GetValidTargets(Unit User)
+    public Lick() 
     {
-        return User.enemies;
+        Name = "Lick";
+        TargetType = TargetType.ONE;
+        CDType = CDType.none;
+        MaxUses = -1;
+        MaxCooldown = -1;
+        ResetCooldown();
+    }
+    public override List<Unit> GetValidTargets(Unit User)
+    {
+        return User.enemies.Where(x => !x.isDead).ToList();
     }
 
-    public override void invoke(Unit User, Unit[] targets)
+    public override void Invoke(Unit User, Unit target)
     {
-        bool success = Unit.Attack(targets[0], User, this, 10, false, 5);
+        bool success = User.Attack(target, User, this, 10, false, 5);
         if (success)
-            Unit.Heal(User, User, 5);
+            User.Heal(User, User, 5);
         // TODO replace with proper recoil
         User.recoil += 10;
     }
