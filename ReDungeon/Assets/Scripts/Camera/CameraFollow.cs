@@ -11,10 +11,6 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float offsetXY;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
     void Start()
     {
         playerTag = "Player";

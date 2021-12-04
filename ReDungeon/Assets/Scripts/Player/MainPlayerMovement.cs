@@ -15,8 +15,6 @@ public class MainPlayerMovement : MonoBehaviour
         playerTag = "Player";
         mainPlayer = GameObject.FindGameObjectWithTag(playerTag);
         speed = 10f;
-
-        DontDestroyOnLoad(this.gameObject);
     }
 
     void FixedUpdate()
