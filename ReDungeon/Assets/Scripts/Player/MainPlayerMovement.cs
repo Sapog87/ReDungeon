@@ -27,4 +27,8 @@ public class MainPlayerMovement : MonoBehaviour
         mainPlayer.transform.Translate(Vector2.up * speed * yPos * Time.fixedDeltaTime);
         mainPlayer.transform.Translate(Vector2.right * speed * xPos * Time.fixedDeltaTime);
     }
+    public void StopPlayer()
+    {
+        speed = 0;
+    }
 }
