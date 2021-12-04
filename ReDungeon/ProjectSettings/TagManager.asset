@@ -56,3 +56,6 @@ TagManager:
   - name: Column
     uniqueID: 985997453
     locked: 0
+  - name: Top (for fading)
+    uniqueID: 419568971
+    locked: 0
