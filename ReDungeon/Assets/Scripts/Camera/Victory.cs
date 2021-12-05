@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class Return : MonoBehaviour
+public class Victory : MonoBehaviour
 {
     void Start()
     {
