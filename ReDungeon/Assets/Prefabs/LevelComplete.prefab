@@ -214,6 +214,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5952074905111478128, guid: 1931abb743c36244dae4076b9ad9624d, type: 3}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5952074905111478128, guid: 1931abb743c36244dae4076b9ad9624d, type: 3}
+      propertyPath: m_SpriteState.m_PressedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 047b929beb10565479851d39b452dfb6, type: 3}
+    - target: {fileID: 5952074905111478128, guid: 1931abb743c36244dae4076b9ad9624d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2434412079266419956}
@@ -228,6 +236,18 @@ PrefabInstance:
     - target: {fileID: 5952074905111478128, guid: 1931abb743c36244dae4076b9ad9624d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175765376079770330, guid: 1931abb743c36244dae4076b9ad9624d, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175765376079770330, guid: 1931abb743c36244dae4076b9ad9624d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2be7b70e984b51444aca9c12ae4723a7, type: 3}
+    - target: {fileID: 7175765376079770330, guid: 1931abb743c36244dae4076b9ad9624d, type: 3}
+      propertyPath: m_UseSpriteMesh
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1931abb743c36244dae4076b9ad9624d, type: 3}
