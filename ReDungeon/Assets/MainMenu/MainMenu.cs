@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
     public void NewRun()
     {
         // Здесь будет вызов окна выбора сложности нового забега
-        sceneLoader.LoadScene(""); // Загружаем сцену выбора классов персонажей 
+        sceneLoader.LoadScene("Generation"); // Загружаем сцену выбора классов персонажей 
     }
 
     public void ContinueRun()
