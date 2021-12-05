@@ -888,6 +888,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1245812946}
     m_Modifications:
+    - target: {fileID: 982828243571346428, guid: 78afa740459615946a91fc5b5d1ab9d7, type: 3}
+      propertyPath: m_Name
+      value: QuitButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154725554921985824, guid: 78afa740459615946a91fc5b5d1ab9d7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8154725555504773826, guid: 78afa740459615946a91fc5b5d1ab9d7, type: 3}
       propertyPath: m_RootOrder
       value: 1
