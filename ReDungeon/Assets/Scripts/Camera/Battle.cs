@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class Battle : MonoBehaviour
 {
@@ -16,10 +17,11 @@ public class Battle : MonoBehaviour
     private void LoadNextScene()
     {
         Destroy(gameObject);
-        string playerTag = "Player";
-        GameObject mainPlayer = GameObject.FindGameObjectWithTag(playerTag);
-        MainPlayerMovement mpm = mainPlayer.GetComponent<MainPlayerMovement>();
-        mpm.enabled = false;
+
+        GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = false;
+
+        GameObject.FindGameObjectWithTag("PlayerEventSystem").GetComponent<EventSystem>().enabled = false;
+
         Application.LoadLevelAdditive("CombatScene");
     }
 }
