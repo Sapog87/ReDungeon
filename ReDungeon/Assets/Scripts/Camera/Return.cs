@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class Return : MonoBehaviour
@@ -9,9 +10,9 @@ public class Return : MonoBehaviour
     {
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("Generation"));
         SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("CombatScene"));
-        string playerTag = "Player";
-        GameObject mainPlayer = GameObject.FindGameObjectWithTag(playerTag);
-        MainPlayerMovement mpm = mainPlayer.GetComponent<MainPlayerMovement>();
-        mpm.enabled = true;
+
+        GameObject.FindGameObjectWithTag("PlayerEventSystem").GetComponent<EventSystem>().enabled = true;
+
+        GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = true;
     }
 }
