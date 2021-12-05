@@ -29,11 +29,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        PlayMusic("Theme");
-    }
-
     public void PlayMusic(params string[] names)
     {
         AudioMixerGroup audioMixerGroup = audioMixer.FindMatchingGroups("Music")[0];
