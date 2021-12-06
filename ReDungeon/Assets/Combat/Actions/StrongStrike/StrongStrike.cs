@@ -11,7 +11,7 @@ public class StrongStrike : Action
         TargetType = TargetType.MANY;
         CDType = CDType.turn;
         MaxUses = 1;
-        MaxCooldown = 2;
+        MaxCooldown = 3;
         ResetCooldown();
     }
 
@@ -20,21 +20,22 @@ public class StrongStrike : Action
         return User.enemies.Where(x => !x.isDead).ToList();
     }
 
-    public override void Invoke(Unit User, List<Unit> targets)
+    public override IEnumerator Invoke(Unit User, List<Unit> targets)
     {
         foreach (Unit target in targets)
         {
-            Debug.Log(User.unitName);
-            Debug.Log(target.unitName);
-            Debug.Log(Name);
-            User.Attack(target, User, this, 20, false, 10);
+            if(User.Attack(target, User, this, 20, false, 10))
+            target.recoil += 5;
+            yield return new WaitForSeconds(0.1f);
         }
         // TODO replace with proper recoil
         UsesLeft--;
-        User.recoil += 20;
-        if(UsesLeft == 0)
+        User.recoil += 10;
+        if (UsesLeft == 0)
         {
             Cooldown = MaxCooldown;
         }
+        yield return new WaitForSeconds(1f);
+        yield return User.Approach(User.transform.parent.position, 1f);
     }
 }

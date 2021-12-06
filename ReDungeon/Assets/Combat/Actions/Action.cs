@@ -26,7 +26,11 @@ public abstract class Action
         UsesLeft = MaxUses;
         Cooldown = 0;
     }
+    public virtual bool IsReady(Unit User)
+    {
+        return (GetValidTargets(User).Count > 0) && (UsesLeft != 0);
+    }
     public abstract List<Unit> GetValidTargets(Unit User);
-    public virtual void Invoke(Unit User, List<Unit> targets) {}
-    public virtual void Invoke(Unit User, Unit target) {}
+    public virtual IEnumerator Invoke(Unit User, List<Unit> targets) { yield return null; }
+    public virtual IEnumerator Invoke(Unit User, Unit target) { yield return null; }
 }

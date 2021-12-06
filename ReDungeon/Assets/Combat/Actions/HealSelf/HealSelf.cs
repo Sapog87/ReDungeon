@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HealSelf : Action
 {
-    public HealSelf() 
+    public HealSelf()
     {
         Name = "Mediocre Healing";
         TargetType = TargetType.ONE;
@@ -14,20 +14,25 @@ public class HealSelf : Action
         MaxCooldown = 1;
         ResetCooldown();
     }
+
+    public override bool IsReady(Unit User)
+    {
+        return base.IsReady(User) && ((float)User.currentHP / User.maxHP) < 0.5;
+    }
     public override List<Unit> GetValidTargets(Unit User)
     {
-        return new List<Unit>{User}.Where(x=>x.currentHP/x.maxHP<0.75).ToList();
+        return new List<Unit> { User };
     }
-    public override void Invoke(Unit User, Unit target)
+    public override IEnumerator Invoke(Unit User, Unit target)
     {
         User.Heal(User, target, 40);
         // TODO replace with proper recoil
-        User.recoil += 10;
+        User.recoil += 7;
         UsesLeft--;
-        User.recoil += 20;
         if (UsesLeft == 0)
         {
             Cooldown = MaxCooldown;
         }
+        yield return new WaitForSeconds(1);
     }
 }
