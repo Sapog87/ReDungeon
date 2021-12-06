@@ -81,6 +81,8 @@ public class BattleManager : MonoBehaviour
         if (!anyoneAlive) 
         {
             State = BattleState.DEFEAT;
+            Time.timeScale = 1;
+            SceneManager.LoadScene("MainMenu");
         }
         else
         {
