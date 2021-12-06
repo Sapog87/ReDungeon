@@ -19,10 +19,12 @@ public class Strike: Action
         return User.enemies.Where(x=>!x.isDead).ToList();
     }
 
-    public override void Invoke(Unit User, Unit target)
+    public override IEnumerator Invoke(Unit User, Unit target)
     {
+        yield return User.Approach(target.transform.position, 1f);
         User.Attack(target, User, this, 20, false, 0);
-        // TODO replace with proper recoil
         User.recoil += 10;
+        yield return new WaitForSeconds(0.25f);
+        yield return User.Approach(User.transform.parent.position, 1f);
     }
 }

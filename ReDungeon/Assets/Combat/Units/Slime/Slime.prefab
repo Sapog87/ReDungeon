@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Slime
-  maxHP: 60
-  currentHP: 60
+  maxHP: 40
+  currentHP: 40
   isDead: 0
   defenceBase: 0
   damageReduction: 0

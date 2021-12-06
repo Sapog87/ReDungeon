@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Rat
-  maxHP: 35
-  currentHP: 30
+  maxHP: 60
+  currentHP: 60
   isDead: 0
   defenceBase: 0
   damageReduction: 0

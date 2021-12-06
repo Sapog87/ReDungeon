@@ -16,13 +16,12 @@ MonoBehaviour:
   maxHP: 100
   currentHP: 100
   isDead: 0
-  defenceBase: 10
+  defenceBase: 3
   damageReduction: 0
   recoil: 0
   Allied: 0
   playerControl: 0
   unitTypes: 00000000
-  actions: []
   allies: []
   enemies: []
 --- !u!1001 &7046828471467448682

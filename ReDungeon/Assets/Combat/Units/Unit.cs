@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -24,6 +26,7 @@ public abstract class Unit : MonoBehaviour
     public bool playerControl;
     public List<UnitType> unitTypes;
     public List<Action> actions = new List<Action>();
+    private List<Action> AvailableActions { get { return actions.Where(x => x.IsReady(this)).ToList(); } }
     public List<Unit> allies;
     public List<Unit> enemies;
     public List<Passive>[] passives = new List<Passive>[5] { new List<Passive>(), new List<Passive>(), new List<Passive>(), new List<Passive>(), new List<Passive>()};
@@ -38,7 +41,6 @@ public abstract class Unit : MonoBehaviour
     public void init(Unit unit)
     {
         Debug.Log(unit.unitName);
-        unit.transform.parent.GetComponentInChildren<UnitHUDScript>().UpdateHP(unit);
     }
 
     /// <summary>
@@ -325,13 +327,22 @@ public abstract class Unit : MonoBehaviour
         return res;
     }
 
+
     public virtual Action AI()
     {
-        for (int i = actions.Count-1; i >= 0; i--)
+        if (AvailableActions.Count == 0)
+            return new Skip();
+        else
+            return AvailableActions.Last();
+    }
+
+    public IEnumerator Approach(Vector3 point, float distance)
+    {
+        Vector3 Move = (point - transform.position).normalized / 5;
+        while ((point - transform.position).magnitude > distance)
         {
-            if (actions[i].UsesLeft != 0 && (actions[i].GetValidTargets(this).Count>0))
-                return actions[i];
+            transform.position += Move;
+            yield return new WaitForSeconds(0.02f);
         }
-        return new Skip();
     }
 }
