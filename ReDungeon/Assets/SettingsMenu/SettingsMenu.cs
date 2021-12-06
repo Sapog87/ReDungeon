@@ -7,7 +7,7 @@ public class SettingsMenu : MonoBehaviour
     public SettingsManager settingsManager;
     public Dropdown graphicsQualityDropdown, resolutionDropdown;
     public Slider masterSlider, musicSlider, soundsSlider;
-    
+
     public Scrollbar scrollbar;
 
     Resolution[] resolutions;
@@ -25,12 +25,12 @@ public class SettingsMenu : MonoBehaviour
         List<string> options = new List<string>();
 
         int currentResolutionIndex = 0;
-        for(int i = 0; i < resolutions.Length; i++)
+        for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
             options.Add(option);
 
-            if(resolutions[i].width == Screen.currentResolution.width &&
+            if (resolutions[i].width == Screen.currentResolution.width &&
                resolutions[i].height == Screen.currentResolution.height)
             {
                 currentResolutionIndex = i;
@@ -56,12 +56,12 @@ public class SettingsMenu : MonoBehaviour
         settingsManager.SetSoundsVolume(percentage);
     }
 
-    public void SetQuality (int qualityIndex)
+    public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
     }
 
-    public void SetFullScreen (bool isFullScreen)
+    public void SetFullScreen(bool isFullScreen)
     {
         Screen.fullScreen = isFullScreen;
     }
