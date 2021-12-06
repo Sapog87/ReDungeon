@@ -112,6 +112,8 @@ public class BattleManager : MonoBehaviour
                 GameObject.FindGameObjectWithTag("PlayerEventSystem").GetComponent<EventSystem>().enabled = true;
 
                 GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = true;
+
+                GameObject.FindGameObjectWithTag("MiniMap").GetComponent<Canvas>().enabled = true;
             }
             else
             {

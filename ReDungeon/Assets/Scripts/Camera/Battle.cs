@@ -22,6 +22,8 @@ public class Battle : MonoBehaviour
 
         GameObject.FindGameObjectWithTag("PlayerEventSystem").GetComponent<EventSystem>().enabled = false;
 
+        GameObject.FindGameObjectWithTag("MiniMap").GetComponent<Canvas>().enabled = false;
+
         Application.LoadLevelAdditive("CombatScene");
     }
 }
