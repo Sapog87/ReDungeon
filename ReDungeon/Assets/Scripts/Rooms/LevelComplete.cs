@@ -3,12 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelComplete : MonoBehaviour
 {
-    private Canvas completionMessage, suggestionMessage;
-    private void Awake()
-    {
-        completionMessage = gameObject.transform.Find("CompletionMessage").GetComponent<Canvas>();
-        suggestionMessage = gameObject.transform.Find("SuggestionMessage").GetComponent<Canvas>();
-    }
+    [SerializeField] private Canvas completionMessage, suggestionMessage;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -22,14 +17,7 @@ public class LevelComplete : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
-        {
-            StopPlayer();
             completionMessage.gameObject.SetActive(true);
-        }
-    }
-    private void StopPlayer()
-    {
-        GameObject.Find("Player").GetComponent<MainPlayerMovement>().StopPlayer();
     }
     public void BackToMenu()
     {

@@ -14,7 +14,7 @@ public class LevelGenerator : MonoBehaviour
     private Room[,] spawnedRooms; //Сетка размещенных комнат
     private int n; //Размер сетки
     private int k; //Центр сетки
-    public int countEightDoorsRooms; //Количество комнат с 8 дверьми
+    private int countEightDoorsRooms; //Количество комнат с 8 дверьми
 
     private void Start()
     {
