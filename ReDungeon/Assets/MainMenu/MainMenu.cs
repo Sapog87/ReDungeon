@@ -6,22 +6,37 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public SceneLoader sceneLoader;
+    public AudioManager audioManager;
+    private void Start()
+    {
+        audioManager.PlayMusic("Theme", 0.5f, 0);
+    }
 
     public void NewRun()
     {
         // Здесь будет вызов окна выбора сложности нового забега
-        sceneLoader.LoadScene("Generation"); // Загружаем сцену выбора классов персонажей 
+        sceneLoader.LoadScene("Generation");
     }
 
+    /*
     public void ContinueRun()
     {
-        // Здесь будет вызов считывания данных сохранения
+        
+        
         sceneLoader.LoadScene(""); // Загружаем сцену перемещения по карте с данными сохранения
     }
+    */
 
     public void QuitGame()
     {
+        //audioManager.SmoothTrackChange("Peaceful", "Combat", 0.5f, 0);
         Application.Quit();
+    }
+
+    private void OnDestroy()
+    {
+        //audioManager.SmoothTrackFade("Theme");
+        audioManager.SmoothTrackChange("Theme", "Peaceful", 0.5f, 0);
     }
 
 }

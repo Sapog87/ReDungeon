@@ -8,6 +8,8 @@ public class SceneLoader : MonoBehaviour
     public GameObject loadingScreen;
     public Slider slider;
     public Text progressText;
+    public Animator transition;
+    const float transitionTime = 0.8f;
 
     public void LoadScene(string sceneName)
     {
@@ -17,8 +19,13 @@ public class SceneLoader : MonoBehaviour
     IEnumerator LoadAsynchronously (string sceneName)
     {
         // Здесь будет анимация начала загрузки
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
+        
         loadingScreen.SetActive(true);
 
         while (!operation.isDone)
@@ -30,6 +37,7 @@ public class SceneLoader : MonoBehaviour
 
             yield return null;
         }
+        
         // Здесь будет анимация конца загрузки
     }
 
