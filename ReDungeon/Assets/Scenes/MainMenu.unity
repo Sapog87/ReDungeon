@@ -1194,6 +1194,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438"
       objectReference: {fileID: 0}
+    - target: {fileID: 4523663209224481273, guid: 2bc3b7d1332ebb649bf934ef1a0861f2, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 4523663209224481273, guid: 2bc3b7d1332ebb649bf934ef1a0861f2, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bc3b7d1332ebb649bf934ef1a0861f2, type: 3}
 --- !u!1 &299947294
@@ -2798,6 +2806,10 @@ PrefabInstance:
     - target: {fileID: 1779660674637083267, guid: e287ac8001aa35048b4c6085ece1d5b5, type: 3}
       propertyPath: m_Name
       value: SceneLoader
+      objectReference: {fileID: 0}
+    - target: {fileID: 1779660674637083267, guid: e287ac8001aa35048b4c6085ece1d5b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2435565313108829917, guid: e287ac8001aa35048b4c6085ece1d5b5, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5122,6 +5134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6450999497004211094, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad9881c43687026468598db6401e98b8, type: 3}
 --- !u!1 &1598355180
@@ -6428,6 +6444,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u0412\u044B\u0445\u043E\u0434"
       objectReference: {fileID: 0}
+    - target: {fileID: 4523663209224481273, guid: 2bc3b7d1332ebb649bf934ef1a0861f2, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 4523663209224481273, guid: 2bc3b7d1332ebb649bf934ef1a0861f2, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bc3b7d1332ebb649bf934ef1a0861f2, type: 3}
 --- !u!114 &1967977534 stripped
