@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class MainPlayerCombat : MonoBehaviour
 {
-    public List<GameObject> playerPrefabs;
-    public List<GameObject> playerUnits;
-    // Start is called before the first frame update
-    void Start()
+    public List<Unit> playerUnitsPrefabs;
+    public List<Unit> _playerUnits;
+    public List<int> UnitXp;
+    public List<int> UnitLvXp;
+    public List<int> UnitLevel;
+    void Awake()
     {
-        playerUnits = new List<GameObject>();
-        for(int i = 0; i < playerPrefabs.Count; i++)
+        for (int i = 0; i<playerUnitsPrefabs.Count; i++)
         {
-            playerUnits.Add(Instantiate(playerPrefabs[i],gameObject.transform));
-            playerUnits[i].SetActive(false);
+            _playerUnits.Add(Instantiate(playerUnitsPrefabs[i]));
         }
     }
 

@@ -3,103 +3,102 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public abstract class Status
+public abstract class Passive
 {
     public string name;
     public Sprite sprite;
     public string description;
     public HashSet<TriggerType> triggers = new HashSet<TriggerType>();
-    public void AddStatus(UnitObject target)
+    public void AddPassive(Unit target)
     {
-        target.statuses.Add(this);
-        foreach(TriggerType type in triggers)
+        target.Passives.Add(this);
+        foreach (TriggerType type in triggers)
         {
             switch (type)
             {
                 case TriggerType.OnGetTargeted:
-                    target.unit.OnGetTargeted += OnGetTargeted;
+                    target.OnGetTargeted += OnGetTargeted;
                     break;
                 case TriggerType.OnAction:
-                    target.unit.OnAction += OnAction;
+                    target.OnAction += OnAction;
                     break;
                 case TriggerType.OnTakeHit:
-                    target.unit.OnTakeHit += OnTakeHit;
+                    target.OnTakeHit += OnTakeHit;
                     break;
                 case TriggerType.OnGetHurt:
-                    target.unit.OnGetHurt += OnGetHurt;
+                    target.OnGetHurt += OnGetHurt;
                     break;
                 case TriggerType.OnGetHealed:
-                    target.unit.OnGetHealed += OnGetHealed;
+                    target.OnGetHealed += OnGetHealed;
                     break;
                 case TriggerType.OnStrike:
-                    target.unit.OnStrike += OnStrike;
+                    target.OnStrike += OnStrike;
                     break;
                 case TriggerType.MOutDamage:
-                    target.unit.MOutDamage += MOutDamage;
+                    target.MOutDamage += MOutDamage;
                     break;
                 case TriggerType.OnKill:
-                    target.unit.OnKill += OnKill;
+                    target.OnKill += OnKill;
                     break;
                 case TriggerType.OnDeath:
-                    target.unit.OnDeath += OnDeath;
+                    target.OnDeath += OnDeath;
                     break;
                 case TriggerType.OnStatusApply:
-                    target.unit.OnStatusApply += OnStatusApply;
+                    target.OnStatusApply += OnStatusApply;
                     break;
                 case TriggerType.OnStatusRecieve:
-                    target.unit.OnStatusRecieve += OnStatusRecieve;
+                    target.OnStatusRecieve += OnStatusRecieve;
                     break;
             }
         }
         OnSelfApply(target);
     }
-    public void RemoveStatus(UnitObject target)
+    public void RemovePassive(Unit target)
     {
         foreach (TriggerType type in triggers)
         {
             switch (type)
             {
                 case TriggerType.OnGetTargeted:
-                    target.unit.OnGetTargeted -= OnGetTargeted;
+                    target.OnGetTargeted -= OnGetTargeted;
                     break;
                 case TriggerType.OnAction:
-                    target.unit.OnAction -= OnAction;
+                    target.OnAction -= OnAction;
                     break;
                 case TriggerType.OnTakeHit:
-                    target.unit.OnTakeHit -= OnTakeHit;
+                    target.OnTakeHit -= OnTakeHit;
                     break;
                 case TriggerType.OnGetHurt:
-                    target.unit.OnGetHurt -= OnGetHurt;
+                    target.OnGetHurt -= OnGetHurt;
                     break;
                 case TriggerType.OnGetHealed:
-                    target.unit.OnGetHealed -= OnGetHealed;
+                    target.OnGetHealed -= OnGetHealed;
                     break;
                 case TriggerType.OnStrike:
-                    target.unit.OnStrike -= OnStrike;
+                    target.OnStrike -= OnStrike;
                     break;
                 case TriggerType.MOutDamage:
-                    target.unit.MOutDamage -= MOutDamage;
+                    target.MOutDamage -= MOutDamage;
                     break;
                 case TriggerType.OnKill:
-                    target.unit.OnKill -= OnKill;
+                    target.OnKill -= OnKill;
                     break;
                 case TriggerType.OnDeath:
-                    target.unit.OnDeath -= OnDeath;
+                    target.OnDeath -= OnDeath;
                     break;
                 case TriggerType.OnStatusApply:
-                    target.unit.OnStatusApply -= OnStatusApply;
+                    target.OnStatusApply -= OnStatusApply;
                     break;
                 case TriggerType.OnStatusRecieve:
-                    target.unit.OnStatusRecieve -= OnStatusRecieve;
+                    target.OnStatusRecieve -= OnStatusRecieve;
                     break;
             }
             OnClear(target);
-            target.statuses.Remove(this);
+            target.Passives.Remove(this);
         }
     }
-    public abstract void RenewStatus(Status self);
-    public virtual void OnSelfApply(UnitObject bearer) { }
-    public virtual void OnClear(UnitObject bearer) { }
+    public virtual void OnSelfApply(Unit bearer) { }
+    public virtual void OnClear(Unit bearer) { }
     public virtual void OnGetTargeted(UnitObject bearer, UnitObject targeter, int number) { }
     public virtual void OnAction(UnitObject bearer, UnitObject target, int number) { }
     public virtual void OnTakeHit(UnitObject bearer, UnitObject attacker, int damage) { }

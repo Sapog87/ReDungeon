@@ -2,347 +2,128 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 
-// This class will never get an instance, it's used for easier creation, compatability and possibly (not approved, so don't get your hopes up) modding
 public enum UnitType
 {
     Human, Undead, Construct
 }
 
-public abstract class Unit : MonoBehaviour
+public enum TriggerType
 {
-    public string unitName;
+    OnGetTargeted, OnAction, OnTakeHit, OnGetHurt, OnGetHealed, OnStrike, MOutDamage, OnKill, OnDeath, OnStatusApply, OnStatusRecieve
+}
+[CreateAssetMenu (fileName = "New Unit", menuName = "Unit")]
+
+public abstract class Unit:ScriptableObject
+{
+    public UnitObject body;
+
+    public delegate void TargetLessDelegate(UnitObject self, int number);
+    public delegate void TargetedDelegate(UnitObject self, UnitObject target, int number);
+    public delegate void StatusDelegate(UnitObject self, UnitObject target, Status status);
+    public delegate void ModifyingTLDelegate(UnitObject self, ref int number);
+    public delegate void ModifyingTDelegate(UnitObject self,ref UnitObject target, ref int number);
+
+    public new string name;
+    public string description;
 
     public int maxHP;
-    public int currentHP;
+    [SerializeField]
+    private int _currentHP;
+    public int CurrentHP { get => _currentHP; set { _currentHP = Mathf.Clamp(value, 0, maxHP); } }
     public bool isDead;
 
-    public int defenceBase;
-    public float damageReduction;
-    
-    public int recoil = 0;
-    public bool Allied;
-    public bool playerControl;
-    public List<UnitType> unitTypes;
-    public List<Action> actions = new List<Action>();
-    private List<Action> AvailableActions { get { return actions.Where(x => x.IsReady(this)).ToList(); } }
-    public List<Unit> allies;
-    public List<Unit> enemies;
-    public List<Passive>[] passives = new List<Passive>[5] { new List<Passive>(), new List<Passive>(), new List<Passive>(), new List<Passive>(), new List<Passive>()};
-    public List<Status>[] statuses = new List<Status>[5] { new List<Status>(), new List<Status>(), new List<Status>(), new List<Status>(), new List<Status>() };
+    public int defence;
+    public float DR;
 
-    // Ignore everything below, this part is still in progress //
+    public HashSet<UnitType> UnitTypes = new HashSet<UnitType>();
+    public List<Action> Actions = new List<Action>();
+    public List<Passive> Passives = new List<Passive>();
 
-    void Awake()
+    // 0 - idle, 1 - taking damage, 2-4 - attacking, 5 - downed, 6 - special, 7 - victory
+    public Sprite[] sprites = new Sprite[8];
+
+    public TargetedDelegate OnGetTargeted = delegate { };
+    public TargetedDelegate OnAction = delegate { };
+    public TargetedDelegate OnTakeHit = delegate { };
+    public TargetLessDelegate OnGetHurt = delegate { };
+    public TargetLessDelegate OnGetHealed = delegate { };
+    public TargetedDelegate OnStrike = delegate { };
+    public ModifyingTLDelegate MOutDamage = delegate { };
+    public TargetedDelegate OnKill = delegate { };
+    public TargetLessDelegate OnDeath = delegate { };
+    public StatusDelegate OnStatusApply = delegate { };
+    public StatusDelegate OnStatusRecieve = delegate { };
+
+    public abstract void SetDefaults();
+
+    public virtual Action Ai(UnitObject[] allies, UnitObject[] opponents)
+    {
+        return new Wait();
+    }
+
+    public Unit()
     {
         SetDefaults();
     }
-    public void init(Unit unit)
+
+    public void TakeHit(UnitObject attacker, int damage)
     {
-        Debug.Log(unit.unitName);
+        try
+        {
+            OnTakeHit.Invoke(body, attacker, damage);
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e);
+        }
+        GetHurt(damage);
     }
 
-    /// <summary>
-    /// Call this to attack the unit, if your skill doesn't attack, don't call this. If you want to deal damage through non-skill means(debuffs etc.) use Hurt(). If you want to bypass any and all Damage modification, use TakeDamage().
-    /// Returns true if the attack is successful
-    /// </summary>
-    /// <param name="attacker">insert the attacking untit</param>
-    /// <param name="attack">insert the attack action</param>
-    public bool Attack (Unit Victim, Unit attacker, Action attack, int damage, bool crit, int piercingDamage)
+    public void GetHurt(int damage)
     {
-        Debug.Log(Victim.statuses);
-        Debug.Log(attacker.unitName);
-        Debug.Log(attack);
-        for (int i = 0; i < 5; i++)
-        {
-            if(Victim.statuses[i].Count>0)
-            foreach (Status status in Victim.statuses[i])
-            {
-                status.ModifyIncomingDamage(ref Victim, ref attacker, ref attack, ref damage, ref crit, ref piercingDamage);
-            }
+        OnGetHurt.Invoke(body, damage);
+        CurrentHP -= damage;
+        Debug.Log($"{name} {damage}");
+        if (CurrentHP == 0)
+            Die(damage);
+        body.UpdateSlider();
+    }
 
-            if(Victim.passives[i].Count > 0)
-            foreach (Passive passive in Victim.passives[i])
-            {
-                passive.ModifyIncomingDamage(ref Victim, ref attacker, ref attack, ref damage, ref crit, ref piercingDamage);
-            }
-        }
-        Victim.ModifyIncomingDamage(ref Victim, ref attacker, ref attack, ref damage, ref crit, ref piercingDamage);
-        damage = Mathf.RoundToInt(Mathf.Max((damage - piercingDamage - Victim.defenceBase) * (1 - Victim.damageReduction), 0));
-        if (crit) damage *= 2;
-        damage += piercingDamage;
+    public void GetHealed(int heal)
+    {
+        OnGetHealed.Invoke(body, heal);
+        CurrentHP += heal;
+        isDead = false;
+        body.UpdateSlider();
+    }
+    public void Strike(UnitObject target, int mindamage, int maxdamage)
+    {
+        int damage = Random.Range(mindamage, maxdamage);
+        MOutDamage.Invoke(body, ref damage);
+        OnStrike.Invoke(body, target, damage);
+        target.unit.TakeHit(body, damage);
+    }
 
-        for (int i = 0; i < 5; i++)
-        {
-            foreach (Status status in Victim.statuses[i])
-            {
-                status.PreHit(Victim, attacker, attack, damage, crit);
-            }
-            foreach (Passive passive in Victim.passives[i])
-            {
-                passive.PreHit(Victim, attacker, attack, damage, crit);
-            }
-        }
-        Victim.PreHit(Victim, attacker, attack, damage, crit);
+    public void Die(int Fataldamage)
+    {
+        OnDeath.Invoke(body, Fataldamage);
+        isDead = true;
+    }
 
-        bool canHurt = !Victim.isDead;
-        for (int i = 0; i < 5; i++)
+    public void RecieveStatus(UnitObject applier, Status status)
+    {
+        OnStatusRecieve.Invoke(body, applier, status);
+        for (int i = 0; i < body.statuses.Count; i++)
         {
-            foreach (Status status in Victim.statuses[i])
-            {
-                canHurt = canHurt && status.CanHurt(Victim, attacker, attack, damage, crit);
-            }
-            foreach (Passive passive in Victim.passives[i])
-            {
-                canHurt = canHurt && passive.CanHurt(Victim, attacker, attack, damage, crit);
-            }
-        }
-        canHurt = canHurt && Victim.CanHurt(Victim, attacker, attack, damage, crit);
-
-        if (canHurt)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                foreach (Status status in Victim.statuses[i])
+                if (body.statuses[i].name == status.name)
                 {
-                    status.OnHit(Victim, attacker, attack, damage, crit);
+                    body.statuses[i].RenewStatus(status);
+                    return;
                 }
-                foreach (Passive passive in Victim.passives[i])
-                {
-                    passive.OnHit(Victim, attacker, attack, damage, crit);
-                }
-            }
-            Victim.OnHit(Victim, attacker, attack, damage, crit);
-            Victim.Hurt(Victim,attacker, damage);
-
-            for (int i = 0; i < 5; i++)
-            {
-                foreach (Status status in Victim.statuses[i])
-                {
-                    status.PostHit(Victim, attacker, attack, damage, crit);
-                }
-                foreach (Passive passive in Victim.passives[i])
-                {
-                    passive.PostHit(Victim, attacker, attack, damage, crit);
-                }
-            }
-            Victim.PostHit(Victim, attacker, attack, damage, crit);
         }
-
-        Victim.PostAssault(Victim, attacker, attack, damage, crit, canHurt);
-        ///TODO PostAssault for each passive and status
-        return canHurt;
-    }
-    public virtual void ModifyIncomingDamage(ref Unit Victim, ref Unit attacker, ref Action attack, ref int damage, ref bool crit, ref int piercingDamage) { }
-    /// <summary>
-    /// Override to modify what happens right before the unit gets attacked
-    /// </summary>
-    /// <param name="attacker"></param>
-    /// <param name="attack"></param>
-    /// <param name="damage"></param>
-    /// <param name="crit"></param>
-    public virtual void PreHit(Unit Victim, Unit attacker, Action attack, int damage, bool crit) { }
-    /// <summary>
-    /// return true if you want the Unit to take damage
-    /// </summary>
-    /// <param name="crit"></param>
-    /// <param name="damage"></param>
-    /// <returns></returns>
-    public virtual bool CanHurt(Unit Victim, Unit attacker, Action attack, int damage, bool crit) { return true; }
-    /// <summary>
-    /// Override to modify what happens right before the unit gets attacked
-    /// </summary>
-    /// <param name="attacker"></param>
-    /// <param name="attack"></param>
-    /// <param name="damage"></param>
-    /// <param name="crit"></param>
-    public virtual void OnHit(Unit Victim, Unit attacker, Action attack, int damage, bool crit) { }
-    /// <summary>
-    /// Override to modify what happens right after the unit gets attacked
-    /// </summary>
-    /// <param name="attacker"></param>
-    /// <param name="attack"></param>
-    /// <param name="damage"></param>
-    /// <param name="crit"></param>
-    public virtual void PostHit(Unit Victim, Unit attacker, Action attack, int damage, bool crit) { }
-    /// <summary>
-    /// Override to modify what happens right after the unit gets attacked
-    /// </summary>
-    /// <param name="attacker"></param>
-    /// <param name="attack"></param>
-    /// <param name="damage"></param>
-    /// <param name="crit"></param>
-    public virtual void PostAssault(Unit Victim, Unit attacker, Action attack, int damage, bool crit, bool Success) { }
-
-    /// <summary>
-    /// Call if you only want to call functions that correspond to only taking pure damage
-    /// </summary>
-    /// <param name="damageSource"></param>
-    /// <param name="damage"></param>
-    public void Hurt (Unit Victim, MonoBehaviour damageSource, int damage)
-    {
-        Victim.OnHurt(damageSource,damage);
-        ///TODO OnHurt for each passive and skill
-
-        Victim.TakeDamage(Victim,damageSource,damage);
-
-        Victim.PostHurt(damageSource,damage);
-        ///TODO PostHurt for each passive and skill
-    }
-    /// <summary>
-    /// Override to modify what you want to happen right before the Unit takes damage
-    /// </summary>
-    /// <param name="damage"></param>
-    /// <param name="oldDamage"></param>
-    public virtual void OnHurt(MonoBehaviour damageSource, int damage) { }
-    /// <summary>
-    /// Takes Damage without processing
-    /// </summary>
-    /// <param name="damage"></param>
-    public void TakeDamage(Unit Victim, MonoBehaviour damageSource, int damage) 
-    {
-        Victim.currentHP -= damage;
-        if (Victim.currentHP <= 0)
-        {
-            Victim.Death(Victim,damageSource);
-        }
-        Victim.transform.parent.GetComponentInChildren<UnitHUDScript>().UpdateHP(Victim);
-    } 
-    /// <summary>
-    /// Override to modify what you want to happen right after the Unit takes damage
-    /// </summary>
-    /// <param name="damage"></param>
-    /// <param name="oldDamage"></param>
-    public virtual void PostHurt(MonoBehaviour damageSource, int damage) { }
-
-    /// <summary>
-    /// Call this if you want to try to kill the unit
-    /// </summary>
-    private void Death(Unit Victim,MonoBehaviour killer)
-    {
-        if (Victim.currentHP <= 0) {
-            Victim.PreDeath(killer);
-            ///TODO PreDeath for each passive and status
-
-            bool canDie = Victim.CanDie(killer);
-            ///TODO canDie for each passive and status
-            
-            if (canDie)
-            {
-                Victim.OnDeath(killer);
-                ///TODO PreDeath for each passive and status
-
-                if (killer.Equals(typeof(Unit)))
-                    ((Unit)killer).OnKill(Victim);
-                    
-
-                Die(Victim, killer);
-
-                Victim.PostDeath(killer);
-                ///TODO PostDeath for each passive and status
-
-                if (killer.Equals(typeof(Unit)))
-                    ((Unit)killer).PostKill(Victim);
-            }
-        }
-    }
-
-    public virtual void PreDeath(MonoBehaviour killer) { }
-    public virtual bool CanDie(MonoBehaviour killer) { return true; }
-    public virtual void OnDeath(MonoBehaviour killer) { }
-    public virtual void OnKill(MonoBehaviour Victim) { }
-    public void Die(Unit Victim, MonoBehaviour killer) 
-    {
-        Victim.isDead = true;
-        Victim.currentHP = 0;
-    }
-    public virtual void PostDeath(MonoBehaviour killer) { }
-    public virtual void PostKill(MonoBehaviour killer) { }
-
-    // uses old healing algorythm, not completely finished.
-
-    public void Heal(Unit Patient, MonoBehaviour healingSource,int healAmount) 
-    {
-        Patient.OnHeal(healAmount);
-
-        TakeHealing(Patient,healAmount);
-
-        Patient.PostHeal(healAmount);
-
-    }
-    /// <summary>
-    /// Changes healing before multiplications.
-    /// </summary>
-    /// <param name="healAmount"></param>
-    public virtual void ModifyHealing1(ref int healAmount) { }
-    /// <summary>
-    /// If you wish to multiply healing, do it here.
-    /// </summary>
-    /// <param name="healAmount"></param>
-    public virtual void ModifyHealing2(ref int healAmount) { }
-    /// <summary>
-    /// Changes healing after multiplications.
-    /// </summary>
-    /// <param name="healAmount"></param>
-    public virtual void ModifyHealing3(ref int healAmount) { }
-    /// <summary>
-    /// Last resort damage modification, use only if you want to override all previous modification. Exists only for the Unit.
-    /// </summary>
-    /// <param name="healAmount"></param>
-    public virtual void ModifyHealing4(ref int healAmount) { }
-    /// <summary>
-    /// Override to modify what you want to happen right before the Unit takes damage
-    /// </summary>
-    /// <param name="healAmount"></param>
-    /// <param name="oldHealAmount"></param>
-    public virtual void OnHeal(int healAmount) { }
-    /// <summary>
-    /// Takes Healing without processing
-    /// </summary>
-    /// <param name="damage"></param>
-    public void TakeHealing(Unit Patient,int healAmount)
-    {
-        Patient.currentHP += healAmount;
-        if (Patient.currentHP > Patient.maxHP)
-        {
-            Patient.currentHP = Patient.maxHP;
-        }
-        Patient.transform.parent.GetComponentInChildren<UnitHUDScript>().UpdateHP(Patient);
-    }
-    /// <summary>
-    /// Override to modify what you want to happen right after the Unit takes damage
-    /// </summary>
-    /// <param name="healAmount"></param>
-    /// <param name="oldHealAmount"></param>
-    public virtual void PostHeal(int healAmount) { }
-    public abstract void SetDefaults();
-    public static bool CheckUnitType(Unit unit, IEnumerable<UnitType> unitTypes)
-    {
-        bool res = true;
-        foreach (UnitType type in unitTypes)
-        {
-            res = res && unit.unitTypes.Contains(type);
-        }
-        return res;
-    }
-
-
-    public virtual Action AI()
-    {
-        if (AvailableActions.Count == 0)
-            return new Skip();
-        else
-            return AvailableActions.Last();
-    }
-
-    public IEnumerator Approach(Vector3 point, float distance)
-    {
-        Vector3 Move = (point - transform.position).normalized / 5;
-        while ((point - transform.position).magnitude > distance)
-        {
-            transform.position += Move;
-            yield return new WaitForSeconds(0.02f);
-        }
+        status.AddStatus(body);
     }
 }

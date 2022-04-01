@@ -671,9 +671,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f202387ca9c954187cd8f161e61128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefabs:
-  - {fileID: 7173653236309309783, guid: 616384cd77f9a3b478e467b575b6b8e4, type: 3}
-  playerUnits: []
+  playerUnitsPrefabs:
+  - {fileID: 11400000, guid: 90653a2ce2813ad4795041fa8556c112, type: 2}
+  - {fileID: 11400000, guid: 90653a2ce2813ad4795041fa8556c112, type: 2}
+  - {fileID: 11400000, guid: 90653a2ce2813ad4795041fa8556c112, type: 2}
+  _playerUnits: []
+  UnitXp: 
+  UnitLvXp: 
+  UnitLevel: 
 --- !u!114 &2103921500
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd3585a3d5fcc442a083120a7a70518, type: 3}
+  m_Name: FighterSO
+  m_EditorClassIdentifier: 
+  body: {fileID: 0}
+  name: Fighter
+  description: Basic PC
+  maxHP: 100
+  _currentHP: 100
+  isDead: 0
+  defence: 0
+  DR: 0
+  sprites:
+  - {fileID: 21300000, guid: 16342f8326b08ba4ca668f81626755dd, type: 3}
+  - {fileID: 21300000, guid: 16342f8326b08ba4ca668f81626755dd, type: 3}
+  - {fileID: 21300000, guid: 87b3d4bf654931348b367336cb4c645a, type: 3}
+  - {fileID: 21300000, guid: 87b3d4bf654931348b367336cb4c645a, type: 3}
+  - {fileID: 21300000, guid: 87b3d4bf654931348b367336cb4c645a, type: 3}
+  - {fileID: 21300000, guid: b3a79e9049107a3478f72adf346c0d50, type: 3}
+  - {fileID: 21300000, guid: b3a79e9049107a3478f72adf346c0d50, type: 3}
+  - {fileID: 21300000, guid: 16342f8326b08ba4ca668f81626755dd, type: 3}
