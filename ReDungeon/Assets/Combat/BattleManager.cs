@@ -1,170 +1,152 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
-
-public enum BattleState { START, COMBAT, VICTORY, DEFEAT }
+using System.Threading.Tasks;
+using System.Linq;
 
 public class BattleManager : MonoBehaviour
 {
-    // public Room RoolLayout;
-    public BattleState State;
-    public List<GameObject> EnemyPrefabs;
-
-    public List<Transform> AlliedPositions;
-    public List<Transform> EnemyPositions;
-
-    List<Unit> AlliedUnits;
-    List<Unit> EnemyUnits;
-
-    // Start is called before the first frame update
+    public GameObject unitPrefab;
+    public GameObject buttonPrefab;
+    public Transform[] playerBasePositions = new Transform[3];
+    public Transform[] opponentBasePositions = new Transform[3];
+    public SpawnManager manager;
+    UnitObject[] PlayerUnits = new UnitObject[5];
+    UnitObject[] OpponentUnits = new UnitObject[5];
+    UnitObject[] AvailablePUnits => PlayerUnits.Where(x => x != null && !x.unit.isDead).ToArray();
+    UnitObject[] AvailableOUnits => OpponentUnits.Where(x => x != null && !x.unit.isDead).ToArray();
+    public Transform buttonsBackGround;
     void Start()
     {
-        State = BattleState.START;
-        StartCoroutine(setupBattle());
+        SetupBattle();
+        Battlestep();
     }
 
-    IEnumerator setupBattle()
+    private void SetupBattle()
     {
-        List<GameObject> AlliedGO;
-        AlliedUnits = new List<Unit>();
-        AlliedGO = GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerCombat>().playerUnits;
-        for (int i = 0; i < AlliedGO.Count; i++)
+        Unit[] unitsO = manager.CreateUnits();
+        for (int i = 0; i < unitsO.Length; i++)
         {
-            AlliedGO[i].transform.SetParent(AlliedPositions[i]);
-            AlliedGO[i].transform.localPosition = new Vector3(0, 0, 0);
-            AlliedGO[i].transform.localScale = new Vector3(1, 1, 1);
-            AlliedGO[i].SetActive(true);
-            AlliedUnits.Add(AlliedGO[i].GetComponent<Unit>());
-            AlliedGO[i].transform.parent.GetComponentInChildren<UnitHUDScript>().UpdateHP(AlliedUnits[i]);
-            AlliedUnits[i].enemies = EnemyUnits;
-            AlliedUnits[i].allies = AlliedUnits;
+            GameObject UnitGO = Instantiate(unitPrefab, opponentBasePositions[i].transform);
+            UnitObject unitObject = UnitGO.GetComponent<UnitObject>();
+            unitObject.Setup(unitsO[i]);
+            OpponentUnits[i] = unitObject;
         }
 
-        List<GameObject> EnemyGO = new List<GameObject>();
-        EnemyUnits = new List<Unit>();
-        for (int i = 0; i < EnemyPrefabs.Count; i++)
+        Unit[] unitsP = FindObjectOfType<MainPlayerCombat>()._playerUnits.ToArray();
+        for (int i = 0; i < unitsP.Length; i++)
         {
-            EnemyGO.Add(Instantiate(EnemyPrefabs[i], EnemyPositions[i]));
-            EnemyUnits.Add(EnemyGO[i].GetComponent<Unit>());
-            EnemyGO[i].transform.parent.GetComponentInChildren<UnitHUDScript>().UpdateHP(EnemyUnits[i]);
-            EnemyUnits[i].enemies = AlliedUnits;
-            EnemyUnits[i].allies = EnemyUnits;
+            GameObject UnitGO = Instantiate(unitPrefab, playerBasePositions[i].transform);
+            UnitObject unitObject = UnitGO.GetComponent<UnitObject>();
+            unitObject.Setup(unitsP[i]);
+            PlayerUnits[i] = unitObject;
         }
-
-        foreach(Unit a in AlliedUnits)
-        {
-            a.allies = AlliedUnits;
-            a.enemies = EnemyUnits;
-            a.Allied = true;
-        }
-
-        foreach (Unit a in EnemyUnits)
-        {
-            a.enemies = AlliedUnits;
-            a.allies = EnemyUnits;
-        }
-        yield return new WaitForSeconds(4f);
-
-        State = BattleState.COMBAT;
-        StartCoroutine(NextTurn());
     }
-    IEnumerator NextTurn()
+    /// <summary>
+    /// This Function Manages Battle, fragile, DO NOT TOUCH, except the TODO part
+    /// </summary>
+    /// <returns></returns>
+    private async Task Battlestep()
     {
-        bool anyoneAlive = false;
-        foreach(Unit allyunit in AlliedUnits)
+        try
         {
-            anyoneAlive = anyoneAlive || !allyunit.isDead;
-        }
-        if (!anyoneAlive) 
-        {
-            State = BattleState.DEFEAT;
-            Time.timeScale = 1;
-            SceneManager.LoadScene("MainMenu");
-        }
-        else
-        {
-            anyoneAlive = false;
-            foreach (Unit enemyunit in EnemyUnits)
+            while (true)
             {
-                anyoneAlive = anyoneAlive || !enemyunit.isDead;
-            }
-            if (!anyoneAlive) { State = BattleState.VICTORY;
-
-                foreach(Unit a in AlliedUnits)
+                if (AvailableOUnits.Length == 0)
                 {
-                    foreach (Action b in a.actions) 
+                    ConcludeBattle();
+                    break;
+                }
+                if (AvailablePUnits.Length == 0)
+                {
+                    break;
+                    //TODO change scene to main menu
+                }
+                UnitObject playerUnit = null;
+                foreach (UnitObject unit in AvailablePUnits)
+                {
+                    if (!unit.unit.isDead && (playerUnit == null || playerUnit.recoil > unit.recoil))
                     {
-                        if (b.CDType == CDType.turn)
-                            b.ResetCooldown();
-                        if (b.CDType == CDType.fight)
-                            b.Cooldown--;
-                    }
-                    a.recoil = 0;
-                    a.gameObject.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
-                }
-
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName("Generation"));
-                SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("CombatScene"));
-
-                GameObject.FindGameObjectWithTag("PlayerEventSystem").GetComponent<EventSystem>().enabled = true;
-
-                GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = true;
-
-                GameObject.FindGameObjectWithTag("MiniMap").GetComponent<Canvas>().enabled = true;
-            }
-            else
-            {
-                Unit selectedUnit = null;
-                foreach (Unit allyunit in AlliedUnits)
-                {
-                    if (!allyunit.isDead && (selectedUnit == null || allyunit.recoil < selectedUnit.recoil))
-                        selectedUnit = allyunit;
-                }
-
-                foreach (Unit enemyunit in EnemyUnits)
-                {
-                    if (!enemyunit.isDead && (selectedUnit == null || enemyunit.recoil < selectedUnit.recoil))
-                        selectedUnit = enemyunit;
-                }
-
-                int recoil = selectedUnit.recoil;
-                foreach (Unit allyunit in AlliedUnits)
-                {
-                    allyunit.recoil -= recoil;
-                }
-                foreach (Unit enemyunit in EnemyUnits)
-                {
-                    enemyunit.recoil -= recoil;
-                }
-
-                foreach (Action act in selectedUnit.actions)
-                {
-                    if ((act.Cooldown > 0) && (act.CDType == CDType.turn))
-                    {
-                        act.Cooldown--;
-                    }
-                    if (act.Cooldown <= 0)
-                    {
-                        act.ResetCooldown();
+                        playerUnit = unit;
                     }
                 }
-
-                Debug.Log(selectedUnit.actions.Count);
-                Action selectedAction = selectedUnit.AI();
-                if (selectedAction.TargetType == TargetType.MANY)
+                UnitObject opponentUnit = null;
+                foreach (UnitObject unit in AvailableOUnits)
                 {
-                    yield return StartCoroutine(selectedAction.Invoke(selectedUnit, selectedAction.GetValidTargets(selectedUnit)));
+                    if (!unit.unit.isDead && (opponentUnit == null || opponentUnit.recoil > unit.recoil))
+                        opponentUnit = unit;
                 }
-                else if (selectedAction.TargetType == TargetType.ONE)
+                if (opponentUnit.recoil < playerUnit.recoil)
                 {
-                    List<Unit> targets = selectedAction.GetValidTargets(selectedUnit);
-                    yield return StartCoroutine(selectedAction.Invoke(selectedUnit, targets[Random.Range(0, targets.Count)]));
+                    Debug.Log($"{opponentUnit.unit.name} is acting");
+                    int recoil = opponentUnit.recoil;
+                    foreach (UnitObject unit in AvailableOUnits)
+                    {
+                        unit.recoil -= recoil;
+                    }
+                    foreach (UnitObject unit in AvailablePUnits)
+                    {
+                        unit.recoil -= recoil;
+                    }
+                    Action selectedaction = opponentUnit.unit.Ai(AvailableOUnits, AvailablePUnits);
+                    UnitObject[] selectTarget = selectedaction.GetTargets(opponentUnit, AvailableOUnits, AvailablePUnits);
+                    foreach (UnitObject unit in selectTarget)
+                    {
+                        await selectedaction.DoAction(opponentUnit, unit);
+                        unit.SetSprite(0);
+                    }
+                    opponentUnit.recoil += selectedaction.recoil;
                 }
-                if (State == BattleState.COMBAT) { StartCoroutine(NextTurn()); }
+                else
+                {
+                    Debug.Log($"{playerUnit.unit.name} is acting");
+                    int recoil = playerUnit.recoil;
+                    foreach (UnitObject unit in AvailableOUnits)
+                    {
+                        unit.recoil -= recoil;
+                    }
+                    foreach (UnitObject unit in AvailablePUnits)
+                    {
+                        unit.recoil -= recoil;
+                    }
+                    //TODO link controlls
+                    Action selectedaction = playerUnit.unit.Ai(AvailablePUnits, AvailableOUnits);
+                    UnitObject[] selectTarget = selectedaction.GetTargets(opponentUnit, AvailablePUnits, AvailableOUnits);
+                    foreach (UnitObject unit in selectTarget)
+                    {
+                        await selectedaction.DoAction(playerUnit, unit);
+                        unit.SetSprite(0);
+                    }
+                    playerUnit.recoil += selectedaction.recoil;
+                }
+                await Task.Delay(100);
             }
+        }
+        catch(Exception e)
+        {
+            Debug.Log(e);
+        }
+    }
+    /// <summary>
+    /// This function Concludes Battle
+    /// </summary>
+    private void ConcludeBattle()
+    {
+        Unit[] unitsP = FindObjectOfType<MainPlayerCombat>()._playerUnits.ToArray();
+        for(int i = 0; i < unitsP.Length; i++)
+        {
+            unitsP[i] = PlayerUnits[i].unit;
+        }
+        //TODO change scene go "generation"
+    }
+
+    private void ResetField()
+    {
+        for (int i = 0; i < PlayerUnits.Length; i++)
+        {
+            PlayerUnits[i].transform.position = playerBasePositions[i].position;
+            OpponentUnits[i].transform.position = opponentBasePositions[i].position;
         }
     }
 }

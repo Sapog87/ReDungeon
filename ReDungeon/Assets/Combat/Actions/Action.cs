@@ -1,36 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
-public enum CDType
-{
-    none, turn, fight, floor
-}
-
-public enum TargetType
-{
-    ONE, MANY
-}
 public abstract class Action
 {
-    public string Name;
-    public TargetType TargetType;
-    public CDType CDType;
-    public int MaxUses;
-    public int MaxCooldown;
-    public int UsesLeft;
-    public int Cooldown;
-    public void ResetCooldown() 
+    public string name;
+    public Sprite sprite;
+    public string description;
+    public int recoil;
+
+    public Action()
     {
-        Debug.Log(Name);
-        UsesLeft = MaxUses;
-        Cooldown = 0;
+        SetDefaults();
     }
-    public virtual bool IsReady(Unit User)
+
+    public abstract void SetDefaults();
+    
+    async public Task DoAction(UnitObject acter, UnitObject target)
     {
-        return (GetValidTargets(User).Count > 0) && (UsesLeft != 0);
+        acter.unit.OnAction.Invoke(acter, target, 0);
+        target.unit.OnGetTargeted.Invoke(target, acter, 0);
+        await Act(acter, target);
+        await Task.Delay(1000);
     }
-    public abstract List<Unit> GetValidTargets(Unit User);
-    public virtual IEnumerator Invoke(Unit User, List<Unit> targets) { yield return null; }
-    public virtual IEnumerator Invoke(Unit User, Unit target) { yield return null; }
+
+    public abstract Task Act(UnitObject acter, UnitObject target);
+
+    public abstract UnitObject[] GetTargets(UnitObject acter, UnitObject[] allies, UnitObject[] opponents);
 }
