@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System.Linq;
 using UnityEngine.EventSystems;
-
+using UnityEngine.SceneManagement;
 public class BattleManager : MonoBehaviour
 {
     public GameObject unitPrefab;
@@ -61,14 +61,9 @@ public class BattleManager : MonoBehaviour
                 }
                 if (AvailablePUnits.Length == 0)
                 {
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = true;
-
-                    GameObject.FindGameObjectWithTag("PlayerEventSystem").GetComponent<EventSystem>().enabled = true;
-
-                    GameObject.FindGameObjectWithTag("MiniMap").GetComponent<Canvas>().enabled = true;
-
-                    GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange("Combat", "Peaceful", 0.8f, -1);
-                    GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().UnloadScene_Special("CombatScene");
+                    SceneManager.UnloadSceneAsync("Generation");
+                    GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange("Combat", "Theme", 0.8f, -1);
+                    SceneManager.LoadSceneAsync("MainMenu");
                     break;
                 }
                 UnitObject playerUnit = null;
@@ -146,7 +141,7 @@ public class BattleManager : MonoBehaviour
         {
             unitsP[i] = PlayerUnits[i].unit;
         }
-
+        
         GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = true;
 
         GameObject.FindGameObjectWithTag("PlayerEventSystem").GetComponent<EventSystem>().enabled = true;

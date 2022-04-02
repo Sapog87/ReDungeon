@@ -9,7 +9,7 @@ public class SceneLoader : MonoBehaviour
     public Slider slider;
     public Text progressText;
     public Animator transition;
-    const float transitionTime = 0.8f;
+    const float transitionTime = 0.5f;
 
     public void LoadScene(string sceneName)
     {
