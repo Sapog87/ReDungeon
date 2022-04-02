@@ -9,8 +9,13 @@ public class Battle : MonoBehaviour
     [System.Obsolete]
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (collision.gameObject.CompareTag("Player"))
-            LoadNextScene();
+        {
+            GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange("Peaceful", "Combat", 0.8f, -1);
+            GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().LoadScene_Special("CombatScene");
+        }
+            
     }
 
     [System.Obsolete]

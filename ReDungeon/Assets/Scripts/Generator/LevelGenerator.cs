@@ -18,7 +18,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void Awake()
     {
-        GameObject.FindGameObjectWithTag("Player")
+        GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Start()
