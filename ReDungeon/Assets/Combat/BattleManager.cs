@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using System.Threading.Tasks;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 public class BattleManager : MonoBehaviour
 {
@@ -60,8 +61,15 @@ public class BattleManager : MonoBehaviour
                 }
                 if (AvailablePUnits.Length == 0)
                 {
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = true;
+
+                    GameObject.FindGameObjectWithTag("PlayerEventSystem").GetComponent<EventSystem>().enabled = true;
+
+                    GameObject.FindGameObjectWithTag("MiniMap").GetComponent<Canvas>().enabled = true;
+
+                    GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange("Combat", "Peaceful", 0.8f, -1);
+                    GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().UnloadScene_Special("CombatScene");
                     break;
-                    //TODO change scene to main menu
                 }
                 UnitObject playerUnit = null;
                 foreach (UnitObject unit in AvailablePUnits)
@@ -138,7 +146,15 @@ public class BattleManager : MonoBehaviour
         {
             unitsP[i] = PlayerUnits[i].unit;
         }
-        //TODO change scene go "generation"
+
+        GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = true;
+
+        GameObject.FindGameObjectWithTag("PlayerEventSystem").GetComponent<EventSystem>().enabled = true;
+
+        GameObject.FindGameObjectWithTag("MiniMap").GetComponent<Canvas>().enabled = true;
+
+        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange("Combat", "Peaceful", 0.8f, -1);
+        GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().UnloadScene_Special("CombatScene");
     }
 
     private void ResetField()

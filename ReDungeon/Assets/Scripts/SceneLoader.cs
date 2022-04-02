@@ -26,6 +26,11 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadAsynchronously_Special(sceneName));
     }
 
+    public void UnloadScene_Special(string sceneName)
+    {
+        StartCoroutine(UnloadAsynchronously_Special(sceneName));
+    }
+
     IEnumerator LoadAsynchronously (string sceneName)
     {
         transition.SetTrigger("Start");
@@ -70,6 +75,24 @@ public class SceneLoader : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive); //Application.LoadLevelAdditiveAsync(sceneName); 
+
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
+
+        transition.SetTrigger("End");
+
+        yield return new WaitForSeconds(transitionTime);
+    }
+
+    IEnumerator UnloadAsynchronously_Special(string sceneName)
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        AsyncOperation operation = SceneManager.UnloadSceneAsync(sceneName);
 
         while (!operation.isDone)
         {
