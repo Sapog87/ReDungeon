@@ -69,8 +69,7 @@ public class SceneLoader : MonoBehaviour
 
         yield return new WaitForSeconds(transitionTime);
 
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName); //Application.LoadLevelAdditiveAsync(sceneName); 
-
+        AsyncOperation operation = Application.LoadLevelAdditiveAsync(sceneName); 
 
         while (!operation.isDone)
         {
