@@ -8,6 +8,7 @@ TagManager:
   - CombatEventSystem
   - ESC
   - MiniMap
+  - Level
   layers:
   - Default
   - TransparentFX

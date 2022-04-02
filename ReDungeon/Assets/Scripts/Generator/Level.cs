@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
+    public int level;
 
-    void Update()
+    private void Awake()
     {
-        
+        level = 0;
+        DontDestroyOnLoad(gameObject);
     }
 }

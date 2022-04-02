@@ -18,13 +18,20 @@ public class LevelComplete : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
         {
-            //Application.UnloadLevel("Generation");
-            SceneManager.LoadScene("Generation");
+            if (GameObject.FindGameObjectWithTag("Level").GetComponent<Level>().level == 5)
+            {
+                completionMessage.gameObject.SetActive(true);
+            }
+            else
+            {
+                SceneManager.LoadScene("Generation");
+            }
         }
-        //completionMessage.gameObject.SetActive(true);
     }
     public void BackToMenu()
     {
+        Destroy(GameObject.FindGameObjectWithTag("Level"));
+        Destroy(GameObject.Find("AudioManager"));
         SceneManager.LoadScene("MainMenu");
     }
 }

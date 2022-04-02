@@ -16,13 +16,9 @@ public class LevelGenerator : MonoBehaviour
     private int k; //Центр сетки
     private int countEightDoorsRooms; //Количество комнат с 8 дверьми
 
-    private void Awake()
-    {
-        GameObject.FindGameObjectWithTag("Player")
-    }
-
     private void Start()
     {
+        GameObject.FindGameObjectWithTag("Level").GetComponent<Level>().level += 1;
         countEightDoorsRooms = eightDoorsRooms.Length;
         n = 9;
         k = n / 2;
