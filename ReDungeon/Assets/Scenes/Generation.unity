@@ -617,6 +617,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneLoader
       objectReference: {fileID: 0}
+    - target: {fileID: 1779660674637083267, guid: e287ac8001aa35048b4c6085ece1d5b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3703176419519959626, guid: e287ac8001aa35048b4c6085ece1d5b5, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -660,6 +664,10 @@ PrefabInstance:
     - target: {fileID: 3703176419519959626, guid: e287ac8001aa35048b4c6085ece1d5b5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7616042357188654241, guid: e287ac8001aa35048b4c6085ece1d5b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e287ac8001aa35048b4c6085ece1d5b5, type: 3}
