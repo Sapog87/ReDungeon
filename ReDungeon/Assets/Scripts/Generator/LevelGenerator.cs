@@ -16,6 +16,11 @@ public class LevelGenerator : MonoBehaviour
     private int k; //÷ентр сетки
     private int countEightDoorsRooms; // оличество комнат с 8 дверьми
 
+    private void Awake()
+    {
+        GameObject.FindGameObjectWithTag("Player")
+    }
+
     private void Start()
     {
         countEightDoorsRooms = eightDoorsRooms.Length;
@@ -35,7 +40,7 @@ public class LevelGenerator : MonoBehaviour
             if (!PlaceRoom(GetRandomRoom(countEightDoorsRooms)))
                 break;
         }
-        PlaceRoom(artifactRoom);
+        //PlaceRoom(artifactRoom);
         PlaceRoom(bossRoom);
         CloseDoors(); //«акрывает все двери которые остались открыты и не соединены 
         MakeTunnels(); //—троит тунели между соединенными комнатами

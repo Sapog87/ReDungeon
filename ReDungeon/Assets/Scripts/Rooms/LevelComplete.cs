@@ -17,7 +17,11 @@ public class LevelComplete : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
-            completionMessage.gameObject.SetActive(true);
+        {
+            //Application.UnloadLevel("Generation");
+            SceneManager.LoadScene("Generation");
+        }
+        //completionMessage.gameObject.SetActive(true);
     }
     public void BackToMenu()
     {
