@@ -110,12 +110,16 @@ public class AudioManager : MonoBehaviour
         return next.source.isPlaying;
     }
 
-    private IEnumerator FadeChange(AudioSource oldAudio, AudioSource nextAudio, float newTrackVolume)
+    private IEnumerator FadeChange(AudioSource oldAudio, AudioSource nextAudio, float newTrackVolume, int newTrackTiming)
     {
         float timeElapsed = 0;
 
-        nextAudio.Play();
+        if (newTrackTiming >= 0)
+            nextAudio.time = newTrackTiming;
+
         float a = oldAudio.volume;
+
+        nextAudio.Play();
 
         while (timeElapsed < timeToFade)
         {
@@ -143,9 +147,12 @@ public class AudioManager : MonoBehaviour
         audio.Pause();
     }
 
-    private IEnumerator Unfade(AudioSource audio, float newTrackVolume)
+    private IEnumerator Unfade(AudioSource audio, float newTrackVolume, int newTrackTiming)
     {
         float timeElapsed = 0;
+
+        if (newTrackTiming >= 0)
+            audio.time = newTrackTiming;
 
         audio.Play();
 
@@ -166,7 +173,7 @@ public class AudioManager : MonoBehaviour
             return;
 
         StopAllCoroutines();
-        StartCoroutine(FadeChange(oldAudio, nextAudio, newTrackVolume));
+        StartCoroutine(FadeChange(oldAudio, nextAudio, newTrackVolume, newTrackTiming));
     }
 
     public void SmoothTrackFade(string trackName)
@@ -180,7 +187,7 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(Fade(audio));
     }
 
-    public void SmoothTrackUnfade(string trackName, float newTrackVolume)
+    public void SmoothTrackUnfade(string trackName, float newTrackVolume, int newTrackTiming)
     {
         AudioSource audio = Array.Find(audios, audio => audio.Name == trackName).source;
 
@@ -188,7 +195,7 @@ public class AudioManager : MonoBehaviour
             return;
 
         StopAllCoroutines();
-        StartCoroutine(Unfade(audio, newTrackVolume));
+        StartCoroutine(Unfade(audio, newTrackVolume, newTrackTiming));
     }
 
 }

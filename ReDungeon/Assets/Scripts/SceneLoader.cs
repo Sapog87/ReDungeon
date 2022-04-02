@@ -16,9 +16,18 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadAsynchronously(sceneName));
     }
 
+    public void LoadScene_NoLoadingScreen(string sceneName)
+    {
+        StartCoroutine(LoadAsynchronously_NoLoadingScreen(sceneName));
+    }
+
+    public void LoadScene_Special(string sceneName)
+    {
+        StartCoroutine(LoadAsynchronously_Special(sceneName));
+    }
+
     IEnumerator LoadAsynchronously (string sceneName)
     {
-        // Здесь будет анимация начала загрузки
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transitionTime);
@@ -37,8 +46,36 @@ public class SceneLoader : MonoBehaviour
 
             yield return null;
         }
-        
-        // Здесь будет анимация конца загрузки
+    }
+
+    IEnumerator LoadAsynchronously_NoLoadingScreen(string sceneName)
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+
+
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    IEnumerator LoadAsynchronously_Special(string sceneName)
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName); //Application.LoadLevelAdditiveAsync(sceneName); 
+
+
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
     }
 
 }
