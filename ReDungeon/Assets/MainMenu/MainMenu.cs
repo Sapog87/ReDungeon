@@ -26,8 +26,6 @@ public class MainMenu : MonoBehaviour
     /*
     public void ContinueRun()
     {
-        
-        
         sceneLoader.LoadScene(""); // Загружаем сцену перемещения по карте с данными сохранения
     }
     */
