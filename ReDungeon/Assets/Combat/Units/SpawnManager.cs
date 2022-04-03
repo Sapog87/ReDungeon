@@ -11,7 +11,7 @@ public class SpawnManager : ScriptableObject
 
     public Unit[] CreateUnits()
     {
-        Unit[] units = new Unit[Random.Range(minUnits,maxUnits)];
+        Unit[] units = new Unit[Random.Range(minUnits,maxUnits+1)];
         int sumweight = 0;
         foreach (int i in weight)
         {

@@ -11,15 +11,21 @@ public class MainPlayerCombat : MonoBehaviour
     public List<int> UnitLevel;
     void Awake()
     {
-        for (int i = 0; i<playerUnitsPrefabs.Count; i++)
-        {
-            _playerUnits.Add(Instantiate(playerUnitsPrefabs[i]));
-        }
+        recreateCharecters();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void recreateCharecters()
+    {
+        _playerUnits = new List<Unit>();
+        for (int i = 0; i < playerUnitsPrefabs.Count; i++)
+        {
+            _playerUnits.Add(Instantiate(playerUnitsPrefabs[i]));
+        }
     }
 }

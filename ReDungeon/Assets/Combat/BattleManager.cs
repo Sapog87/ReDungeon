@@ -27,6 +27,7 @@ public class BattleManager : MonoBehaviour
     UnitObject[] AvailableOUnits => OpponentUnits.Where(x => x != null && !x.unit.isDead).ToArray();
     public Transform buttonsBackGround;
     public BattleState state = new BattleState();
+    public Action selectedaction;
     void Start()
     {
         SetupBattle();
@@ -73,6 +74,7 @@ public class BattleManager : MonoBehaviour
                 }
                 if (AvailablePUnits.Length == 0)
                 {
+                    FindObjectOfType<MainPlayerCombat>().recreateCharecters();
                     SceneManager.UnloadSceneAsync("Generation");
                     GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange("Combat", "Theme", 0.8f, -1);
                     SceneManager.LoadSceneAsync("MainMenu");
@@ -104,7 +106,7 @@ public class BattleManager : MonoBehaviour
                     {
                         unit.recoil -= recoil;
                     }
-                    Action selectedaction = opponentUnit.unit.Ai(AvailableOUnits, AvailablePUnits);
+                    selectedaction = opponentUnit.unit.Ai(AvailableOUnits, AvailablePUnits);
                     UnitObject[] selectTarget = selectedaction.GetTargets(opponentUnit, AvailableOUnits, AvailablePUnits);
                     foreach (UnitObject unit in selectTarget)
                     {
@@ -125,9 +127,26 @@ public class BattleManager : MonoBehaviour
                     {
                         unit.recoil -= recoil;
                     }
-                    //TODO link controlls
-                    Action selectedaction = playerUnit.unit.Ai(AvailablePUnits, AvailableOUnits);
-                    UnitObject[] selectTarget = selectedaction.GetTargets(opponentUnit, AvailablePUnits, AvailableOUnits);
+                    state = BattleState.ActionSelection;
+                    List<GameObject> buttons = new List<GameObject>();
+                    for(int i = 0; i < playerUnit.unit.Actions.Count; i++)
+                    {
+                        buttons.Add(Instantiate(buttonPrefab,buttonsBackGround));
+                        buttons.Last().transform.localPosition = new Vector3(-735+i*60, 10, 0);
+                        buttons.Last().GetComponent<ActionSelectButton>().Setup(playerUnit.unit.Actions[i], this);
+                    }
+                    selectedaction = null;
+                    while (selectedaction == null)
+                    {
+                        await Task.Yield();
+                    }
+                    state = BattleState.BattleStep;
+                    foreach(GameObject child in buttons)
+                    {
+                        GameObject.Destroy(child.gameObject);
+                    }
+                    Debug.Log(selectedaction.name);
+                    UnitObject[] selectTarget = selectedaction.GetTargets(playerUnit, AvailablePUnits, AvailableOUnits);
                     foreach (UnitObject unit in selectTarget)
                     {
                         await selectedaction.DoAction(playerUnit, unit);
@@ -149,11 +168,20 @@ public class BattleManager : MonoBehaviour
     private void ConcludeBattle()
     {
         Unit[] unitsP = FindObjectOfType<MainPlayerCombat>()._playerUnits.ToArray();
-        for(int i = 0; i < unitsP.Length; i++)
+        for(int i = 0; i < PlayerUnits.Length; i++)
         {
-            unitsP[i] = PlayerUnits[i].unit;
+            if (PlayerUnits[i] != null)
+            {
+                while(PlayerUnits[i].statuses.Count > 0)
+                {
+                    
+                    Debug.Log(PlayerUnits[i].name);
+                    PlayerUnits[i].statuses[0].RemoveStatus(PlayerUnits[i]);
+                }
+                unitsP[i] = PlayerUnits[i].unit;
+            }
         }
-        
+
         GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = true;
 
         GameObject.FindGameObjectWithTag("PlayerEventSystem").GetComponent<EventSystem>().enabled = true;
