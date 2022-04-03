@@ -73,8 +73,10 @@ public class BattleManager : MonoBehaviour
                 }
                 if (AvailablePUnits.Length == 0)
                 {
+                    GameObject.Destroy(GameObject.FindGameObjectWithTag("Player"));
+                    GameObject.Destroy(GameObject.FindGameObjectWithTag("Level"));
+                    GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackFade("Combat");
                     SceneManager.UnloadSceneAsync("Generation");
-                    GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange("Combat", "Theme", 0.8f, -1);
                     SceneManager.LoadSceneAsync("MainMenu");
                     break;
                 }

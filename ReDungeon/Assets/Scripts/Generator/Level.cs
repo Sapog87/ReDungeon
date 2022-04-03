@@ -5,10 +5,21 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {
     public int level;
+    Level instance;
 
     private void Awake()
     {
-        level = 0;
         DontDestroyOnLoad(gameObject);
+
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        level = 0;
+        
     }
 }
