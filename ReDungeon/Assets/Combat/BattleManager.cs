@@ -134,7 +134,7 @@ public class BattleManager : MonoBehaviour
                     for(int i = 0; i < playerUnit.unit.Actions.Count; i++)
                     {
                         buttons.Add(Instantiate(buttonPrefab,buttonsBackGround));
-                        buttons.Last().transform.localPosition = new Vector3(-735+i*60, 10, 0);
+                        buttons.Last().transform.localPosition = new Vector3(35+i*60, 10, 0);
                         buttons.Last().GetComponent<ActionSelectButton>().Setup(playerUnit.unit.Actions[i], this);
                     }
                     selectedaction = null;
