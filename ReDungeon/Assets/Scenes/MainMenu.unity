@@ -5178,8 +5178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerUnitsPrefabs:
   - {fileID: 11400000, guid: 90653a2ce2813ad4795041fa8556c112, type: 2}
-  - {fileID: 11400000, guid: 90653a2ce2813ad4795041fa8556c112, type: 2}
-  - {fileID: 11400000, guid: 90653a2ce2813ad4795041fa8556c112, type: 2}
+  - {fileID: 11400000, guid: 4734a028ffd0e4b4fbda045828414990, type: 2}
   _playerUnits: []
   UnitXp: 
   UnitLvXp: 

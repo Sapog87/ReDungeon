@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fighter : Unit
+[CreateAssetMenu(fileName = "SlimeSO", menuName = "Units/Slime")]
+public class Slime : Unit
 {
     public override void SetDefaults()
     {
-        Actions.Add(new SimpleStrike());
-        new BlindingGlory().AddPassive(this);
+        Actions.Add(new SimpleLick());
     }
 
     public override Action Ai(UnitObject[] allies, UnitObject[] opponents)

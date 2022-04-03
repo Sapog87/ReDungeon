@@ -16,6 +16,11 @@ public class UnitObject : MonoBehaviour
     public Slider slider;
     public Text hpText;
 
+    private void OnMouseDown()
+    {
+        
+    }
+
     public void Setup(Unit unit)
     {
         this.unit = unit;
@@ -33,6 +38,7 @@ public class UnitObject : MonoBehaviour
 
     async public Task approach(Transform position, float closeness, float speed)
     {
+        SetSprite(2);
         Vector2 pos = transform.position;
         for (float i = 0; i <= closeness; i += speed)
         {
@@ -42,13 +48,14 @@ public class UnitObject : MonoBehaviour
     }
     async public Task goBack(float speed)
     {
-        SetSprite(0);
+        SetSprite(2);
         Vector2 pos = transform.localPosition;
         for (float i = 0; i <= 1; i += speed)
         {
             transform.localPosition = Vector2.Lerp(pos, Vector2.zero, i);
             await Task.Delay(10);
         }
+        SetSprite(0);
     }
 
     public void SetSprite(int state)

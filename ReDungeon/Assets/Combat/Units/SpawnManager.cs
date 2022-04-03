@@ -19,7 +19,7 @@ public class SpawnManager : ScriptableObject
         }
         for (int i = 0; i < units.Length; i++)
         {
-            int selector = Random.Range(1, sumweight);
+            int selector = Random.Range(1, sumweight+1);
             for (int j = 0; j < weight.Length; j++)
             {
                 if(weight[j] < selector)

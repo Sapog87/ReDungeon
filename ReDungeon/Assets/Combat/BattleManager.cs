@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 using System.Linq;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+
+/// <summary>
+/// is a state in which battle is
+/// </summary>
+public enum BattleState
+{
+    Setup,BattleStep,ActionSelection,TargetSelection, Conclusion
+}
 public class BattleManager : MonoBehaviour
 {
     public GameObject unitPrefab;
@@ -18,6 +26,7 @@ public class BattleManager : MonoBehaviour
     UnitObject[] AvailablePUnits => PlayerUnits.Where(x => x != null && !x.unit.isDead).ToArray();
     UnitObject[] AvailableOUnits => OpponentUnits.Where(x => x != null && !x.unit.isDead).ToArray();
     public Transform buttonsBackGround;
+    public BattleState state = new BattleState();
     void Start()
     {
         SetupBattle();
@@ -26,6 +35,7 @@ public class BattleManager : MonoBehaviour
 
     private void SetupBattle()
     {
+        state = BattleState.Setup;
         Unit[] unitsO = manager.CreateUnits();
         for (int i = 0; i < unitsO.Length; i++)
         {
@@ -50,10 +60,12 @@ public class BattleManager : MonoBehaviour
     /// <returns></returns>
     private async Task Battlestep()
     {
+        await Task.Delay(1000);
         try
         {
             while (true)
             {
+                state = BattleState.BattleStep;
                 if (AvailableOUnits.Length == 0)
                 {
                     ConcludeBattle();
@@ -123,7 +135,7 @@ public class BattleManager : MonoBehaviour
                     }
                     playerUnit.recoil += selectedaction.recoil;
                 }
-                await Task.Delay(100);
+                await Task.Delay(10);
             }
         }
         catch(Exception e)

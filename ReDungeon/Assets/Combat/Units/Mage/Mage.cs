@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime : Unit
+[CreateAssetMenu(fileName = "MageSO", menuName = "Units/Mage")]
+public class Mage : Unit
 {
     public override void SetDefaults()
     {
-        Actions.Add(new SimpleLick());
+        Actions.Add(new SimpleSpell());
     }
 
     public override Action Ai(UnitObject[] allies, UnitObject[] opponents)

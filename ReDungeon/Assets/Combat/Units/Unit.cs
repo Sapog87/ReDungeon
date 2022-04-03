@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Threading.Tasks;
 
 
 public enum UnitType
@@ -14,7 +15,6 @@ public enum TriggerType
 {
     OnGetTargeted, OnAction, OnTakeHit, OnGetHurt, OnGetHealed, OnStrike, MOutDamage, OnKill, OnDeath, OnStatusApply, OnStatusRecieve
 }
-[CreateAssetMenu (fileName = "New Unit", menuName = "Unit")]
 
 public abstract class Unit:ScriptableObject
 {
@@ -42,7 +42,7 @@ public abstract class Unit:ScriptableObject
     public List<Action> Actions = new List<Action>();
     public List<Passive> Passives = new List<Passive>();
 
-    // 0 - idle, 1 - taking damage, 2-4 - attacking, 5 - downed, 6 - special, 7 - victory
+    // 0 - idle, 1 - taking damage, 2 - movement 3-4 - attacking, 5 - downed, 6 - special, 7 - victory
     public Sprite[] sprites = new Sprite[8];
 
     public TargetedDelegate OnGetTargeted = delegate { };
@@ -69,8 +69,9 @@ public abstract class Unit:ScriptableObject
         SetDefaults();
     }
 
-    public void TakeHit(UnitObject attacker, int damage)
+    public async Task TakeHit(UnitObject attacker, int damage)
     {
+        body.SetSprite(1);
         try
         {
             OnTakeHit.Invoke(body, attacker, damage);
@@ -80,6 +81,8 @@ public abstract class Unit:ScriptableObject
             Debug.Log(e);
         }
         GetHurt(damage);
+        await Task.Delay(500);
+        body.SetSprite(0);
     }
 
     public void GetHurt(int damage)
@@ -99,12 +102,14 @@ public abstract class Unit:ScriptableObject
         isDead = false;
         body.UpdateSlider();
     }
-    public void Strike(UnitObject target, int mindamage, int maxdamage)
+    public async Task Strike(UnitObject target, int mindamage, int maxdamage)
     {
+        body.SetSprite(Random.Range(3, 5));
         int damage = Random.Range(mindamage, maxdamage);
         MOutDamage.Invoke(body, ref damage);
         OnStrike.Invoke(body, target, damage);
-        target.unit.TakeHit(body, damage);
+        await target.unit.TakeHit(body, damage);
+        body.SetSprite(0);
     }
 
     public void Die(int Fataldamage)
