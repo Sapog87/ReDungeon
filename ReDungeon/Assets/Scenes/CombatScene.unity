@@ -1107,6 +1107,7 @@ MonoBehaviour:
   - {fileID: 1043279242}
   manager: {fileID: 11400000, guid: 9d9aef607090d944a935524210dee537, type: 2}
   buttonsBackGround: {fileID: 1576746270}
+  state: 0
 --- !u!4 &1393973840
 Transform:
   m_ObjectHideFlags: 0

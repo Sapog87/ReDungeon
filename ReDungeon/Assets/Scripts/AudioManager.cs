@@ -8,7 +8,6 @@ public class AudioManager : MonoBehaviour
 {
     public AudioMixer audioMixer;
     public Audio[] audios;
-    //private AudioMixerGroup MusicGroup = audioMixer.FindMatchingGroups("Music")[0];
 
     public static AudioManager instance;
 
@@ -22,7 +21,7 @@ public class AudioManager : MonoBehaviour
             instance = this;
         else
         {
-            //audios = instance.audios;
+            //instance.audios = audios;
             Destroy(gameObject);
             return;
         }
@@ -41,50 +40,16 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayMusic(string name, float volume = 1f, int timing = 0)
+    public void Play(string name, float volume = 1f, int timing = 0)
     {
-        AudioMixerGroup audioMixerGroup = audioMixer.FindMatchingGroups("Music")[0];
-        if (audioMixerGroup == null)
-            return;
-
         Audio next = Array.Find(audios, audio => audio.Name == name);
+        
         if (next != null)
         {
-            next.source.outputAudioMixerGroup = audioMixerGroup;
+            if (timing >= 0)
+                next.source.time = timing;
+
             next.source.volume = volume;
-            next.source.time = timing;
-            next.source.Play();
-        }
-    }
-
-    public void PlaySounds(string name, float volume = 1f, int timing = 0)
-    {
-        AudioMixerGroup audioMixerGroup = audioMixer.FindMatchingGroups("Sounds")[0];
-        if (audioMixerGroup == null)
-            return;
-
-        Audio next = Array.Find(audios, audio => audio.Name == name);
-        if (next != null)
-        {
-            next.source.outputAudioMixerGroup = audioMixerGroup;
-            next.source.volume = volume;
-            next.source.time = timing;
-            next.source.Play();
-        }
-    }
-
-    public void PlayMaster(string name, float volume = 1f, int timing = 0)
-    {
-        AudioMixerGroup audioMixerGroup = audioMixer.FindMatchingGroups("Master")[0];
-        if (audioMixerGroup == null)
-            return;
-
-        Audio next = Array.Find(audios, audio => audio.Name == name);
-        if (next != null)
-        {
-            next.source.outputAudioMixerGroup = audioMixerGroup;
-            next.source.volume = volume;
-            next.source.time = timing;
             next.source.Play();
         }
     }
@@ -172,8 +137,9 @@ public class AudioManager : MonoBehaviour
 
         if (oldAudio == null || nextAudio == null)
             return;
+            
 
-        StopAllCoroutines();
+        //StopAllCoroutines();
         StartCoroutine(FadeChange(oldAudio, nextAudio, newTrackVolume, newTrackTiming));
     }
 
@@ -184,7 +150,7 @@ public class AudioManager : MonoBehaviour
         if (audio == null)
             return;
 
-        StopAllCoroutines();
+        //StopAllCoroutines();
         StartCoroutine(Fade(audio));
     }
 
@@ -195,7 +161,7 @@ public class AudioManager : MonoBehaviour
         if (audio == null)
             return;
 
-        StopAllCoroutines();
+        //StopAllCoroutines();
         StartCoroutine(Unfade(audio, newTrackVolume, newTrackTiming));
     }
 
