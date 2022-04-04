@@ -9,8 +9,12 @@ public class Battle : MonoBehaviour
     [System.Obsolete]
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (collision.gameObject.CompareTag("Player"))
+        {
             LoadNextScene();
+        }
+            
     }
 
     [System.Obsolete]
@@ -24,6 +28,8 @@ public class Battle : MonoBehaviour
 
         GameObject.FindGameObjectWithTag("MiniMap").GetComponent<Canvas>().enabled = false;
 
-        Application.LoadLevelAdditive("CombatScene");
+        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange("Peaceful", "Combat", 0.5f, -1);
+
+        GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().LoadScene_Special("CombatScene");
     }
 }

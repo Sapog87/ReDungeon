@@ -9,16 +9,30 @@ public class SceneLoader : MonoBehaviour
     public Slider slider;
     public Text progressText;
     public Animator transition;
-    const float transitionTime = 0.8f;
+    const float transitionTime = 0.5f;
 
     public void LoadScene(string sceneName)
     {
         StartCoroutine(LoadAsynchronously(sceneName));
     }
 
+    public void LoadScene_NoLoadingScreen(string sceneName)
+    {
+        StartCoroutine(LoadAsynchronously_NoLoadingScreen(sceneName));
+    }
+
+    public void LoadScene_Special(string sceneName)
+    {
+        StartCoroutine(LoadAsynchronously_Special(sceneName));
+    }
+
+    public void UnloadScene_Special(string sceneName)
+    {
+        StartCoroutine(UnloadAsynchronously_Special(sceneName));
+    }
+
     IEnumerator LoadAsynchronously (string sceneName)
     {
-        // Здесь будет анимация начала загрузки
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transitionTime);
@@ -37,8 +51,57 @@ public class SceneLoader : MonoBehaviour
 
             yield return null;
         }
-        
-        // Здесь будет анимация конца загрузки
+    }
+
+    IEnumerator LoadAsynchronously_NoLoadingScreen(string sceneName)
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+
+
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    IEnumerator LoadAsynchronously_Special(string sceneName)
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive); //Application.LoadLevelAdditiveAsync(sceneName); 
+
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
+
+        transition.SetTrigger("End");
+
+        yield return new WaitForSeconds(transitionTime);
+    }
+
+    IEnumerator UnloadAsynchronously_Special(string sceneName)
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        AsyncOperation operation = SceneManager.UnloadSceneAsync(sceneName);
+
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
+
+        transition.SetTrigger("End");
+
+        yield return new WaitForSeconds(transitionTime);
     }
 
 }

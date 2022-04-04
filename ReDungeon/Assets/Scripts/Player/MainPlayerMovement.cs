@@ -18,6 +18,8 @@ public class MainPlayerMovement : MonoBehaviour
         mainPlayer = GameObject.FindGameObjectWithTag(playerTag);
         speed = 10f;
 
+        DontDestroyOnLoad(gameObject);
+
         animator = GetComponent<Animator>();
     }
 

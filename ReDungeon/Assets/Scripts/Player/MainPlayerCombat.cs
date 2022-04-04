@@ -4,16 +4,30 @@ using UnityEngine;
 
 public class MainPlayerCombat : MonoBehaviour
 {
-    public List<GameObject> playerPrefabs;
-    public List<GameObject> playerUnits;
-    // Start is called before the first frame update
-    void Start()
+    public List<Unit> playerUnitsPrefabs;
+    public List<Unit> _playerUnits;
+    public List<int> UnitXp;
+    public List<int> UnitLvXp;
+    public List<int> UnitLevel;
+
+    MainPlayerCombat instance;
+
+    void Awake()
     {
-        playerUnits = new List<GameObject>();
-        for(int i = 0; i < playerPrefabs.Count; i++)
+        //recreateCharecters();
+        DontDestroyOnLoad(gameObject);
+        /*
+        if (instance == null)
+            instance = this;
+        else
         {
-            playerUnits.Add(Instantiate(playerPrefabs[i],gameObject.transform));
-            playerUnits[i].SetActive(false);
+            Destroy(gameObject);
+            return;
+        }
+        */
+        for (int i = 0; i<playerUnitsPrefabs.Count; i++)
+        {
+            _playerUnits.Add(Instantiate(playerUnitsPrefabs[i]));
         }
     }
 
@@ -21,5 +35,14 @@ public class MainPlayerCombat : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void recreateCharecters()
+    {
+        _playerUnits = new List<Unit>();
+        for (int i = 0; i < playerUnitsPrefabs.Count; i++)
+        {
+            _playerUnits.Add(Instantiate(playerUnitsPrefabs[i]));
+        }
     }
 }

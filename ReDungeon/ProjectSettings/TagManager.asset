@@ -8,6 +8,8 @@ TagManager:
   - CombatEventSystem
   - ESC
   - MiniMap
+  - AudioManager
+  - SceneLoader
   layers:
   - Default
   - TransparentFX

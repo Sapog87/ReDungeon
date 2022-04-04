@@ -16,11 +16,25 @@ public class LevelComplete : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
-            completionMessage.gameObject.SetActive(true);
+        if (suggestionMessage.gameObject.activeSelf && Input.GetKeyDown(KeyCode.E))
+        {
+            if (GameObject.FindGameObjectWithTag("Level").GetComponent<Level>().level == 5)
+            {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = false;
+                completionMessage.gameObject.SetActive(true);
+            }
+            else
+            {
+                SceneManager.LoadScene("Generation");
+            }
+        }
     }
     public void BackToMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>().enabled = false;
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
+        Destroy(GameObject.FindGameObjectWithTag("Level"));
+        Destroy(GameObject.Find("AudioManager"));
+        GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().LoadScene("MainMenu");
     }
 }

@@ -8,7 +8,6 @@ public class AudioManager : MonoBehaviour
 {
     public AudioMixer audioMixer;
     public Audio[] audios;
-    //private AudioMixerGroup MusicGroup = audioMixer.FindMatchingGroups("Music")[0];
 
     public static AudioManager instance;
 
@@ -22,6 +21,7 @@ public class AudioManager : MonoBehaviour
             instance = this;
         else
         {
+            //instance.audios = audios;
             Destroy(gameObject);
             return;
         }
@@ -40,50 +40,16 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayMusic(string name, float volume = 1f, int timing = 0)
+    public void Play(string name, float volume = 1f, int timing = 0)
     {
-        AudioMixerGroup audioMixerGroup = audioMixer.FindMatchingGroups("Music")[0];
-        if (audioMixerGroup == null)
-            return;
-
         Audio next = Array.Find(audios, audio => audio.Name == name);
+        
         if (next != null)
         {
-            next.source.outputAudioMixerGroup = audioMixerGroup;
+            if (timing >= 0)
+                next.source.time = timing;
+
             next.source.volume = volume;
-            next.source.time = timing;
-            next.source.Play();
-        }
-    }
-
-    public void PlaySounds(string name, float volume = 1f, int timing = 0)
-    {
-        AudioMixerGroup audioMixerGroup = audioMixer.FindMatchingGroups("Sounds")[0];
-        if (audioMixerGroup == null)
-            return;
-
-        Audio next = Array.Find(audios, audio => audio.Name == name);
-        if (next != null)
-        {
-            next.source.outputAudioMixerGroup = audioMixerGroup;
-            next.source.volume = volume;
-            next.source.time = timing;
-            next.source.Play();
-        }
-    }
-
-    public void PlayMaster(string name, float volume = 1f, int timing = 0)
-    {
-        AudioMixerGroup audioMixerGroup = audioMixer.FindMatchingGroups("Master")[0];
-        if (audioMixerGroup == null)
-            return;
-
-        Audio next = Array.Find(audios, audio => audio.Name == name);
-        if (next != null)
-        {
-            next.source.outputAudioMixerGroup = audioMixerGroup;
-            next.source.volume = volume;
-            next.source.time = timing;
             next.source.Play();
         }
     }
@@ -110,12 +76,16 @@ public class AudioManager : MonoBehaviour
         return next.source.isPlaying;
     }
 
-    private IEnumerator FadeChange(AudioSource oldAudio, AudioSource nextAudio, float newTrackVolume)
+    private IEnumerator FadeChange(AudioSource oldAudio, AudioSource nextAudio, float newTrackVolume, int newTrackTiming)
     {
         float timeElapsed = 0;
 
-        nextAudio.Play();
+        if (newTrackTiming >= 0)
+            nextAudio.time = newTrackTiming;
+
         float a = oldAudio.volume;
+
+        nextAudio.Play();
 
         while (timeElapsed < timeToFade)
         {
@@ -143,9 +113,12 @@ public class AudioManager : MonoBehaviour
         audio.Pause();
     }
 
-    private IEnumerator Unfade(AudioSource audio, float newTrackVolume)
+    private IEnumerator Unfade(AudioSource audio, float newTrackVolume, int newTrackTiming)
     {
         float timeElapsed = 0;
+
+        if (newTrackTiming >= 0)
+            audio.time = newTrackTiming;
 
         audio.Play();
 
@@ -164,9 +137,10 @@ public class AudioManager : MonoBehaviour
 
         if (oldAudio == null || nextAudio == null)
             return;
+            
 
-        StopAllCoroutines();
-        StartCoroutine(FadeChange(oldAudio, nextAudio, newTrackVolume));
+        //StopAllCoroutines();
+        StartCoroutine(FadeChange(oldAudio, nextAudio, newTrackVolume, newTrackTiming));
     }
 
     public void SmoothTrackFade(string trackName)
@@ -176,19 +150,19 @@ public class AudioManager : MonoBehaviour
         if (audio == null)
             return;
 
-        StopAllCoroutines();
+        //StopAllCoroutines();
         StartCoroutine(Fade(audio));
     }
 
-    public void SmoothTrackUnfade(string trackName, float newTrackVolume)
+    public void SmoothTrackUnfade(string trackName, float newTrackVolume, int newTrackTiming)
     {
         AudioSource audio = Array.Find(audios, audio => audio.Name == trackName).source;
 
         if (audio == null)
             return;
 
-        StopAllCoroutines();
-        StartCoroutine(Unfade(audio, newTrackVolume));
+        //StopAllCoroutines();
+        StartCoroutine(Unfade(audio, newTrackVolume, newTrackTiming));
     }
 
 }
