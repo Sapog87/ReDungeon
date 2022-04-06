@@ -5,7 +5,7 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {
     public int level;
-    Level instance;
+    public static Level instance;
 
     private void Awake()
     {
@@ -15,6 +15,7 @@ public class Level : MonoBehaviour
             instance = this;
         else
         {
+            instance.level = 0;
             Destroy(gameObject);
             return;
         }

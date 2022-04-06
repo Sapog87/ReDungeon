@@ -10,24 +10,20 @@ public class MainPlayerCombat : MonoBehaviour
     public List<int> UnitLvXp;
     public List<int> UnitLevel;
 
-    MainPlayerCombat instance;
+    public static MainPlayerCombat instance;
 
     void Awake()
     {
-        //recreateCharecters();
+        recreateCharecters();
         DontDestroyOnLoad(gameObject);
-        /*
+        
         if (instance == null)
             instance = this;
         else
         {
+            instance.recreateCharecters();
             Destroy(gameObject);
             return;
-        }
-        */
-        for (int i = 0; i<playerUnitsPrefabs.Count; i++)
-        {
-            _playerUnits.Add(Instantiate(playerUnitsPrefabs[i]));
         }
     }
 

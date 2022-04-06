@@ -74,12 +74,9 @@ public class BattleManager : MonoBehaviour
                 }
                 if (AvailablePUnits.Length == 0)
                 {
-                    GameObject.Destroy(GameObject.FindGameObjectWithTag("Player"));
-                    GameObject.Destroy(GameObject.FindGameObjectWithTag("Level"));
                     GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackFade("Combat");
-                    FindObjectOfType<MainPlayerCombat>().recreateCharecters();
+                    GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().LoadScene_NoLoadingScreen("MainMenu");
                     SceneManager.UnloadSceneAsync("Generation");
-                    SceneManager.LoadSceneAsync("MainMenu");
                     break;
                 }
                 UnitObject playerUnit = null;

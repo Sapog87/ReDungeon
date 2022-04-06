@@ -21,7 +21,6 @@ public class AudioManager : MonoBehaviour
             instance = this;
         else
         {
-            //instance.audios = audios;
             Destroy(gameObject);
             return;
         }
@@ -76,6 +75,27 @@ public class AudioManager : MonoBehaviour
         return next.source.isPlaying;
     }
 
+    private IEnumerator FadeAll()
+    {
+        float timeElapsed = 0;
+
+        foreach(Audio audio in audios)
+        {
+            if (audio.source.isPlaying)
+            {
+                float a = audio.source.volume;
+
+                while (timeElapsed < timeToFade)
+                {
+                    audio.source.volume = Mathf.Lerp(a, 0, timeElapsed / timeToFade);
+                    timeElapsed += Time.deltaTime;
+                    yield return null;
+                }
+                audio.source.Pause();
+            }
+        }
+    }
+
     private IEnumerator FadeChange(AudioSource oldAudio, AudioSource nextAudio, float newTrackVolume, int newTrackTiming)
     {
         float timeElapsed = 0;
@@ -128,6 +148,11 @@ public class AudioManager : MonoBehaviour
             timeElapsed += Time.deltaTime;
             yield return null;
         }
+    }
+
+    public void SmoothFadeAllTracks()
+    {
+        StartCoroutine(FadeAll());
     }
 
     public void SmoothTrackChange(string oldTrackName, string newTrackName, float newTrackVolume = 0.8f, int newTrackTiming = 0)

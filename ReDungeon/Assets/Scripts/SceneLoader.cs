@@ -11,6 +11,22 @@ public class SceneLoader : MonoBehaviour
     public Animator transition;
     const float transitionTime = 0.5f;
 
+    public static SceneLoader instance;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
+
     public void LoadScene(string sceneName)
     {
         StartCoroutine(LoadAsynchronously(sceneName));
@@ -51,6 +67,12 @@ public class SceneLoader : MonoBehaviour
 
             yield return null;
         }
+
+        transition.SetTrigger("End");
+
+        loadingScreen.SetActive(false);
+
+        yield return new WaitForSeconds(transitionTime);
     }
 
     IEnumerator LoadAsynchronously_NoLoadingScreen(string sceneName)
@@ -66,6 +88,10 @@ public class SceneLoader : MonoBehaviour
         {
             yield return null;
         }
+
+        transition.SetTrigger("End");
+
+        yield return new WaitForSeconds(transitionTime);
     }
 
     IEnumerator LoadAsynchronously_Special(string sceneName)

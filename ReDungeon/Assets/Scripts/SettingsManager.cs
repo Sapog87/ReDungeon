@@ -9,6 +9,21 @@ public class SettingsManager : MonoBehaviour
     const float defaultMusicMult = 0.7f;
     const float defaultSoundsMult = 0.5f;
 
+    public static SettingsManager instance;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
     private float map(float x, float in_min, float in_max, float out_min, float out_max)
     {
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
