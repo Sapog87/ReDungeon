@@ -74,7 +74,7 @@ public class BattleManager : MonoBehaviour
                 }
                 if (AvailablePUnits.Length == 0)
                 {
-                    GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackFade("Combat");
+                    GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothFadeAllTracks();
                     GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().LoadScene_NoLoadingScreen("MainMenu");
                     SceneManager.UnloadSceneAsync("Generation");
                     break;

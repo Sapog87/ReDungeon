@@ -21,6 +21,7 @@ public class MainPlayerCombat : MonoBehaviour
             instance = this;
         else
         {
+            GameObject.FindGameObjectWithTag("Player").transform.SetPositionAndRotation(new Vector3(-16, 0, 0), new Quaternion());
             instance.recreateCharecters();
             Destroy(gameObject);
             return;
