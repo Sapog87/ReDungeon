@@ -14,7 +14,7 @@ public class SimpleSpell : Action
                 target.unit.RecieveStatus(acter, new Acid(3));
                 break;
             case 1:
-                target.recoil += 10;
+                target.Recoil += 10;
                 break;
         }
     }

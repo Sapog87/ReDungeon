@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 /// <summary>
 /// is a state in which battle is
@@ -21,6 +22,7 @@ public class BattleManager : MonoBehaviour
     public Transform[] playerBasePositions = new Transform[3];
     public Transform[] opponentBasePositions = new Transform[3];
     public SpawnManager manager;
+    public TextMeshProUGUI textbox;
     UnitObject[] PlayerUnits = new UnitObject[5];
     UnitObject[] OpponentUnits = new UnitObject[5];
     UnitObject[] AvailablePUnits => PlayerUnits.Where(x => x != null && !x.unit.isDead).ToArray();
@@ -82,7 +84,7 @@ public class BattleManager : MonoBehaviour
                 UnitObject playerUnit = null;
                 foreach (UnitObject unit in AvailablePUnits)
                 {
-                    if (!unit.unit.isDead && (playerUnit == null || playerUnit.recoil > unit.recoil))
+                    if (!unit.unit.isDead && (playerUnit == null || playerUnit.Recoil > unit.Recoil))
                     {
                         playerUnit = unit;
                     }
@@ -90,41 +92,41 @@ public class BattleManager : MonoBehaviour
                 UnitObject opponentUnit = null;
                 foreach (UnitObject unit in AvailableOUnits)
                 {
-                    if (!unit.unit.isDead && (opponentUnit == null || opponentUnit.recoil > unit.recoil))
+                    if (!unit.unit.isDead && (opponentUnit == null || opponentUnit.Recoil > unit.Recoil))
                         opponentUnit = unit;
                 }
-                if (opponentUnit.recoil < playerUnit.recoil)
+                if (opponentUnit.Recoil < playerUnit.Recoil)
                 {
                     Debug.Log($"{opponentUnit.unit.name} is acting");
-                    int recoil = opponentUnit.recoil;
+                    int recoil = opponentUnit.Recoil;
                     foreach (UnitObject unit in AvailableOUnits)
                     {
-                        unit.recoil -= recoil;
+                        unit.Recoil -= recoil;
                     }
                     foreach (UnitObject unit in AvailablePUnits)
                     {
-                        unit.recoil -= recoil;
+                        unit.Recoil -= recoil;
                     }
                     selectedaction = opponentUnit.unit.Ai(AvailableOUnits, AvailablePUnits);
                     UnitObject[] selectTarget = selectedaction.GetTargets(opponentUnit, AvailableOUnits, AvailablePUnits);
+                    opponentUnit.Recoil += selectedaction.recoil;
                     foreach (UnitObject unit in selectTarget)
                     {
                         await selectedaction.DoAction(opponentUnit, unit);
                         unit.SetSprite(0);
                     }
-                    opponentUnit.recoil += selectedaction.recoil;
                 }
                 else
                 {
                     Debug.Log($"{playerUnit.unit.name} is acting");
-                    int recoil = playerUnit.recoil;
+                    int recoil = playerUnit.Recoil;
                     foreach (UnitObject unit in AvailableOUnits)
                     {
-                        unit.recoil -= recoil;
+                        unit.Recoil -= recoil;
                     }
                     foreach (UnitObject unit in AvailablePUnits)
                     {
-                        unit.recoil -= recoil;
+                        unit.Recoil -= recoil;
                     }
                     state = BattleState.ActionSelection;
                     List<GameObject> buttons = new List<GameObject>();
@@ -146,12 +148,12 @@ public class BattleManager : MonoBehaviour
                     }
                     Debug.Log(selectedaction.name);
                     UnitObject[] selectTarget = selectedaction.GetTargets(playerUnit, AvailablePUnits, AvailableOUnits);
+                    playerUnit.Recoil += selectedaction.recoil;
                     foreach (UnitObject unit in selectTarget)
                     {
                         await selectedaction.DoAction(playerUnit, unit);
                         unit.SetSprite(0);
                     }
-                    playerUnit.recoil += selectedaction.recoil;
                 }
                 await Task.Delay(10);
             }

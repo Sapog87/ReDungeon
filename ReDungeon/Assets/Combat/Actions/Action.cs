@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Linq;
 
 public abstract class Action
 {
@@ -23,6 +24,11 @@ public abstract class Action
         target.unit.OnGetTargeted.Invoke(target, acter, 0);
         await Act(acter, target);
         await Task.Delay(1000);
+    }
+
+    public static UnitObject[] filterAlive(UnitObject[] units)
+    {
+        return units.Where(x => !x.unit.isDead).ToArray();
     }
 
     public abstract Task Act(UnitObject acter, UnitObject target);

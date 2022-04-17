@@ -8,13 +8,17 @@ using System.Threading.Tasks;
 public class UnitObject : MonoBehaviour
 {
     public Unit unit;
-    public int recoil;
+    [SerializeField]
+    private int _recoil;
+    public int Recoil { get => _recoil; set { _recoil = Mathf.Max(value,0); UpdateRSlider(); } }
     public List<Status> statuses = new List<Status>();
     public int defence;
     public float DR;
     public SpriteRenderer sprite;
-    public Slider slider;
+    public Slider HpSlider;
+    public Slider SSlider;
     public Text hpText;
+    public Text RecoilText;
 
     private void OnMouseDown()
     {
@@ -27,13 +31,19 @@ public class UnitObject : MonoBehaviour
         unit.body = this;
         sprite.sprite = this.unit.sprites[6];
         UpdateSlider();
+        UpdateRSlider();
     }
 
     public void UpdateSlider()
     {
-        slider.maxValue = unit.maxHP;
-        slider.value = unit.CurrentHP;
+        HpSlider.maxValue = unit.maxHP;
+        HpSlider.value = unit.CurrentHP;
         hpText.text = unit.CurrentHP.ToString();
+    }
+    public void UpdateRSlider()
+    {
+        SSlider.value = Mathf.Max(0,100 - Recoil);
+        RecoilText.text = Recoil.ToString();
     }
 
     async public Task approach(Transform position, float closeness, float speed)

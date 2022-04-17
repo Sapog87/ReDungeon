@@ -13,7 +13,7 @@ public class BlindingGlory : Passive
     public override void OnStrike(UnitObject bearer, UnitObject target, int damage)
     {
         Debug.Log("Blinding Glory");
-        target.recoil += 5;
-        bearer.recoil -= 5;
+        target.Recoil += 5;
+        bearer.Recoil -= 5;
     }
 }

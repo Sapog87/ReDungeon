@@ -20,6 +20,6 @@ public class SimpleStrike : Action
 
     public override UnitObject[] GetTargets(UnitObject acter, UnitObject[] allies, UnitObject[] opponents)
     {
-        return new UnitObject[]{opponents[Random.Range(0, opponents.Length)]};
+        return new UnitObject[]{ opponents[Random.Range(0, opponents.Length)]};
     }
 }
