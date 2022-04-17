@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Linq;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 /// <summary>
 /// is a state in which battle is
 /// </summary>
 public enum BattleState
 {
-    Setup,BattleStep,ActionSelection,TargetSelection, Conclusion
+    Setup, BattleStep, ActionSelection, TargetSelection, Conclusion
 }
 public class BattleManager : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class BattleManager : MonoBehaviour
     public Transform buttonsBackGround;
     public BattleState state = new BattleState();
     public Action selectedaction;
+
+    [SerializeField] private TextMeshProUGUI infoBox;
     void Start()
     {
         SetupBattle();
@@ -128,10 +131,10 @@ public class BattleManager : MonoBehaviour
                     }
                     state = BattleState.ActionSelection;
                     List<GameObject> buttons = new List<GameObject>();
-                    for(int i = 0; i < playerUnit.unit.Actions.Count; i++)
+                    for (int i = 0; i < playerUnit.unit.Actions.Count; i++)
                     {
-                        buttons.Add(Instantiate(buttonPrefab,buttonsBackGround));
-                        buttons.Last().transform.localPosition = new Vector3(35+i*60, 10, 0);
+                        buttons.Add(Instantiate(buttonPrefab, buttonsBackGround));
+                        buttons.Last().transform.localPosition = new Vector3(35 + i * 60, 10, 0);
                         buttons.Last().GetComponent<ActionSelectButton>().Setup(playerUnit.unit.Actions[i], this);
                     }
                     selectedaction = null;
@@ -140,7 +143,7 @@ public class BattleManager : MonoBehaviour
                         await Task.Yield();
                     }
                     state = BattleState.BattleStep;
-                    foreach(GameObject child in buttons)
+                    foreach (GameObject child in buttons)
                     {
                         GameObject.Destroy(child.gameObject);
                     }
@@ -156,7 +159,7 @@ public class BattleManager : MonoBehaviour
                 await Task.Delay(10);
             }
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Debug.Log(e);
         }
@@ -167,13 +170,13 @@ public class BattleManager : MonoBehaviour
     private void ConcludeBattle()
     {
         Unit[] unitsP = FindObjectOfType<MainPlayerCombat>()._playerUnits.ToArray();
-        for(int i = 0; i < PlayerUnits.Length; i++)
+        for (int i = 0; i < PlayerUnits.Length; i++)
         {
             if (PlayerUnits[i] != null)
             {
-                while(PlayerUnits[i].statuses.Count > 0)
+                while (PlayerUnits[i].statuses.Count > 0)
                 {
-                    
+
                     Debug.Log(PlayerUnits[i].name);
                     PlayerUnits[i].statuses[0].RemoveStatus(PlayerUnits[i]);
                 }
