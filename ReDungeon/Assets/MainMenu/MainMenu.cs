@@ -2,19 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class MainMenu : MonoBehaviour
 {
-    public SceneLoader sceneLoader;
-
-    private void Awake()
-    {
-        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackUnfade("Theme", 0.5f, 0);
-    }
-
     private void Start()
     {
-        
+        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackUnfade("Theme", 0.5f, 0);
     }
 
     public void NewRun()
