@@ -1,1 +1,0 @@
-{"masterVolume":0.8,"musicVolume":0.6,"soundsVolume":0.5,"isFullScreen":false,"resolution":"1920 x 1080 @ 60Hz","qualityIndex":2}
