@@ -21,7 +21,10 @@ public class BattleManager : MonoBehaviour
     public GameObject buttonPrefab;
     public Transform[] playerBasePositions = new Transform[3];
     public Transform[] opponentBasePositions = new Transform[3];
+
+    [HideInInspector]
     public SpawnManager manager;
+
     UnitObject[] PlayerUnits = new UnitObject[5];
     UnitObject[] OpponentUnits = new UnitObject[5];
     UnitObject[] AvailablePUnits => PlayerUnits.Where(x => x != null && !x.unit.isDead).ToArray();

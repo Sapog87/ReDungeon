@@ -16,7 +16,7 @@ public class HealingSpell : Action
     public override void SetDefaults()
     {
         recoil = 21;
-        name = "Heling Spell";
+        name = "Healing Spell";
         description = "Heals either 1 target for 20-30 hp or splits heals all with a low chance";
     }
 

@@ -8,6 +8,7 @@ public class Acid : Status
     
     public Acid(int stack)
     {
+        name = "Acid";
         this.stack = stack;
         triggers.Add(TriggerType.OnAction);
         description = "the bearer takes damage equal to the stack each turn, then remove 1/3 of the stack";

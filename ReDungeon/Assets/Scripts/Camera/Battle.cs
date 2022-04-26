@@ -31,5 +31,7 @@ public class Battle : MonoBehaviour
         GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange("Peaceful", "Combat", 0.5f, -1);
 
         GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().LoadScene_Special("CombatScene");
+
+        //GameObject.FindGameObjectWithTag("BattleManager").GetComponent<BattleManager>()
     }
 }

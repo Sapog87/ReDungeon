@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "FighterSO", menuName = "Units/Fighter")]
-public class Fighter : Unit
+public class Box : Unit
 {
     public override void SetDefaults()
     {
-        Actions.Add(new SimpleStrike());
-        Actions.Add(new Brace());
-        new BlindingGlory().AddPassive(this);
+        Actions.Add(new BoxRam());
+        Actions.Add(new FlexTape());
     }
 
     public override Action Ai(UnitObject[] allies, UnitObject[] opponents)
