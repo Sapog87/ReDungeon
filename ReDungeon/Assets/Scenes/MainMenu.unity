@@ -598,8 +598,8 @@ GameObject:
   - component: {fileID: 562948550}
   - component: {fileID: 562948549}
   m_Layer: 0
-  m_Name: Level
-  m_TagString: Level
+  m_Name: LevelManager
+  m_TagString: LevelManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -617,6 +617,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
+  currentManager: {fileID: 0}
+  isBossBattle: 0
 --- !u!4 &562948550
 Transform:
   m_ObjectHideFlags: 0
@@ -1263,7 +1265,7 @@ PrefabInstance:
       objectReference: {fileID: 24100000, guid: fc90dd8af820db0459402e7871e216ca, type: 2}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.size
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[0].Clip
@@ -1280,38 +1282,74 @@ PrefabInstance:
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[1].Clip
       value: 
-      objectReference: {fileID: 8300000, guid: 83ad053c02b95594297a77f83cd8aa2c, type: 3}
+      objectReference: {fileID: 8300000, guid: 4b3cfd1e88517ee4188514bb2c1f6eba, type: 3}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[1].Loop
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[1].Name
-      value: Peaceful
+      value: Peaceful_LVL-1
       objectReference: {fileID: 0}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[2].Clip
       value: 
-      objectReference: {fileID: 8300000, guid: 719878e28677009498defbb3fa2b0159, type: 3}
+      objectReference: {fileID: 8300000, guid: 3447b591b3cec14489e72993ff3c63b3, type: 3}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[2].Loop
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[2].Name
-      value: Combat
+      value: Combat_LVL-1
       objectReference: {fileID: 0}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[3].Clip
       value: 
-      objectReference: {fileID: 8300000, guid: 8604efb425b2f0349a6330e33dc3201a, type: 3}
+      objectReference: {fileID: 8300000, guid: 628fecf72686313469051f75fec3ed79, type: 3}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[3].Loop
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[3].Name
-      value: Boss Combat
+      value: BossCombat_LVL-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[4].Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 83ad053c02b95594297a77f83cd8aa2c, type: 3}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[4].Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[4].Name
+      value: Peaceful_LVL-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[5].Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 719878e28677009498defbb3fa2b0159, type: 3}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[5].Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[5].Name
+      value: Combat_LVL-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[6].Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8604efb425b2f0349a6330e33dc3201a, type: 3}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[6].Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[6].Name
+      value: BossCombat_LVL-2
       objectReference: {fileID: 0}
     - target: {fileID: 6450999497004211094, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: m_Name

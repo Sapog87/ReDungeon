@@ -22,7 +22,9 @@ public class LevelGenerator : MonoBehaviour
         GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = true;
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>().enabled = true;
 
-        GameObject.FindGameObjectWithTag("Level").GetComponent<Level>().level += 1;
+        GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().level += 1;
+        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackUnfade(GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().GetPeacefulSoundtrackName(), 0.5f, 0);
+
         countEightDoorsRooms = 5;
         n = 9;
         k = n / 2;
@@ -45,6 +47,13 @@ public class LevelGenerator : MonoBehaviour
         CloseDoors(); //«акрывает все двери которые остались открыты и не соединены 
         MakeTunnels(); //—троит тунели между соединенными комнатами
     }
+
+    private void OnDestroy()
+    {
+        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothFadeAllTracks();
+    }
+
+
     private bool PlaceRoom(Room room)
     {
         #region ‘орммирует сет мест, куда можно поставить комнату

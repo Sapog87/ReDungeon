@@ -10,8 +10,8 @@ TagManager:
   - MiniMap
   - AudioManager
   - SceneLoader
-  - Level
-  - PlayerManager
+  - BattleManager
+  - LevelManager
   layers:
   - Default
   - TransparentFX

@@ -28,10 +28,14 @@ public class Battle : MonoBehaviour
 
         GameObject.FindGameObjectWithTag("MiniMap").GetComponent<Canvas>().enabled = false;
 
-        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange("Peaceful", "Combat", 0.5f, -1);
+        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange(
+                                GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().GetPeacefulSoundtrackName(),
+                                GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().GetCombatSoundtrackName(),
+                                0.5f, -1);
+
+        GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().SetCurrentManager();
+        GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().isBossBattle = false;
 
         GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().LoadScene_Special("CombatScene");
-
-        //GameObject.FindGameObjectWithTag("BattleManager").GetComponent<BattleManager>()
     }
 }

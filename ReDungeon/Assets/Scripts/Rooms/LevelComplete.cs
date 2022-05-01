@@ -18,7 +18,7 @@ public class LevelComplete : MonoBehaviour
     {
         if (suggestionMessage.gameObject.activeSelf && Input.GetKeyDown(KeyCode.E))
         {
-            if (GameObject.FindGameObjectWithTag("Level").GetComponent<Level>().level == 5)
+            if (GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().level == 5)
             {
                 GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = false;
                 completionMessage.gameObject.SetActive(true);
@@ -33,7 +33,7 @@ public class LevelComplete : MonoBehaviour
     {
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>().enabled = false;
         Destroy(GameObject.FindGameObjectWithTag("Player"));
-        Destroy(GameObject.FindGameObjectWithTag("Level"));
+        Destroy(GameObject.FindGameObjectWithTag("LevelManager"));
         Destroy(GameObject.Find("AudioManager"));
         GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().LoadScene("MainMenu");
     }

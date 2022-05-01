@@ -42,6 +42,7 @@ public class BattleManager : MonoBehaviour
 
     private void SetupBattle()
     {
+        manager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().currentManager;
         state = BattleState.Setup;
         Unit[] unitsO = manager.CreateUnits();
         for (int i = 0; i < unitsO.Length; i++)
@@ -51,7 +52,6 @@ public class BattleManager : MonoBehaviour
             unitObject.Setup(unitsO[i]);
             OpponentUnits[i] = unitObject;
         }
-
         Unit[] unitsP = FindObjectOfType<MainPlayerCombat>()._playerUnits.ToArray();
         for (int i = 0; i < unitsP.Length; i++)
         {
@@ -193,7 +193,12 @@ public class BattleManager : MonoBehaviour
 
         GameObject.FindGameObjectWithTag("MiniMap").GetComponent<Canvas>().enabled = true;
 
-        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange("Combat", "Peaceful", 0.8f, -1);
+        LevelManager lm = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange(
+                                lm.isBossBattle ? lm.GetBossCombatSoundtrackName() : lm.GetCombatSoundtrackName(),
+                                lm.GetPeacefulSoundtrackName(),
+                                0.5f, -1);
+
         GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().UnloadScene_Special("CombatScene");
     }
 

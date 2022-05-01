@@ -77,21 +77,18 @@ public class AudioManager : MonoBehaviour
     private IEnumerator FadeAll()
     {
         float timeElapsed = 0;
-
-        foreach(Audio audio in audios)
+        
+        foreach(Audio audio in Array.FindAll(audios, x => x.source.isPlaying))
         {
-            if (audio.source.isPlaying)
-            {
-                float a = audio.source.volume;
+            float a = audio.source.volume;
 
-                while (timeElapsed < timeToFade)
-                {
+            while (timeElapsed < timeToFade)
+            {
                     audio.source.volume = Mathf.Lerp(a, 0, timeElapsed / timeToFade);
                     timeElapsed += Time.deltaTime;
                     yield return null;
-                }
-                audio.source.Pause();
             }
+            audio.source.Pause();
         }
     }
 

@@ -13,7 +13,7 @@ public class MainMenu : MonoBehaviour
 
     public void NewRun()
     {
-        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange("Theme", "Peaceful", 0.5f, 0);
+        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothFadeAllTracks();
         GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().LoadScene_NoLoadingScreen("Generation");
     }
 

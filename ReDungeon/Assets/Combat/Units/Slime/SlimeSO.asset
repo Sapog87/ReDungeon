@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 0}
   name: Slime
-  description: The Basic anemy
+  description: The Basic enemy
   maxHP: 50
   _currentHP: 50
   isDead: 0
