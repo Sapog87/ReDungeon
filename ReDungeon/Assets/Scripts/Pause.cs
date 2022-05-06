@@ -16,13 +16,11 @@ public class Pause : MonoBehaviour
         {
             if (!pause)
             {
-                Time.timeScale = 0;
                 pause = true;
                 panel.SetActive(true);
             }
             else
             {
-                Time.timeScale = 1;
                 pause = false;
                 panel.SetActive(false);
             }
@@ -31,7 +29,6 @@ public class Pause : MonoBehaviour
 
     public void _pause()
     {
-        Time.timeScale = 1;
         pause = false;
         panel.SetActive(false);
     }

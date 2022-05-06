@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Battle : MonoBehaviour
 {
-    [System.Obsolete]
+    public List<SpriteRenderer> mobBoxes;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -14,14 +16,29 @@ public class Battle : MonoBehaviour
         {
             LoadNextScene();
         }
-            
+        
     }
 
-    [System.Obsolete]
+    private void Awake()
+    {
+        //Destroy(gameObject);   // enable to despawn all mobs
+        LevelManager lm = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+        lm.SetCurrentManager();
+
+        if (mobBoxes.Count > 0)
+        {
+            foreach (SpriteRenderer sp in mobBoxes)
+            {
+                sp.sprite = lm.currentManager.unitprebuilds[Random.Range(0, lm.currentManager.unitprebuilds.Length)].sprites[0];
+                if (Random.Range(0, 2) == 1)
+                    sp.flipX = true;
+            }
+        }
+    }
+
+
     private void LoadNextScene()
     {
-        Destroy(gameObject);
-
         GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = false;
 
         GameObject.FindGameObjectWithTag("PlayerEventSystem").GetComponent<EventSystem>().enabled = false;
@@ -37,5 +54,6 @@ public class Battle : MonoBehaviour
         GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().isBossBattle = false;
 
         GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().LoadScene_Special("CombatScene");
+        Destroy(gameObject);
     }
 }

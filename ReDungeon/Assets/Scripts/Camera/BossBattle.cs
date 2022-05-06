@@ -5,7 +5,9 @@ using UnityEngine.EventSystems;
 
 public class BossBattle : MonoBehaviour
 {
-    [System.Obsolete]
+    public List<SpriteRenderer> mobBoxes;
+    public LevelComplete lc;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -16,11 +18,22 @@ public class BossBattle : MonoBehaviour
 
     }
 
-    [System.Obsolete]
+    private void Awake()
+    {
+        LevelManager lm = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+        lm.SetCurrentManager_Boss();
+
+        if (mobBoxes.Count > 0)
+        {
+            for(int i = 0; i < mobBoxes.Count; i++)
+                mobBoxes[i].sprite = lm.currentManager.unitprebuilds[i].sprites[0];
+                
+        }
+        lc.gameObject.SetActive(false);
+    }
+
     private void LoadNextScene()
     {
-        Destroy(gameObject);
-
         GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = false;
 
         GameObject.FindGameObjectWithTag("PlayerEventSystem").GetComponent<EventSystem>().enabled = false;
@@ -36,5 +49,7 @@ public class BossBattle : MonoBehaviour
         GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().isBossBattle = true;
 
         GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().LoadScene_Special("CombatScene");
+        lc.gameObject.SetActive(true);
+        Destroy(gameObject);
     }
 }
