@@ -40,13 +40,13 @@ public class BossBattle : MonoBehaviour
 
         GameObject.FindGameObjectWithTag("MiniMap").GetComponent<Canvas>().enabled = false;
 
-        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange(
-                                GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().GetPeacefulSoundtrackName(),
+        GameObject.FindGameObjectWithTag("PauseGeneration").GetComponent<Pause>().enabled = false;
+
+        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothFadeAllTrackChange(
                                 GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().GetBossCombatSoundtrackName(),
                                 0.5f, -1);
 
         GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().SetCurrentManager_Boss();
-        GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().isBossBattle = true;
 
         GameObject.FindGameObjectWithTag("SceneLoader").GetComponent<SceneLoader>().LoadScene_Special("CombatScene");
         lc.gameObject.SetActive(true);

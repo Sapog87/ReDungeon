@@ -506,6 +506,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9121233949474141520, guid: 26911cc613e94184d97b3a4e2ad664d0, type: 3}
+      propertyPath: m_TagString
+      value: PauseCombat
+      objectReference: {fileID: 0}
     - target: {fileID: 9121233949474141522, guid: 26911cc613e94184d97b3a4e2ad664d0, type: 3}
       propertyPath: m_RootOrder
       value: 2

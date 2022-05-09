@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitprebuilds:
   - {fileID: 11400000, guid: d56fa18bc92fc8a47b9d171d06fb2bee, type: 2}
-  weight: 01000000
+  - {fileID: 11400000, guid: ff4ea7bc73141e840b2bf2ff4d2d31fd, type: 2}
+  - {fileID: 11400000, guid: 64e0918507cae754fa381da4738a9ae7, type: 2}
+  - {fileID: 11400000, guid: b87a5950eebaa8c41a30f1b501777bd9, type: 2}
+  - {fileID: 11400000, guid: e03b5df73c30ca140927134b11be6a61, type: 2}
+  weight: 0100000001000000010000000100000001000000
   minUnits: 1
-  maxUnits: 1
+  maxUnits: 5

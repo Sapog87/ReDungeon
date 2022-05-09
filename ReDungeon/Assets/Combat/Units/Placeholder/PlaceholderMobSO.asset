@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd53de3d71d3044419714d5a479d99b1, type: 3}
+  m_Name: PlaceholderMobSO
+  m_EditorClassIdentifier: 
+  body: {fileID: 0}
+  name: PlAcEhoLdEr
+  description: Why tha thing is here!?
+  maxHP: 250
+  _currentHP: 250
+  isDead: 0
+  defence: 20
+  DR: 0
+  sprites:
+  - {fileID: 21300000, guid: 9ad99973817bfd94e8f7c2e8670fdc26, type: 3}
+  - {fileID: 21300000, guid: 2a4e1da85b8770c4088cffd3624e4f4d, type: 3}
+  - {fileID: 21300000, guid: 18c5386d9d51d1a49a965ce074ee540e, type: 3}
+  - {fileID: 21300000, guid: 16bd5581e43ef95409454ce3b9456156, type: 3}
+  - {fileID: 21300000, guid: 16bd5581e43ef95409454ce3b9456156, type: 3}
+  - {fileID: 21300000, guid: 2a4e1da85b8770c4088cffd3624e4f4d, type: 3}
+  - {fileID: 21300000, guid: 9ad99973817bfd94e8f7c2e8670fdc26, type: 3}
+  - {fileID: 21300000, guid: 9ad99973817bfd94e8f7c2e8670fdc26, type: 3}

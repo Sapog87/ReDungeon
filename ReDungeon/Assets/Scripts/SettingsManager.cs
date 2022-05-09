@@ -16,12 +16,13 @@ public class SettingsManager : MonoBehaviour
     
 
     public Resolution[] resolutions;
-    public static SettingsManager instance;
+    //public static SettingsManager instance;
 
     public float map(float x, float in_min, float in_max, float out_min, float out_max) => (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 
     private void Awake()
     {
+        /*
         if (instance == null)
             instance = this;
         else
@@ -29,6 +30,7 @@ public class SettingsManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        */
         resolutions = Screen.resolutions.Where(x => x.width >= 800 && x.height >= 600).ToArray();
     }
 

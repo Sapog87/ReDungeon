@@ -6,12 +6,14 @@ TagManager:
   tags:
   - PlayerEventSystem
   - CombatEventSystem
-  - ESC
   - MiniMap
   - AudioManager
   - SceneLoader
   - BattleManager
   - LevelManager
+  - PlayerManager
+  - PauseGeneration
+  - PauseCombat
   layers:
   - Default
   - TransparentFX

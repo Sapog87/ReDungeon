@@ -18,7 +18,7 @@ public class LevelComplete : MonoBehaviour
     {
         if (suggestionMessage.gameObject.activeSelf && Input.GetKeyDown(KeyCode.E))
         {
-            if (GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().level == 5)
+            if (GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().level == 4)
             {
                 GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerMovement>().enabled = false;
                 completionMessage.gameObject.SetActive(true);

@@ -114,6 +114,32 @@ public class AudioManager : MonoBehaviour
         oldAudio.Pause();
     }
 
+    private IEnumerator FadeAllChange(AudioSource nextAudio, float newTrackVolume, int newTrackTiming)
+    {
+        float timeElapsed = 0;
+
+        if (newTrackTiming >= 0)
+            nextAudio.time = newTrackTiming;
+
+        Audio[] temp = Array.FindAll(audios, x => x.source.isPlaying);
+
+        nextAudio.Play();
+
+        foreach (Audio audio in temp)
+        {
+            float a = audio.source.volume;
+
+            while (timeElapsed < timeToFade)
+            {
+                audio.source.volume = Mathf.Lerp(a, 0, timeElapsed / timeToFade);
+                nextAudio.volume = Mathf.Lerp(0, newTrackVolume, timeElapsed / timeToFade);
+                timeElapsed += Time.deltaTime;
+                yield return null;
+            }
+            audio.source.Pause();
+        }
+    }
+
     private IEnumerator Fade(AudioSource audio)
     {
         float timeElapsed = 0;
@@ -148,6 +174,7 @@ public class AudioManager : MonoBehaviour
 
     public void SmoothFadeAllTracks()
     {
+        //StopAllCoroutines();
         StartCoroutine(FadeAll());
     }
 
@@ -162,6 +189,17 @@ public class AudioManager : MonoBehaviour
 
         //StopAllCoroutines();
         StartCoroutine(FadeChange(oldAudio, nextAudio, newTrackVolume, newTrackTiming));
+    }
+
+    public void SmoothFadeAllTrackChange(string newTrackName, float newTrackVolume = 0.8f, int newTrackTiming = 0)
+    {
+        AudioSource nextAudio = Array.Find(audios, audio => audio.Name == newTrackName).source;
+
+        if (nextAudio == null)
+            return;
+
+        //StopAllCoroutines();
+        StartCoroutine(FadeAllChange(nextAudio, newTrackVolume, newTrackTiming));
     }
 
     public void SmoothTrackFade(string trackName)

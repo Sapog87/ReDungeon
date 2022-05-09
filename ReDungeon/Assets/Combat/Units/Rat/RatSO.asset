@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1807d595851ceb34984f090fdd47bc7d, type: 3}
+  m_Name: RatSO
+  m_EditorClassIdentifier: 
+  body: {fileID: 0}
+  name: Rat
+  description: Just a rat
+  maxHP: 40
+  _currentHP: 40
+  isDead: 0
+  defence: 0
+  DR: 0
+  sprites:
+  - {fileID: 21300000, guid: 6e9a497dbf2ec2347a1f67f2d375a6cc, type: 3}
+  - {fileID: 21300000, guid: 3152abaff4ef7084ba82ac4777de1187, type: 3}
+  - {fileID: 21300000, guid: b119cc3643a40c94ea91c8786da35196, type: 3}
+  - {fileID: 21300000, guid: 6354d23d78d56c24e9f47f5c6bb90bcf, type: 3}
+  - {fileID: 21300000, guid: 6354d23d78d56c24e9f47f5c6bb90bcf, type: 3}
+  - {fileID: 21300000, guid: 3152abaff4ef7084ba82ac4777de1187, type: 3}
+  - {fileID: 21300000, guid: 6e9a497dbf2ec2347a1f67f2d375a6cc, type: 3}
+  - {fileID: 21300000, guid: 6e9a497dbf2ec2347a1f67f2d375a6cc, type: 3}

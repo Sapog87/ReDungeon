@@ -15,11 +15,10 @@ public class LevelManager : MonoBehaviour
 
     static string[] managersPaths =
     {
-        "Spawners/Test/TestSpawner", // 1-й уровень     Spawner_LVL-1
+        "Spawners/Spawner_LVL-1", // 1-й уровень      Test/TestSpawner
         "Spawners/Spawner_LVL-2", // 2-й уровень
         "Spawners/Spawner_LVL-3", // 3-й уровень
         "Spawners/Spawner_LVL-4", // 4-й уровень
-        //"Spawners/Spawner_LVL-1"  // 5-й уровень
     };
 
     static string[] bossManagersPaths =
@@ -28,7 +27,6 @@ public class LevelManager : MonoBehaviour
         "Spawners/BossSpawner_LVL-2", // босс 2-го уровня
         "Spawners/BossSpawner_LVL-3", // босс 3-го уровня
         "Spawners/BossSpawner_LVL-4", // босс 4-го уровня
-        //"Spawners/BossSpawner_LVL-5"  // босс 5-го уровня
     };
 
     static string[] peacefulSoundtrackNames =
@@ -52,7 +50,7 @@ public class LevelManager : MonoBehaviour
         "BossCombat_LVL-1",
         "BossCombat_LVL-2",
         "BossCombat_LVL-1",
-        "BossCombat_LVL-1"
+        "FinalBattle_Phase1"
     };
 
 
@@ -72,33 +70,33 @@ public class LevelManager : MonoBehaviour
 
     public void SetCurrentManager()
     {
-        if (level > 0 && level <= 5)
+        if (level > 0 && level <= 4)
             currentManager = Resources.Load(managersPaths[level - 1]) as SpawnManager;
     }
 
     public void SetCurrentManager_Boss()
     {
-        if (level > 0 && level <= 5)
+        if (level > 0 && level <= 4)
             currentManager = (SpawnManager)Resources.Load(bossManagersPaths[level - 1]);
     }
 
     public string GetPeacefulSoundtrackName()
     {
-        if (level > 0 && level <= 5)
+        if (level > 0 && level <= 4)
             return peacefulSoundtrackNames[level - 1];
         return peacefulSoundtrackNames[0];
     }
 
     public string GetCombatSoundtrackName()
     {
-        if (level > 0 && level <= 5)
+        if (level > 0 && level <= 4)
             return combatSoundtrackNames[level - 1];
         return combatSoundtrackNames[0];
     }
 
     public string GetBossCombatSoundtrackName()
     {
-        if (level > 0 && level <= 5)
+        if (level > 0 && level <= 4)
             return bossCombatSoundtrackNames[level - 1];
         return bossCombatSoundtrackNames[0];
     }

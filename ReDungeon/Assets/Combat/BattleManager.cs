@@ -193,9 +193,10 @@ public class BattleManager : MonoBehaviour
 
         GameObject.FindGameObjectWithTag("MiniMap").GetComponent<Canvas>().enabled = true;
 
+        GameObject.FindGameObjectWithTag("PauseGeneration").GetComponent<Pause>().enabled = true;
+
         LevelManager lm = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
-        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothTrackChange(
-                                lm.isBossBattle ? lm.GetBossCombatSoundtrackName() : lm.GetCombatSoundtrackName(),
+        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothFadeAllTrackChange(
                                 lm.GetPeacefulSoundtrackName(),
                                 0.5f, -1);
 

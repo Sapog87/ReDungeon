@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour
         UI_boxes = new Dictionary<string, CharacterUI_Box>();
         UI_boxes.Add("Mage", UI[0]);
         UI_boxes.Add("Fighter", UI[1]);
-        UI_boxes.Add("Shielder", UI[2]);
+        UI_boxes.Add("Shield", UI[2]);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerCombat>();
         RefreshUI();
     }
@@ -63,7 +63,6 @@ public class CharacterUI_Box
         ExpSlider = expSlider;
         ExpText = expText;
     }
-
 }
 
 
