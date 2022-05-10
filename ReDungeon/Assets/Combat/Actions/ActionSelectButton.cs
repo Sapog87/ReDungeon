@@ -5,23 +5,24 @@ using UnityEngine.UI;
 
 public class ActionSelectButton : MonoBehaviour
 {
-    public BattleManager manager;
+    [HideInInspector]
+    public BattleManager Manager;
     public Action RepresentedAction;
     public Text ActionName;
-    public GameObject PopupPrefab;
-    [SerializeField]
-    private GameObject popup;
+    public Image image;
+    public bool Available;
     public void OnClick()
     {
-        manager.selectedaction = RepresentedAction;
-        manager.textbox.text = "";
-        LayoutRebuilder.ForceRebuildLayoutImmediate(manager.textbox.rectTransform);
+        if (Available)
+        {
+            Manager.selectedaction = RepresentedAction;
+            Manager.UpdateTextBox();
+        }
     }
 
     private void OnMouseEnter()
     {
-        manager.textbox.text = RepresentedAction.description;
-        LayoutRebuilder.ForceRebuildLayoutImmediate(manager.textbox.rectTransform);
+        Manager.UpdateTextBox($"{RepresentedAction.description}{(Available?"":$"\n{(RepresentedAction.cooldown>0?$"Cooldown = {RepresentedAction.cooldown}":"No Available Targets")}")}");
     }
 
     private void OnMouseOver()
@@ -30,14 +31,28 @@ public class ActionSelectButton : MonoBehaviour
 
     private void OnMouseExit()
     {
-        manager.textbox.text = "";
-        LayoutRebuilder.ForceRebuildLayoutImmediate(manager.textbox.rectTransform);
+        Manager.UpdateTextBox();
     }
 
-    public void Setup(Action action, BattleManager manager)
+    public void Setup(Action action, BattleManager manager, UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
     {
         RepresentedAction = action;
-        this.manager = manager;
+        Manager = manager;
         ActionName.text = RepresentedAction.name;
+        Available = action.IsAvailable(acter, allies, opponents);
+        try
+        {
+            image = Resources.Load<Image>(RepresentedAction.ImageReference);
+        }
+        catch (System.Exception e)
+        { }
+        if (Available)
+        {
+            image.color = Color.white;
+        }
+        else
+        {
+            image.color = Color.gray;
+        }
     }
 }

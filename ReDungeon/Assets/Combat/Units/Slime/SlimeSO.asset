@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 0}
   name: Slime
-  description: The Basic anemy
+  description: <color=#38b5a2>"Slimes, the most basic of magical creatures, they
+    seem to inhabit every arcane world. While I had a <i>hand</i> in creating them,
+    don't give me any credit, the idea has existed long before me and their exterior
+    is modeled by someone else... I still question their design choices." - The Forgemaster</color>
+  level: 0
   maxHP: 50
   _currentHP: 50
   isDead: 0

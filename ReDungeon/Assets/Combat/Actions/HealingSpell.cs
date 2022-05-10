@@ -8,7 +8,7 @@ public class HealingSpell : Action
     async public override Task Act(UnitObject acter, UnitObject target)
     {
         acter.SetSprite(6);
-        target.unit.GetHealed(Random.Range(20, 31));
+        target.unit.GetHealed(Random.Range(10, 21));
         Debug.Log(target.unit.name);
         await Task.Delay(100);
         acter.SetSprite(0);
@@ -16,26 +16,17 @@ public class HealingSpell : Action
     public override void SetDefaults()
     {
         recoil = 21;
-        name = "Heling Spell";
-        description = "Heals either 1 target for 20-30 hp or splits heals all with a low chance";
+        name = "Healing Spell";
+        description = "Heals 1 target for 10-20 hp";
     }
 
-    public override UnitObject[] GetTargets(UnitObject acter, UnitObject[] allies, UnitObject[] opponents)
+    public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
     {
-        switch (Random.Range(0, 5))
-        {
-            case 0:
-                return new UnitObject[] { acter };
-            case 1:
-                return new UnitObject[] { allies[Random.Range(0, allies.Length)] };
-            case 2:
-                return new UnitObject[] { allies[Random.Range(0, allies.Length)] };
-            case 3:
-                return new UnitObject[] { allies[Random.Range(0, allies.Length)] };
-            case 4:
-                return allies;
-            default:
-                return allies;
-        }
+        return allies;
+    }
+
+    public override IEnumerable<UnitObject> GetTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
+    {
+        return UnitObject.FillUnits(GetPossibleTargets(acter, allies, opponents), 1);
     }
 }

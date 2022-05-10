@@ -9,9 +9,4 @@ public class Slime : Unit
     {
         Actions.Add(new SimpleLick());
     }
-
-    public override Action Ai(UnitObject[] allies, UnitObject[] opponents)
-    {
-        return Actions[Actions.Count - 1];
-    }
 }

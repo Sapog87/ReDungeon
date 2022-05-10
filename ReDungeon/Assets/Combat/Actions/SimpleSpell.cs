@@ -22,11 +22,16 @@ public class SimpleSpell : Action
     {
         recoil = 21;
         name = "Simple Spell";
-        description = "Enchants one target for 7-17 base damage and applies either 2 stacks of Acid or 10 recoil";
+        description = "Enchants one target for 7-17 base damage and applies either 3 stacks of Acid or 10 recoil";
     }
 
-    public override UnitObject[] GetTargets(UnitObject acter, UnitObject[] allies, UnitObject[] opponents)
+    public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
     {
-        return new UnitObject[] { opponents[Random.Range(0, opponents.Length)] };
+        return UnitObject.FilterAlive(opponents);
+    }
+
+    public override IEnumerable<UnitObject> GetTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
+    {
+        return UnitObject.FillUnits(GetPossibleTargets(acter,allies,opponents), 1);
     }
 }

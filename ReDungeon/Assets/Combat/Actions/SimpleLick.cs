@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Linq;
 
 public class SimpleLick : Action
 {
@@ -19,8 +20,12 @@ public class SimpleLick : Action
         description = "Licks one target for 5-15 base damage and applies 3 stacks of Acid";
     }
 
-    public override UnitObject[] GetTargets(UnitObject acter, UnitObject[] allies, UnitObject[] opponents)
+    public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
     {
-        return new UnitObject[] { opponents[Random.Range(0, opponents.Length)] };
+        return UnitObject.FilterAlive(opponents);
+    }
+    public override IEnumerable<UnitObject> GetTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
+    {
+        return UnitObject.FillUnits(GetPossibleTargets(acter, allies, opponents), 1);
     }
 }
