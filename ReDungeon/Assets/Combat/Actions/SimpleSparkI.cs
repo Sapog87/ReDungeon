@@ -23,6 +23,7 @@ public class SimpleSparkI : Action
         recoil = 21;
         name = "Simple Spark I";
         description = "Enchants one target for 9-19 base damage and applies 15 recoil or rarely 2 stacks of Acid";
+        ImageReference = "Skill_Icons/Mage/Mage-Skill2";
     }
 
     public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)

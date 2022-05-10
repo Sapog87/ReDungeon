@@ -16,6 +16,7 @@ public class SimpleStrike : Action
         name = "Simple Strike";
         description = "Strikes one target for 10-20 base damage";
         returnspeed = 0.05f;
+        ImageReference = "Skill_Icons/Warrior/Warrior-Skill3";
     }
 
     public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)

@@ -16,6 +16,7 @@ public class Multihit : Action
         name = "MultiStrike";
         description = "Strikes up to three targets for 5-10 base damage each";
         returnspeed = 0.05f;
+        ImageReference = "Skill_Icons/Warrior/Warrior-Skill10";
     }
     public override async Task PostAction(UnitObject acter)
     {

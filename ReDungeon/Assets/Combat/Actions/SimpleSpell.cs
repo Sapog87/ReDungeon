@@ -23,6 +23,7 @@ public class SimpleSpell : Action
         recoil = 21;
         name = "Simple Spell";
         description = "Enchants one target for 7-17 base damage and applies either 3 stacks of Acid or 10 recoil";
+        ImageReference = "Skill_Icons/Mage/Mage-Skill3";
     }
 
     public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)

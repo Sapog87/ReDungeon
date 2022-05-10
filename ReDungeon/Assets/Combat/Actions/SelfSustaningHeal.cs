@@ -24,6 +24,7 @@ public class SelfSustaningHeal : Action
         recoil = 21;
         name = "Self-Sustaining Healing";
         description = "Heals 1 target for 10-25 hp and oneself for 5-10, can also target oneself directly.";
+        ImageReference = "Skill_Icons/Mage/Mage-Skill5";
     }
 
     public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)

@@ -18,6 +18,7 @@ public class HealingSpell : Action
         recoil = 21;
         name = "Healing Spell";
         description = "Heals 1 target for 10-20 hp";
+        ImageReference = "Skill_Icons/Mage/Mage-Skill11";
     }
 
     public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)

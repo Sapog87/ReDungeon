@@ -40,9 +40,13 @@ public class ActionSelectButton : MonoBehaviour
         Manager = manager;
         ActionName.text = RepresentedAction.name;
         Available = action.IsAvailable(acter, allies, opponents);
-        Image timage = Resources.Load<Image>(RepresentedAction.ImageReference);
+        Sprite timage = Resources.Load<Sprite>(RepresentedAction.ImageReference);
         if (timage != null)
-            image = Instantiate(timage);
+        {
+            image.sprite = timage;
+            //image = Instantiate(timage);
+        }
+            
         if (Available)
         {
             image.color = Color.white;

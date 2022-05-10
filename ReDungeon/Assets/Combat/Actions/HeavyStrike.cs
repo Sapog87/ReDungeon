@@ -16,6 +16,7 @@ public class HeavyStrike : Action
         name = "Heavy Strike";
         description = "Strikes one target for 45-60 base damage, but becomes unavailable for the next turn";
         returnspeed = 0.05f;
+        ImageReference = "Skill_Icons/Warrior/Warrior-Skill19";
     }
 
     public override async Task PostAction(UnitObject acter)

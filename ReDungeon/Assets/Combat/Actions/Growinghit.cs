@@ -18,6 +18,7 @@ public class Growinghit : Action
         name = "Growing Strike";
         description = "Strikes up to three targets for 5-10 base damage each, but also deals 5 bonus damage for each entity in chain";
         returnspeed = 0.05f;
+        ImageReference = "Skill_Icons/Warrior/Warrior-Skill8";
     }
     public override async Task PostAction(UnitObject acter)
     {

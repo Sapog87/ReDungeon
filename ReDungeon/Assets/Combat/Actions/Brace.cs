@@ -18,6 +18,7 @@ public class Brace : Action
         recoil = 21;
         name = "Brace";
         description = "Applies 3 stacks of counter status on self";
+        ImageReference = "Skill_Icons/Warrior/Warrior-Skill13";
     }
 
     public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)

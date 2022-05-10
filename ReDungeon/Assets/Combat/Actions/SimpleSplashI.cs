@@ -23,6 +23,7 @@ public class SimpleSplashI : Action
         recoil = 21;
         name = "Simple Splash I";
         description = "Enchants one target for 9-19 base damage and applies 7 stacks of Acid or rarely 7 recoil";
+        ImageReference = "Skill_Icons/Mage/Mage-Skill14";
     }
 
     public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
