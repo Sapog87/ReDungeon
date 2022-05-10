@@ -153,7 +153,7 @@ public abstract class Passive
     public virtual void OnAction(UnitObject bearer, UnitObject target) { }
     public virtual void PostAction(UnitObject bearer) { }
     public virtual void EarlyTakeHit(UnitObject bearer, UnitObject attacker, ref int damage) { }
-    public virtual void OnTakeHit(UnitObject bearer, UnitObject attacker, ref int damage) { }
+    public virtual void OnTakeHit(UnitObject bearer, UnitObject attacker, int damage) { }
     public virtual void LateTakeHit(UnitObject bearer, UnitObject attacker, ref int damage) { }
     public virtual void EarlyGetHurt(UnitObject bearer, ref int damage) { }
     public virtual void OnGetHurt(UnitObject bearer, ref int damage) { }

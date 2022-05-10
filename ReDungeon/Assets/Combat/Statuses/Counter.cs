@@ -18,7 +18,7 @@ public class Counter : Status
         stack = ((Counter)self).stack;
     }
 
-    /*
+    
     async public override void OnTakeHit(UnitObject bearer, UnitObject attacker, int damage)
     {
         await bearer.approach(attacker.transform, 0.95f, 0.05f);
@@ -30,5 +30,4 @@ public class Counter : Status
             RemoveStatus(bearer);
         }
     }
-    */
 }

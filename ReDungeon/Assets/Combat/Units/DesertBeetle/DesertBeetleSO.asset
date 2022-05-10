@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 0}
   name: Desert Beetle
-  description: Just a desert beetle
+  description: Just a desert beetle.
+  level: 0
   maxHP: 110
   _currentHP: 110
   isDead: 0
