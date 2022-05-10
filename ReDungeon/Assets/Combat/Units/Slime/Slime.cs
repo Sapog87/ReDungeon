@@ -7,6 +7,6 @@ public class Slime : Unit
 {
     public override void SetDefaults()
     {
-        Actions.Add(new SimpleLick());
+        Actions.Add(new PureLick());
     }
 }

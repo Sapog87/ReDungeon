@@ -166,7 +166,6 @@ public class BattleManager : MonoBehaviour
                     buttons.Last().GetComponent<ActionSelectButton>().ActionName.transform.localScale = new Vector3(2, 1, 1);
                     buttons.Last().transform.localPosition = new Vector3(20, 10, 0);
                     buttons.Last().GetComponent<ActionSelectButton>().Setup(new Wait(), this, unitObject,unitObject.Allies,unitObject.Opponents);
-                    Debug.Log(unitObject.unit.Actions.Count);
                     for (int i = 0; i < unitObject.unit.Actions.Count; i++)
                     {
                         buttons.Add(Instantiate(buttonPrefab,buttonsBackGround));
@@ -239,6 +238,19 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     private void ConcludeBattleWin()
     {
+        int sumlevel = AvailableOUnits.Select(x => x.unit.level + 1).Sum();
+        MainPlayerCombat player = FindObjectOfType<MainPlayerCombat>();
+        Debug.Log(player.UnitLvXp.Count);
+        for (int i = 0; i < player.UnitLvXp.Count; i++)
+        {
+            player.UnitXp[i] += sumlevel;//*GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().level;
+            while (player.UnitLvXp[i] < player.UnitXp[i])
+            {
+                player._playerUnits[i].Setlevel(player._playerUnits[i].level + 1);
+                player.UnitXp[i] -= player.UnitLvXp[i];
+                player.UnitLvXp[i] *= 2;
+            }
+        }
         foreach (UnitObject unit in UnitObject.FilterAlive(AvailablePUnits))
         {
             unit.unit.PostCombat(unit);
