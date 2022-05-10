@@ -7,8 +7,9 @@ public class InvokeAction : Action
 {
     async public override Task Act(UnitObject acter, UnitObject target)
     {
-        await acter.approach(target.transform, 0.95f, 0.1f);
-        await acter.unit.Strike(target, 5, 10);
+        acter.unit.RecieveStatus(acter, new Glaive(1));
+        acter.unit.RecieveStatus(acter, new Sword(1));
+        acter.unit.RecieveStatus(acter, new Spear(1));
     }
     public override void SetDefaults()
     {

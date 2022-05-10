@@ -1,27 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
+using System.Threading.Tasks;
 
-public class TheGlaive : Action
+public class TheSword2 : Action
 {
-    Glaive status;
-    public TheGlaive(Glaive status)
+    Sword status;
+    bool tick;
+    public TheSword2(Sword status)
     {
         SetDefaults();
         this.status = status;
     }
     async public override Task Act(UnitObject acter, UnitObject target)
     {
-        acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterPoleAxe");
         await acter.approach(target.transform, 0.95f, 0.1f);
+        if (tick)
+        acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSword1");
+        else
+        acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSword2");
         await acter.unit.Strike(target, 25, 31);
+        if (tick)
+            acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSword1");
+        else
+            acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSword2");
+        await acter.unit.Strike(target, 25, 31);
+        if (tick)
+            acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSword1");
+        else
+            acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSword2");
+        await acter.unit.Strike(target, 5, 11);
     }
     public override void SetDefaults()
     {
         recoil = 30;
-        name = "The Glaive";
-        description = "Strikes one target for 25-30 base damage each";
+        name = "The Sword2";
+        description = "Strikes one target for 5-10 base damage 3 times";
         returnspeed = 0.05f;
     }
     public override async Task PostAction(UnitObject acter)

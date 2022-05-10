@@ -1,27 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
+using System.Threading.Tasks;
 
-public class TheGlaive : Action
+public class TheSpear : Action
 {
-    Glaive status;
-    public TheGlaive(Glaive status)
+    Spear status;
+    public TheSpear(Spear status)
     {
         SetDefaults();
         this.status = status;
     }
     async public override Task Act(UnitObject acter, UnitObject target)
     {
-        acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterPoleAxe");
+        acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterPoleSpear");
         await acter.approach(target.transform, 0.95f, 0.1f);
-        await acter.unit.Strike(target, 25, 31);
+        await acter.unit.Strike(target, 10, 15);
+        acter.defence -= 5;
     }
     public override void SetDefaults()
     {
         recoil = 30;
-        name = "The Glaive";
-        description = "Strikes one target for 25-30 base damage each";
+        name = "The Spear";
+        description = "Strikes one target for 10-15 base damage and reduces their defence by 5";
         returnspeed = 0.05f;
     }
     public override async Task PostAction(UnitObject acter)

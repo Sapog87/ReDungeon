@@ -13,20 +13,21 @@ MonoBehaviour:
   m_Name: TFOSO
   m_EditorClassIdentifier: 
   body: {fileID: 0}
-  name: 
-  description: 
-  level: 0
-  maxHP: 0
-  _currentHP: 0
+  name: The Forge Master
+  description: The Forge Master, the king of nothing. Only silence accompanies him
+    now.
+  level: 21
+  maxHP: 100
+  _currentHP: 100
   isDead: 0
-  defence: 0
+  defence: 5
   DR: 0
   sprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 5b3a0231ea4531a49b1e168f930720b7, type: 3}
+  - {fileID: 21300000, guid: 5b3a0231ea4531a49b1e168f930720b7, type: 3}
+  - {fileID: 21300000, guid: ed64396aff5306344a9468782b30825f, type: 3}
+  - {fileID: 21300000, guid: 5b3a0231ea4531a49b1e168f930720b7, type: 3}
+  - {fileID: 21300000, guid: 5b3a0231ea4531a49b1e168f930720b7, type: 3}
+  - {fileID: 21300000, guid: 5b3a0231ea4531a49b1e168f930720b7, type: 3}
+  - {fileID: 21300000, guid: 5b3a0231ea4531a49b1e168f930720b7, type: 3}
+  - {fileID: 21300000, guid: 5b3a0231ea4531a49b1e168f930720b7, type: 3}

@@ -21,6 +21,7 @@ public class BattleManager : MonoBehaviour
     public GameObject unitPrefab;
     public GameObject buttonPrefab;
     public GameObject PointerPrefab;
+    public SpriteRenderer background;
     public Transform[] playerBasePositions = new Transform[3];
     public Transform[] opponentBasePositions = new Transform[3];
 
@@ -142,11 +143,11 @@ public class BattleManager : MonoBehaviour
                 }
                 if (!playerTurn)
                 {
-                    await unitObject.unit.PreAI(AvailableOUnits, AvailablePUnits);
                     selectedaction = unitObject.unit.Ai(AvailableOUnits, AvailablePUnits);
                     UnitObject[] selectTarget = selectedaction.GetTargets(unitObject, unitObject.Allies, unitObject.Opponents).ToArray();
                     await selectedaction.PreAction(unitObject);
                     unitObject.unit.PreAction.Invoke(unitObject);
+                    await unitObject.unit.PreAI(AvailableOUnits, AvailablePUnits);
                     foreach (UnitObject unit in selectTarget)
                     {
                         await selectedaction.DoAction(unitObject, unit);

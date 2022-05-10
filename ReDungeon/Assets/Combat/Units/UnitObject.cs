@@ -142,7 +142,7 @@ public class UnitObject : MonoBehaviour
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine($"{unit.name}\nLevel:<color=yellow>{unit.level+1}</color>");
+        sb.AppendLine($"{unit.name}\nLevel:<color=yellow>{unit.level+1}</color>\n{unit.CurrentHP}/{unit.maxHP} HP");
         if (unit.UnitTypes.Count > 0)
         {
             sb.Append("Types: ");
