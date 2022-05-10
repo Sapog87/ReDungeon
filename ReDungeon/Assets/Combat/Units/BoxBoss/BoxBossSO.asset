@@ -13,20 +13,20 @@ MonoBehaviour:
   m_Name: BoxBossSO
   m_EditorClassIdentifier: 
   body: {fileID: 0}
-  name: 
-  description: 
-  level: 0
-  maxHP: 0
-  _currentHP: 0
+  name: Brazil Box
+  description: You are going to BRAZIL!!!
+  level: 1
+  maxHP: 220
+  _currentHP: 220
   isDead: 0
-  defence: 0
+  defence: 15
   DR: 0
   sprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 9dae558c4168f474ea6764d17ac5e326, type: 3}
+  - {fileID: 21300000, guid: 0a8f7b4d1c7924e41b9fc445659cb1a7, type: 3}
+  - {fileID: 21300000, guid: 2f7a6bd1e903a9d4990287f6835d35de, type: 3}
+  - {fileID: 21300000, guid: e2abd2a94bc277f43a29bc129c8f0401, type: 3}
+  - {fileID: 21300000, guid: e2abd2a94bc277f43a29bc129c8f0401, type: 3}
+  - {fileID: 21300000, guid: 0a8f7b4d1c7924e41b9fc445659cb1a7, type: 3}
+  - {fileID: 21300000, guid: dd07c5d30c1fd2e45b7f34ff409d5d08, type: 3}
+  - {fileID: 21300000, guid: dd07c5d30c1fd2e45b7f34ff409d5d08, type: 3}

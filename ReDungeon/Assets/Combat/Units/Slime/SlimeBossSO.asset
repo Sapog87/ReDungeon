@@ -13,20 +13,20 @@ MonoBehaviour:
   m_Name: SlimeBossSO
   m_EditorClassIdentifier: 
   body: {fileID: 0}
-  name: 
-  description: 
-  level: 0
-  maxHP: 0
-  _currentHP: 0
+  name: Big Slime
+  description: Yeah, big boi.
+  level: 3
+  maxHP: 100
+  _currentHP: 100
   isDead: 0
-  defence: 0
+  defence: 5
   DR: 0
   sprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: da14ee44b3515594e9d71b82eefbafc1, type: 3}
+  - {fileID: 21300000, guid: 5a5c7adf86fea0a4fa68448e146c6b41, type: 3}
+  - {fileID: 21300000, guid: 35bb3db667586834a88401e4f69fd3cb, type: 3}
+  - {fileID: 21300000, guid: e0770e2e69075b54ab514a599cc7c666, type: 3}
+  - {fileID: 21300000, guid: e0770e2e69075b54ab514a599cc7c666, type: 3}
+  - {fileID: 21300000, guid: 5a5c7adf86fea0a4fa68448e146c6b41, type: 3}
+  - {fileID: 21300000, guid: da14ee44b3515594e9d71b82eefbafc1, type: 3}
+  - {fileID: 21300000, guid: da14ee44b3515594e9d71b82eefbafc1, type: 3}

@@ -13,20 +13,20 @@ MonoBehaviour:
   m_Name: ScorpionBossSO
   m_EditorClassIdentifier: 
   body: {fileID: 0}
-  name: 
-  description: 
-  level: 0
-  maxHP: 0
-  _currentHP: 0
+  name: Scorpion Boss
+  description: Big boi
+  level: 1
+  maxHP: 110
+  _currentHP: 110
   isDead: 0
-  defence: 0
+  defence: 8
   DR: 0
   sprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 8ded1ad1c887ecb4ca44c1291af69c15, type: 3}
+  - {fileID: 21300000, guid: ecaf3a5b9eb5c17439ce69d3cf497f99, type: 3}
+  - {fileID: 21300000, guid: ced7a19a7588c5e43bc2198a637959bd, type: 3}
+  - {fileID: 21300000, guid: 40ffb6a6d4e36184986108a5ae9ccbf4, type: 3}
+  - {fileID: 21300000, guid: 40ffb6a6d4e36184986108a5ae9ccbf4, type: 3}
+  - {fileID: 21300000, guid: ecaf3a5b9eb5c17439ce69d3cf497f99, type: 3}
+  - {fileID: 21300000, guid: 8ded1ad1c887ecb4ca44c1291af69c15, type: 3}
+  - {fileID: 21300000, guid: 8ded1ad1c887ecb4ca44c1291af69c15, type: 3}

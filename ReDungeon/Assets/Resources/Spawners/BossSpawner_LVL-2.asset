@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d78f34e5e28e52448f01f2044f003f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7af89abf742fa424ebb2024157962cd4, type: 3}
   m_Name: BossSpawner_LVL-2
   m_EditorClassIdentifier: 
   unitprebuilds:
+  - {fileID: 11400000, guid: 0d4f7908e370d524fb29e03d1d89a334, type: 2}
+  - {fileID: 11400000, guid: 97a463c0107590943b5d8ec96c5e4149, type: 2}
   - {fileID: 0}
-  weight: 01000000
-  minUnits: 1
-  maxUnits: 1
+  level: 1
+  amounts: 010000000100000001000000

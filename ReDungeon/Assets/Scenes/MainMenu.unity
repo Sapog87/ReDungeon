@@ -2114,10 +2114,10 @@ MonoBehaviour:
   playerUnitsPrefabs:
   - {fileID: 11400000, guid: 90653a2ce2813ad4795041fa8556c112, type: 2}
   - {fileID: 11400000, guid: 4734a028ffd0e4b4fbda045828414990, type: 2}
+  - {fileID: 11400000, guid: 4135c067b740be04ca7f3f7200cd63b8, type: 2}
   _playerUnits: []
   UnitXp: 
   UnitLvXp: 
-  UnitLevel: 
 --- !u!114 &1553041748
 MonoBehaviour:
   m_ObjectHideFlags: 0

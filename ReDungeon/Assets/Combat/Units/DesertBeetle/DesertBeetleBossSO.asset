@@ -13,20 +13,20 @@ MonoBehaviour:
   m_Name: DesertBeetleBossSO
   m_EditorClassIdentifier: 
   body: {fileID: 0}
-  name: 
-  description: 
-  level: 0
-  maxHP: 0
-  _currentHP: 0
+  name: Desert Beetle Boss
+  description: Big boi
+  level: 1
+  maxHP: 160
+  _currentHP: 160
   isDead: 0
-  defence: 0
+  defence: 15
   DR: 0
   sprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: f4f8983ec2d4bbb4fbf9092a498ec94d, type: 3}
+  - {fileID: 21300000, guid: c58fba02e0c89834dbfa1b9901934b88, type: 3}
+  - {fileID: 21300000, guid: 686e29445f774ac41b762ac1eb09a953, type: 3}
+  - {fileID: 21300000, guid: 9d92b48aa9fa6bc4f82da06d1f1e394e, type: 3}
+  - {fileID: 21300000, guid: 9d92b48aa9fa6bc4f82da06d1f1e394e, type: 3}
+  - {fileID: 21300000, guid: c58fba02e0c89834dbfa1b9901934b88, type: 3}
+  - {fileID: 21300000, guid: f4f8983ec2d4bbb4fbf9092a498ec94d, type: 3}
+  - {fileID: 21300000, guid: f4f8983ec2d4bbb4fbf9092a498ec94d, type: 3}

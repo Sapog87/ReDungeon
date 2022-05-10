@@ -27,7 +27,7 @@ public class PlayerManager : MonoBehaviour
         Info_boxes = new Dictionary<string, CharacterInfo_Box>();
         Info_boxes.Add("Mage", Info[0]);
         Info_boxes.Add("Fighter", Info[1]);
-        //Info_boxes.Add("Shield", Info[2]);
+        Info_boxes.Add("Shield", Info[2]);
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayerCombat>();
         RefreshUI();
@@ -45,6 +45,7 @@ public class PlayerManager : MonoBehaviour
 
     static void RefreshUI()
     {
+        int i = 0;
         foreach(Unit unit in player._playerUnits)
         {
             if (UI_boxes.ContainsKey(unit.name))
@@ -52,6 +53,11 @@ public class PlayerManager : MonoBehaviour
                 UI_boxes[unit.name].HpSlider.maxValue = unit.maxHP;
                 UI_boxes[unit.name].HpSlider.value = unit.CurrentHP;
                 UI_boxes[unit.name].HpText.text = $"{unit.CurrentHP}/{unit.maxHP}";
+
+                UI_boxes[unit.name].ExpSlider.maxValue = player.UnitLvXp[i];
+                UI_boxes[unit.name].ExpSlider.value = player.UnitXp[i];
+                UI_boxes[unit.name].ExpText.text = $"{player.UnitXp[i]}/{player.UnitLvXp[i]}";
+                i++;
             }
             if (Info_boxes.ContainsKey(unit.name))
             {

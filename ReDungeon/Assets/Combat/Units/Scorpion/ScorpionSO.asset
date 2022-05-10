@@ -15,8 +15,9 @@ MonoBehaviour:
   body: {fileID: 0}
   name: Scorpion
   description: Just a scorpion
-  maxHP: 90
-  _currentHP: 90
+  level: 0
+  maxHP: 80
+  _currentHP: 80
   isDead: 0
   defence: 5
   DR: 0

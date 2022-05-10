@@ -13,20 +13,20 @@ MonoBehaviour:
   m_Name: DustDevilSO
   m_EditorClassIdentifier: 
   body: {fileID: 0}
-  name: 
-  description: 
-  level: 0
-  maxHP: 0
-  _currentHP: 0
+  name: Dust Devil
+  description: ???
+  level: 1
+  maxHP: 120
+  _currentHP: 120
   isDead: 0
   defence: 0
   DR: 0
   sprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: d49825811db39e142aedbc81b3da6030, type: 3}
+  - {fileID: 21300000, guid: 269efa596e383264299d5a276beb68f6, type: 3}
+  - {fileID: 21300000, guid: 01c5d6ab7be77624cafa4a68b3533261, type: 3}
+  - {fileID: 21300000, guid: f068afbaf93a5a1408bf07054a52665d, type: 3}
+  - {fileID: 21300000, guid: f068afbaf93a5a1408bf07054a52665d, type: 3}
+  - {fileID: 21300000, guid: 269efa596e383264299d5a276beb68f6, type: 3}
+  - {fileID: 21300000, guid: d49825811db39e142aedbc81b3da6030, type: 3}
+  - {fileID: 21300000, guid: d49825811db39e142aedbc81b3da6030, type: 3}

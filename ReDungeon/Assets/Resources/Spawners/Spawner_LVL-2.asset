@@ -9,11 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d78f34e5e28e52448f01f2044f003f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 536e565a06da14a478285223b42bc9f4, type: 3}
   m_Name: Spawner_LVL-2
   m_EditorClassIdentifier: 
   unitprebuilds:
-  - {fileID: 0}
-  weight: 01000000
+  - {fileID: 11400000, guid: 64e0918507cae754fa381da4738a9ae7, type: 2}
+  - {fileID: 11400000, guid: b87a5950eebaa8c41a30f1b501777bd9, type: 2}
+  - {fileID: 11400000, guid: c8df3c54d54c3a140a6f7dfb3d8d0a26, type: 2}
+  level: 1
+  weight: 020000000200000001000000
   minUnits: 1
   maxUnits: 3

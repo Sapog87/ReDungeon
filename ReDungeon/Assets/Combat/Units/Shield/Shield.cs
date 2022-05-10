@@ -7,11 +7,9 @@ public class Shield : Unit
 {
     public override void SetDefaults()
     {
-        Actions.Add(new SimpleStrike());
+        Actions.Add(new Bash());
+        Actions.Add(new Shell());
     }
 
-    public override Action Ai(UnitObject[] allies, UnitObject[] opponents)
-    {
-        return Actions[Actions.Count - 1];
-    }
+    
 }
