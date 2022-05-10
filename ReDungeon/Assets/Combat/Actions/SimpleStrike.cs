@@ -9,17 +9,21 @@ public class SimpleStrike : Action
     {
         await acter.approach(target.transform, 0.95f, 0.1f);
         await acter.unit.Strike(target, 10, 20);
-        await acter.goBack(0.05f);
     }
     public override void SetDefaults()
     {
         recoil = 20;
         name = "Simple Strike";
         description = "Strikes one target for 10-20 base damage";
+        returnspeed = 0.05f;
     }
 
-    public override UnitObject[] GetTargets(UnitObject acter, UnitObject[] allies, UnitObject[] opponents)
+    public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
     {
-        return new UnitObject[]{opponents[Random.Range(0, opponents.Length)]};
+        return UnitObject.FilterAlive(opponents);
+    }
+    public override IEnumerable<UnitObject> GetTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
+    {
+        return UnitObject.FillUnits(GetPossibleTargets(acter, allies, opponents), 1);
     }
 }

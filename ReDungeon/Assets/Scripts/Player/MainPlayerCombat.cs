@@ -6,9 +6,8 @@ public class MainPlayerCombat : MonoBehaviour
 {
     public List<Unit> playerUnitsPrefabs;
     public List<Unit> _playerUnits;
-    public List<int> UnitXp;
-    public List<int> UnitLvXp;
-    public List<int> UnitLevel;
+    public List<int> UnitXp = new List<int>();
+    public List<int> UnitLvXp = new List<int>();
 
     public static MainPlayerCombat instance;
 
@@ -39,7 +38,9 @@ public class MainPlayerCombat : MonoBehaviour
         _playerUnits = new List<Unit>();
         for (int i = 0; i < playerUnitsPrefabs.Count; i++)
         {
-            _playerUnits.Add(Instantiate(playerUnitsPrefabs[i]));
+            _playerUnits.Add(Unit.Create(playerUnitsPrefabs[i],0));
+            UnitXp.Add(0);
+            UnitLvXp.Add(4);
         }
     }
 }

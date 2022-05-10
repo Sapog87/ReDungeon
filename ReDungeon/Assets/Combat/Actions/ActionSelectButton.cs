@@ -5,17 +5,51 @@ using UnityEngine.UI;
 
 public class ActionSelectButton : MonoBehaviour
 {
-    public BattleManager manager;
+    [HideInInspector]
+    public BattleManager Manager;
     public Action RepresentedAction;
     public Text ActionName;
+    public Image image;
+    public bool Available;
     public void OnClick()
     {
-        manager.selectedaction = RepresentedAction;
+        if (Available)
+        {
+            Manager.selectedaction = RepresentedAction;
+            Manager.UpdateTextBox();
+        }
     }
-    public void Setup(Action action, BattleManager manager)
+
+    private void OnMouseEnter()
+    {
+        Manager.UpdateTextBox($"{RepresentedAction.description}{(Available?"":$"\n{(RepresentedAction.cooldown>0?$"Cooldown = {RepresentedAction.cooldown}":"No Available Targets")}")}");
+    }
+
+    private void OnMouseOver()
+    {
+    }
+
+    private void OnMouseExit()
+    {
+        Manager.UpdateTextBox();
+    }
+
+    public void Setup(Action action, BattleManager manager, UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
     {
         RepresentedAction = action;
-        this.manager = manager;
+        Manager = manager;
         ActionName.text = RepresentedAction.name;
+        Available = action.IsAvailable(acter, allies, opponents);
+        Image timage = Resources.Load<Image>(RepresentedAction.ImageReference);
+        if (timage != null)
+            image = Instantiate(timage);
+        if (Available)
+        {
+            image.color = Color.white;
+        }
+        else
+        {
+            image.color = Color.gray;
+        }
     }
 }

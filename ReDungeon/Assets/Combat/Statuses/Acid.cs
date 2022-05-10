@@ -10,14 +10,14 @@ public class Acid : Status
     {
         name = "Acid";
         this.stack = stack;
-        triggers.Add(TriggerType.OnAction);
-        description = "the bearer takes damage equal to the stack each turn, then remove 1/3 of the stack";
+        triggers.Add(TriggerType.PostAction);
+        description = $"The bearer takes damage equal to the stack each turn, then remove 1/3 of the stack";
     }
     public override void RenewStatus(Status self)
     {
         stack += ((Acid)self).stack;
     }
-    public override void OnAction(UnitObject bearer, UnitObject target, int number)
+    public override void PostAction(UnitObject bearer)
     {
         bearer.unit.GetHurt(stack);
         stack = Mathf.FloorToInt(stack / 3.0f * 2);
@@ -27,5 +27,8 @@ public class Acid : Status
             RemoveStatus(bearer);
         }
     }
-
+    public override string ToString()
+    {
+        return base.ToString() + "\nStack: " + stack;
+    }
 }
