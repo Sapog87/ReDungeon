@@ -8,7 +8,7 @@ public class Spear : Status
 
     public Spear(int stack)
     {
-        name = "Glaive";
+        name = "Spear";
         this.stack = stack;
         description = $"The bearer can use signature move \"The Glaive\" until it breaks";
     }

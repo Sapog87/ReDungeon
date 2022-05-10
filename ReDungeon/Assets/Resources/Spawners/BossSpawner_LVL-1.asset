@@ -15,4 +15,4 @@ MonoBehaviour:
   unitprebuilds:
   - {fileID: 11400000, guid: 9e5a176a106aa6a418574171dc88dce0, type: 2}
   level: 1
-  amounts: 02000000
+  amounts: 01000000

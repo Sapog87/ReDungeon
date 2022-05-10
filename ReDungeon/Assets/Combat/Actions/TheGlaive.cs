@@ -27,7 +27,7 @@ public class TheGlaive : Action
     public override async Task PostAction(UnitObject acter)
     {
         status.stack--;
-        if (status.stack == 0)
+        if (status.stack <= 0)
             status.RemoveStatus(acter);
         await Task.Yield();
     }

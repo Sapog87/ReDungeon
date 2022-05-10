@@ -61,7 +61,7 @@ public class TheForgeMaster : Unit
                 await Speak("Sorry, got lost in thaughts again. So, you've come to defeat me, have you? sorry, if I knew I had guests I would have prepared the place, but this option seems to be out of my reach for now, the architectural team has messed everything up... but at least I can recieve you properly myself. Also, press your mouse if you are done");
                 body.sprite.sprite = Instantiate(Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSnap2"));
                 await Task.Delay(1000);
-                body.sprite.sprite = Instantiate(Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSnap2"));
+                body.sprite.sprite = Instantiate(Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSnap1"));
                 await Task.Delay(1000);
                 GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothFadeAllTrackChange("FinalBattle_Phase2");
             }
