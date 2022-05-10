@@ -71,13 +71,13 @@ public class LevelManager : MonoBehaviour
     public void SetCurrentManager()
     {
         if (level > 0 && level <= 4)
-            currentManager = Resources.Load(managersPaths[level - 1]) as SpawnManager;
+            currentManager = Resources.Load<SpawnManagerWeighted>(managersPaths[level - 1]);
     }
 
     public void SetCurrentManager_Boss()
     {
         if (level > 0 && level <= 4)
-            currentManager = (SpawnManager)Resources.Load(bossManagersPaths[level - 1]);
+            currentManager = Resources.Load<SpawnManagerConstant>(bossManagersPaths[level - 1]);
     }
 
     public string GetPeacefulSoundtrackName()

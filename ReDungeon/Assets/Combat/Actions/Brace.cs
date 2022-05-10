@@ -20,7 +20,12 @@ public class Brace : Action
         description = "Applies 3 stacks of counter status on self";
     }
 
-    public override UnitObject[] GetTargets(UnitObject acter, UnitObject[] allies, UnitObject[] opponents)
+    public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
+    {
+        return new UnitObject[] { acter };
+    }
+
+    public override IEnumerable<UnitObject> GetTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
     {
         return new UnitObject[] { acter };
     }

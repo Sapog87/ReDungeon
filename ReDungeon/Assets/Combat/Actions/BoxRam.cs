@@ -18,8 +18,13 @@ public class BoxRam : Action
         description = "Rams one target for 20-30 base damage";
     }
 
-    public override UnitObject[] GetTargets(UnitObject acter, UnitObject[] allies, UnitObject[] opponents)
+    public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
     {
-        return new UnitObject[] { opponents[Random.Range(0, opponents.Length)] };
+        return UnitObject.FilterAlive(opponents);
+    }
+
+    public override IEnumerable<UnitObject> GetTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
+    {
+        return UnitObject.FillUnits(GetPossibleTargets(acter, allies, opponents), 3);
     }
 }

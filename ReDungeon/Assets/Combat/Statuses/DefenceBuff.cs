@@ -31,7 +31,7 @@ public class DefenceBuff : Status
         bearer.defence -= bonusDef;
     }
 
-    public override void OnAction(UnitObject bearer, UnitObject target, int number)
+    public override void OnAction(UnitObject bearer, UnitObject target)
     {
         stack--;
         if (stack < 1)

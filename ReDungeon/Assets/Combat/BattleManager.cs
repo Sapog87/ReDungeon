@@ -59,7 +59,6 @@ public class BattleManager : MonoBehaviour
         {
             GameObject UnitGO = Instantiate(unitPrefab, opponentBasePositions[i].transform);
             UnitObject unitObject = UnitGO.GetComponent<UnitObject>();
-            unitObject.sprite.flipX = true;
             unitObject.Setup(unitsO[i],OpponentUnits.Where(x=>x != null), PlayerUnits.Where(x=>x != null), this);
             OpponentUnits[i] = unitObject;
         }

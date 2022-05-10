@@ -21,7 +21,12 @@ public class FlexTape : Action
         description = "Heals for 40% of max health and applies 2 stacks of defence buff";
     }
 
-    public override UnitObject[] GetTargets(UnitObject acter, UnitObject[] allies, UnitObject[] opponents)
+    public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
+    {
+        return new UnitObject[] { acter };
+    }
+
+    public override IEnumerable<UnitObject> GetTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
     {
         return new UnitObject[] { acter };
     }
