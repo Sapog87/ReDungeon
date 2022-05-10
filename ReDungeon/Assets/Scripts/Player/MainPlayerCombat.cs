@@ -38,7 +38,7 @@ public class MainPlayerCombat : MonoBehaviour
         _playerUnits = new List<Unit>();
         for (int i = 0; i < playerUnitsPrefabs.Count; i++)
         {
-            _playerUnits.Add(Unit.Create(playerUnitsPrefabs[i]));
+            _playerUnits.Add(Unit.Create(playerUnitsPrefabs[i],0));
         }
     }
 }
