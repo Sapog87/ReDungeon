@@ -4,6 +4,9 @@
 
 Ссылки на использованные материалы:
 Задний фон заставки - https://kartinkin.net/uploads/posts/2021-07/1626194712_12-kartinkin-com-p-taiga-art-les-art-krasivo-15.jpg
+Задний фон финальной битвы - 
+https://st.renderu.com/artwork/159817
+https://i.ytimg.com/vi/Ugu85byfgXs/maxresdefault.jpg
 Ассеты - https://0x72.itch.io/16x16-dungeon-tileset?download​
 Саундтрэк - 
 https://www.youtube.com/watch?v=5hUUQ34DGZU

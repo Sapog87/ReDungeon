@@ -2256,7 +2256,7 @@ PrefabInstance:
       objectReference: {fileID: 24100000, guid: fc90dd8af820db0459402e7871e216ca, type: 2}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.size
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[0].Clip
@@ -2345,25 +2345,37 @@ PrefabInstance:
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[7].Clip
       value: 
-      objectReference: {fileID: 8300000, guid: 9938c533837ba9149a4c66359db936e8, type: 3}
+      objectReference: {fileID: 8300000, guid: c8a4277cb9d032c41855bd3c461152df, type: 3}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[7].Loop
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[7].Name
-      value: FinalBattle_Phase1
+      value: BossCombat_LVL-3
       objectReference: {fileID: 0}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[8].Clip
       value: 
-      objectReference: {fileID: 8300000, guid: c8affa5f76575aa4fb3f9d5f0c5be941, type: 3}
+      objectReference: {fileID: 8300000, guid: 001d49dfdd5da4844865209dafeb4d05, type: 3}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[8].Loop
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[8].Name
+      value: FinalBattle_Phase1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[9].Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 25fcb3496f051f94aa37877f6fa0541a, type: 3}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[9].Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[9].Name
       value: FinalBattle_Phase2
       objectReference: {fileID: 0}
     - target: {fileID: 6450999497004211094, guid: ad9881c43687026468598db6401e98b8, type: 3}
