@@ -26,6 +26,7 @@ public abstract class Unit:ScriptableObject
     public delegate void TargetedEmptyDelegate(UnitObject self, UnitObject target);
     public delegate void TargetLessDelegate(UnitObject self, ref int number);
     public delegate void TargetedDelegate(UnitObject self, UnitObject target, ref int number);
+    public delegate void TargetedSDelegate(UnitObject self, UnitObject target, int number);
     public delegate void StatusDelegate(UnitObject self, UnitObject target, Status status);
     public delegate void ModifyingTLDelegate(UnitObject self, ref int number);
     public delegate void ModifyingTDelegate(UnitObject self,ref UnitObject target, ref int number);
@@ -64,7 +65,7 @@ public abstract class Unit:ScriptableObject
     public TargetedEmptyDelegate OnAction = delegate { };
     public TargetLessEmptyDelegate PostAction = delegate { };
     public TargetedDelegate EarlyTakeHit = delegate { };
-    public TargetedDelegate OnTakeHit = delegate { };
+    public TargetedSDelegate OnTakeHit = delegate { };
     public TargetedDelegate LateTakeHit = delegate { };
     public TargetLessDelegate EarlyGetHurt = delegate { };
     public TargetLessDelegate OnGetHurt = delegate { };
@@ -122,7 +123,7 @@ public abstract class Unit:ScriptableObject
         {
             EarlyTakeHit.Invoke(body, attacker, ref damage);
             int trueDamage = Mathf.Max(0, Mathf.RoundToInt((damage - defence - body.defence) / (1 - (DR + body.DR))));
-            OnTakeHit.Invoke(body, attacker, ref trueDamage);
+            OnTakeHit.Invoke(body, attacker, trueDamage);
             LateTakeHit.Invoke(body, attacker, ref trueDamage);
             GetHurt(trueDamage);
         }
@@ -182,5 +183,51 @@ public abstract class Unit:ScriptableObject
                 }
         }
         status.AddStatus(body);
+    }
+
+    public bool HasPassive(string name)
+    {
+        foreach (Passive status in Passives)
+            if (status.name == name)
+                return true;
+        return false;
+    }
+
+    public Passive GetPassive(string name)
+    {
+        foreach (Passive status in Passives)
+            if (status.name == name)
+                return status;
+        return null;
+    }
+    public bool HasStatus(string name)
+    {
+        foreach(Status status in body.statuses)
+            if (status.name == name)
+                return true;
+        return false;
+    }
+
+    public Status GetStatus(string name)
+    {
+        foreach(Status status in body.statuses)
+            if(status.name == name)
+                return status;
+        return null;
+    }
+    public bool HasAction(string name)
+    {
+        foreach (Action status in Actions)
+            if (status.name == name)
+                return true;
+        return false;
+    }
+
+    public Action GetAction(string name)
+    {
+        foreach (Action status in Actions)
+            if (status.name == name)
+                return status;
+        return null;
     }
 }

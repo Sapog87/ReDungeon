@@ -24,7 +24,7 @@ public class UndyingResolve : Passive
             }
             else
             {
-                bearer.unit.maxHP -= damage / 5;
+                bearer.unit.maxHP -= (damage - bearer.unit.CurrentHP + 1) / 5;
             }
             damage = bearer.unit.CurrentHP - 1;
         }

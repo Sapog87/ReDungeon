@@ -16,6 +16,13 @@ public class Glaive : Status
     {
         bearer.unit.Actions.Add(new TheGlaive(this));
     }
+    public override void OnClear(UnitObject bearer)
+    {
+        if(bearer.unit.HasAction("The Glaive"))
+        {
+            bearer.unit.Actions.Remove(bearer.unit.GetAction("The Glaive"));
+        }
+    }
     public override void RenewStatus(Status self)
     {
         stack += ((Glaive)self).stack+1;
