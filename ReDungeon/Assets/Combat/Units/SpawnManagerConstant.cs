@@ -18,7 +18,7 @@ public class SpawnManagerConstant : SpawnManager
         for(int i = 0; i < unitprebuilds.Length; i++)
         {
             for(int j = 0; j < amounts[i]; j++)
-            list.Add(Unit.Create(unitprebuilds[i]));
+            list.Add(Unit.Create(unitprebuilds[i], level));
         }
         return list.ToArray();
     }

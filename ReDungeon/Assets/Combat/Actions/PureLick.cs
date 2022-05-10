@@ -15,8 +15,8 @@ public class PureLick : Action
     public override void SetDefaults()
     {
         recoil = 25;
-        name = "Simple Lick";
-        description = "Licks one target for 5-15 base damage and applies 3 stacks of Acid";
+        name = "Purified Lick";
+        description = "Licks one target for 3-10 base damage and applies 1 stacks of Acid";
     }
 
     public override IEnumerable<UnitObject> GetPossibleTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)

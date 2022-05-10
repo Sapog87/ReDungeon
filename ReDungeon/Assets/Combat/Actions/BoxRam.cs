@@ -9,7 +9,6 @@ public class BoxRam : Action
     {
         await acter.approach(target.transform, 0.95f, 0.05f);
         await acter.unit.Strike(target, 5, 15);
-        await acter.goBack(0.05f);
     }
     public override void SetDefaults()
     {
@@ -25,6 +24,6 @@ public class BoxRam : Action
 
     public override IEnumerable<UnitObject> GetTargets(UnitObject acter, IEnumerable<UnitObject> allies, IEnumerable<UnitObject> opponents)
     {
-        return UnitObject.FillUnits(GetPossibleTargets(acter, allies, opponents), 3);
+        return UnitObject.FillUnits(GetPossibleTargets(acter, allies, opponents), 1);
     }
 }

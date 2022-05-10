@@ -32,7 +32,7 @@ public class SpawnManagerWeighted : SpawnManager
                 }
                 else
                 {
-                    units[i] = Unit.Create(unitprebuilds[j]);
+                    units[i] = Unit.Create(unitprebuilds[j],level);
                     break;
                 }
             }

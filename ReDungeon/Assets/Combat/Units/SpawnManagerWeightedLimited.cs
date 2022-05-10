@@ -21,7 +21,7 @@ public class SpawnManagerWeightedLimited : SpawnManagerWeighted
         {
             for (int j = 0; j < mins[i]; j++)
             {
-                units[i] = Unit.Create(unitprebuilds[i]);
+                units[i] = Unit.Create(unitprebuilds[i],level);
                 maxs[i]--;
                 lowerLimit++;
             }
@@ -42,7 +42,7 @@ public class SpawnManagerWeightedLimited : SpawnManagerWeighted
                 }
                 else
                 {
-                    units[i] = Unit.Create(unitprebuilds[j]);
+                    units[i] = Unit.Create(unitprebuilds[j],level);
                     maxs[j]--;
                     if(maxs[j] == 0)
                     {
