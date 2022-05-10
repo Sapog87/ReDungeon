@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour
         "Peaceful_LVL-1",
         "Peaceful_LVL-2",
         "Peaceful_LVL-1",
-        "Peaceful_LVL-1"
+        "Peaceful_LVL-2"
     };
 
     static string[] combatSoundtrackNames =
@@ -42,14 +42,14 @@ public class LevelManager : MonoBehaviour
         "Combat_LVL-1",
         "Combat_LVL-2",
         "Combat_LVL-1",
-        "Combat_LVL-1"
+        "Combat_LVL-2"
     };
 
     static string[] bossCombatSoundtrackNames =
     {
         "BossCombat_LVL-1",
         "BossCombat_LVL-2",
-        "BossCombat_LVL-1",
+        "BossCombat_LVL-3",
         "FinalBattle_Phase1"
     };
 

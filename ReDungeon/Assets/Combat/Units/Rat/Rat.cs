@@ -7,11 +7,11 @@ public class Rat : Unit
 {
     public override void SetDefaults()
     {
-        Actions.Add(new SimpleLick());
+        Actions.Add(new Scratch());
     }
 
     public override Action Ai(UnitObject[] allies, UnitObject[] opponents)
     {
-        return Actions[0];
+        return Actions[Actions.Count - 1];
     }
 }

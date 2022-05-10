@@ -8,11 +8,11 @@ public class BoxRam : Action
     async public override Task Act(UnitObject acter, UnitObject target)
     {
         await acter.approach(target.transform, 0.95f, 0.05f);
-        await acter.unit.Strike(target, 5, 15);
+        await acter.unit.Strike(target, 20, 30);
     }
     public override void SetDefaults()
     {
-        recoil = 25;
+        recoil = 30;
         name = "Box Ram";
         description = "Rams one target for 20-30 base damage";
     }
