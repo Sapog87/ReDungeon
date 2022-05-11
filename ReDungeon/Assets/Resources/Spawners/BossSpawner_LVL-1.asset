@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BossSpawner_LVL-1
   m_EditorClassIdentifier: 
   unitprebuilds:
-  - {fileID: 11400000, guid: 1fb5e703f2dc4104ea45610b5f0c7a5d, type: 2}
-  level: 2
-  amounts: 02000000
+  - {fileID: 11400000, guid: 9e5a176a106aa6a418574171dc88dce0, type: 2}
+  level: 1
+  amounts: 01000000

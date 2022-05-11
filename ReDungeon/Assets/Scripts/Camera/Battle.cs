@@ -21,7 +21,7 @@ public class Battle : MonoBehaviour
 
     private void Awake()
     {
-        //Destroy(gameObject);   // enable to despawn all mobs
+        Destroy(gameObject);   // enable to despawn all mobs
         LevelManager lm = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
         lm.SetCurrentManager();
 

@@ -155,7 +155,7 @@ public abstract class Unit:ScriptableObject
     }
     public async Task Strike(UnitObject target, int mindamage, int maxdamage)
     {
-        body.SetSprite(Random.Range(3, 5));
+        body.SetSprite(3);
         int damage = Random.Range(mindamage, maxdamage);
         MOutDamage.Invoke(body, ref damage);
         OnStrike.Invoke(body, target, ref damage);

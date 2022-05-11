@@ -32,10 +32,7 @@ public class UndyingResolve : Passive
 
     public override void PreAction(UnitObject bearer)
     {
-        if (bearer.unit.CurrentHP == 1)
-        {
-            if(ready)
-                hidden = false;
-        }
+        if(ready)
+            hidden = false;
     }
 }
