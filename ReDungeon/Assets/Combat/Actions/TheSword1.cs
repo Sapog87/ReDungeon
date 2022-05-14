@@ -18,6 +18,7 @@ public class TheSword1 : Action
             acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSword1");
         else
             acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSword2");
+        tick = !tick;
         await acter.approach(target.transform, 0.95f, 0.1f);
         await acter.unit.Strike(target, 5, 11);
     }

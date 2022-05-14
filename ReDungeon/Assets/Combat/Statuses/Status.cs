@@ -142,9 +142,9 @@ public abstract class Status
                     target.unit.PostCombat -= PostCombat;
                     break;
             }
-            OnClear(target);
-            target.statuses.Remove(this);
         }
+        OnClear(target);
+        target.statuses.Remove(this);
     }
     public abstract void RenewStatus(Status self);
     public virtual void OnSelfApply(UnitObject bearer) { }

@@ -58,12 +58,19 @@ public class TheForgeMaster : Unit
         { 
             if (Turn == 1)
             {
-                await Speak("Sorry, got lost in thaughts again. So, you've come to defeat me, have you? sorry, if I knew I had guests I would have prepared the place, but this option seems to be out of my reach for now, the architectural team has messed everything up... but at least I can recieve you properly myself. Also, press your mouse if you are done");
+                await Speak("Sorry, got lost in thoughts again. So, you've come to defeat me, have you? If I knew I had guests I would have prepared the place, but this option seems to be out of my reach for now, the architectural team has messed everything up... but at least I can recieve you properly myself. Press your mouse if you are done");
                 body.sprite.sprite = Instantiate(Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSnap2"));
-                await Task.Delay(1000);
+                await Task.Delay(800);
+                GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().Play("Snap");
+                await Task.Delay(175);
                 body.sprite.sprite = Instantiate(Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSnap1"));
-                await Task.Delay(1000);
+                body.Manager.playerBasePositions[1].localPosition = new Vector3(-225,35,3);
+                body.Manager.playerBasePositions[2].localPosition = new Vector3(-250, -60, 1);
+                body.Manager.playerBasePositions[3].localPosition = new Vector3(-125, 30, 3);
+                body.Manager.playerBasePositions[4].localPosition = new Vector3(-125, -55, 1);
+                body.Manager.background.sprite = Instantiate(Resources.Load<Sprite>("TheForgeMaster/FinalBattle_Background"));
                 GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().SmoothFadeAllTrackChange("FinalBattle_Phase2");
+                await Task.Delay(1000);
             }
         }
     }

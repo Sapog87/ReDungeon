@@ -2256,7 +2256,7 @@ PrefabInstance:
       objectReference: {fileID: 24100000, guid: fc90dd8af820db0459402e7871e216ca, type: 2}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[0].Clip
@@ -2377,6 +2377,22 @@ PrefabInstance:
     - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: audios.Array.data[9].Name
       value: FinalBattle_Phase2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[10].Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 601e30a0af77c004c80f5164328d9a89, type: 3}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[10].Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[10].Name
+      value: Snap
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450999497004211093, guid: ad9881c43687026468598db6401e98b8, type: 3}
+      propertyPath: audios.Array.data[10].MixerGroup
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6450999497004211094, guid: ad9881c43687026468598db6401e98b8, type: 3}
       propertyPath: m_Name

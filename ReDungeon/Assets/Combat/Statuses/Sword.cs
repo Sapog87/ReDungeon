@@ -10,7 +10,7 @@ public Sword(int stack)
 {
     name = "Sword";
     this.stack = stack;
-    description = $"The bearer can use signature move \"The Glaive\" until it breaks";
+    description = $"The bearer can use signature move \"The Sword\" until it breaks";
 }
 public override void OnSelfApply(UnitObject bearer)
 {

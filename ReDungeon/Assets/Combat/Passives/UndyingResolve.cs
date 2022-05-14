@@ -5,6 +5,7 @@ using UnityEngine;
 public class UndyingResolve : Passive
 {
     bool ready;
+    int overflowDamage = 0;
     public UndyingResolve()
     {
         triggers.Add(TriggerType.LateGetHurt); 
@@ -16,7 +17,8 @@ public class UndyingResolve : Passive
     }
     public override void LateGetHurt(UnitObject bearer, ref int damage)
     {
-        if (bearer.unit.CurrentHP <= damage && bearer.unit.maxHP > damage / 5.0)
+        bearer.Recoil -= 7;
+        if (bearer.unit.CurrentHP <= (damage + overflowDamage) && bearer.unit.maxHP > (damage + overflowDamage) / 5.0)
         {
             if (hidden)
             {
@@ -24,7 +26,8 @@ public class UndyingResolve : Passive
             }
             else
             {
-                bearer.unit.maxHP -= (damage - bearer.unit.CurrentHP + 1) / 5;
+                bearer.unit.maxHP -= ((damage + overflowDamage) - bearer.unit.CurrentHP + 1) / 5;
+                overflowDamage = (damage + overflowDamage) % 5;
             }
             damage = bearer.unit.CurrentHP - 1;
         }

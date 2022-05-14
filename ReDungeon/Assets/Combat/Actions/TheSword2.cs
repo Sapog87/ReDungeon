@@ -19,16 +19,19 @@ public class TheSword2 : Action
         acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSword1");
         else
         acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSword2");
+        tick = !tick;
         await acter.unit.Strike(target, 25, 31);
         if (tick)
             acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSword1");
         else
             acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSword2");
+        tick = !tick;
         await acter.unit.Strike(target, 25, 31);
         if (tick)
             acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSword1");
         else
             acter.unit.sprites[3] = Resources.Load<Sprite>("TheForgeMaster/TheForgeMasterSword2");
+        tick = !tick;
         await acter.unit.Strike(target, 5, 11);
     }
     public override void SetDefaults()
